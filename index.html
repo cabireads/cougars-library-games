@@ -218,7 +218,7 @@
 </style></head><body>
 <section class="screen active" id="home"><div class="header"><div style="font-size:54px">📚</div><h1>Cougars Library Games</h1><p>Where should we go?</p><div class="routeBanner"><div class="road"></div><span class="signTitle">Library Learning Road Trip</span><div class="road"></div></div></div><div class="menu">
 <button class="card destination" onclick="openLibrary()"><span class="icon">📚</span><span class="label">Library</span><span class="stop">Library Lane</span></button>
-<button class="card destination" onclick="location.href='story-street.html'"><span class="icon">📖</span><span class="label">Stories</span><span class="stop">Story Street</span></button>
+<button class="card destination" onclick="show('stories')"><span class="icon">📖</span><span class="label">Stories</span><span class="stop">Story Street</span></button>
 <button class="card destination" onclick="openLetters()"><span class="icon">🔤</span><span class="label">Letters</span><span class="stop">Letter Lane</span></button>
 <button class="card destination" onclick="openNumbers()"><span class="icon">🔢</span><span class="label">Numbers</span><span class="stop">Number Neighborhood</span></button>
 <button class="card destination" onclick="openShapes()"><span class="icon">🎨</span><span class="label">Shapes &amp; Colors</span><span class="stop">Color &amp; Shape Park</span></button>
@@ -1783,4 +1783,27 @@ document.getElementById('laneReceiptClose').addEventListener('click',()=>{
  show(route===routes.shelfHelpersMenu?'shelfHelpersMenu':'findWayMenu');
 });
 draw();
-})();</script></body></html>
+})();</script><section class="screen" id="stories">
+<div class="gameTop">
+<button class="small" onclick="show('home')">⬅ Home</button>
+</div>
+<div class="hero" style="padding-top:8px">
+<div class="badge">📖 STORY STREET</div>
+<h2 style="font-size:clamp(34px,6vw,64px);margin:12px 0 6px">Choose a Story</h2>
+<p class="sub">Pick the book we are reading this week.</p>
+</div>
+<div class="menu" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));max-width:980px">
+<button class="card" onclick="location.href='creepy-carrots.html'">
+<span class="icon">🥕</span>
+<span class="label">Creepy Carrots!</span>
+<span class="stop">A Jasper Rabbit Story</span>
+</button>
+<button class="card" onclick="location.href='creepy-underwear.html'">
+<span class="icon">🩲</span>
+<span class="label">Creepy Underwear!</span>
+<span class="stop">A Jasper Rabbit Story</span>
+</button>
+</div>
+</section>
+<script>if(location.hash==="#stories"){show("stories");}</script>
+</body></html>

@@ -1,0 +1,1356 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'><title>Cougars Library Games</title><style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f6eddc;color:#17324d;min-height:100vh}button{font:inherit;touch-action:manipulation}.screen{display:none;min-height:100vh;padding:22px}.screen.active{display:flex;flex-direction:column}.header{text-align:center}.header h1{font-size:clamp(30px,5vw,58px);margin:8px}.header p{font-size:clamp(18px,2.5vw,28px);margin:6px}.shelf{height:22px;background:#8b5a2b;border-radius:8px;margin:10px auto 24px;max-width:900px;box-shadow:0 5px #603b1c}.menu{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:18px;max-width:1050px;width:100%;margin:auto}.card{min-height:170px;border:4px solid #17324d;border-radius:26px;background:white;box-shadow:0 8px 0 #17324d;padding:18px;font-weight:bold;font-size:clamp(24px,3vw,38px);cursor:pointer}.card .icon{display:block;font-size:58px;margin-bottom:8px;line-height:1}.card .label{display:block;position:relative;z-index:2;min-height:1.25em;color:#17324d;font-size:clamp(24px,3vw,38px);line-height:1.15;text-align:center;overflow:visible}.card:active{transform:translateY(5px);box-shadow:0 3px 0 #17324d}.coming{opacity:.58}.footer{text-align:center;margin-top:28px;font-weight:bold}.gameTop{display:flex;justify-content:space-between;align-items:center;gap:12px}.small{border:3px solid #17324d;border-radius:18px;background:white;padding:12px 18px;font-weight:bold;font-size:20px}.prompt{text-align:center;font-size:clamp(28px,5vw,56px);font-weight:bold;margin:28px 0 10px}.speaker{display:block;margin:0 auto 25px;border:3px solid #17324d;background:#fff;border-radius:50%;width:72px;height:72px;font-size:34px}.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;width:min(900px,100%);margin:auto}.answer{height:190px;background:#fff;border:5px solid #17324d;border-radius:28px;font-size:clamp(70px,11vw,130px);font-weight:bold;box-shadow:0 9px 0 #17324d}.answer:active{transform:translateY(5px);box-shadow:0 4px 0 #17324d}.answer.wrong,.scene.wrong{animation:shake .35s}.answer.right,.scene.right{animation:pop .5s;background:#e7f7df}.message{text-align:center;min-height:58px;font-size:32px;font-weight:bold;margin:20px}.stars{position:fixed;inset:0;pointer-events:none;display:none;align-items:center;justify-content:center;font-size:100px}.stars.show{display:flex;animation:pop .7s}.scenes{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:min(900px,100%);margin:auto}.scene{min-height:260px;background:white;border:5px solid #17324d;border-radius:28px;box-shadow:0 9px 0 #17324d;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer}.scene .pic{font-size:clamp(72px,10vw,120px);line-height:1.1}.scene .sceneLabel{display:none}.careImg{width:100%;height:auto;max-height:430px;object-fit:contain;border-radius:18px;display:block;margin:auto}.bookDiagram{width:min(760px,100%);margin:0 auto 24px;display:flex;justify-content:center;align-items:center;min-height:220px}.bookVisual{font-size:clamp(120px,18vw,220px);filter:drop-shadow(0 8px 0 rgba(23,50,77,.15))}.partAnswers{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;width:min(760px,100%);margin:auto}.partBtn{min-height:95px;background:white;border:4px solid #17324d;border-radius:22px;box-shadow:0 7px 0 #17324d;font-size:clamp(24px,3vw,36px);font-weight:bold}.partBtn.wrong{animation:shake .35s}.partBtn.right{animation:pop .5s;background:#e7f7df}@keyframes shake{25%{transform:translateX(-12px)}50%{transform:translateX(12px)}75%{transform:translateX(-8px)}}@keyframes pop{50%{transform:scale(1.12)}}@media(max-width:720px){.menu{grid-template-columns:1fr 1fr}.answers{grid-template-columns:1fr 1fr}.answer{height:150px}.screen{padding:14px}.scenes{grid-template-columns:1fr}.scene{min-height:200px}}@media(max-width:450px){.menu{grid-template-columns:1fr}.answers{grid-template-columns:1fr 1fr}.partAnswers{grid-template-columns:1fr 1fr}}
+
+.routeBanner{max-width:1050px;width:100%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;gap:14px;font-weight:bold;font-size:clamp(18px,2.5vw,28px)}
+.road{height:18px;flex:1;max-width:260px;background:#555;border-radius:9px;position:relative}
+.road:after{content:"";position:absolute;left:10%;right:10%;top:7px;border-top:4px dashed #fff}
+.signTitle{display:inline-block;background:#2e7d32;color:white;border:5px solid white;outline:3px solid #17324d;border-radius:10px;padding:9px 20px;box-shadow:0 5px 0 #17324d}
+.destination{position:relative;overflow:hidden}
+.destination:before{content:"📍";position:absolute;top:10px;right:14px;font-size:28px}
+.destination .stop{display:block;font-size:16px;letter-spacing:.08em;text-transform:uppercase;margin-top:8px;color:#6b4a2b}
+.bookChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:min(980px,100%);margin:auto}
+.bookChoice{min-height:230px;background:white;border:5px solid #17324d;border-radius:26px;box-shadow:0 8px 0 #17324d;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.bookChoice .bookIcon{font-size:clamp(70px,9vw,112px);line-height:1.05;min-height:115px;display:flex;align-items:center}
+.bookChoice .bookLabel{font-size:clamp(22px,2.8vw,34px);font-weight:bold;margin-top:12px}
+.bookChoice.wrong{animation:shake .35s}.bookChoice.right{animation:pop .5s;background:#e7f7df}
+.anchorBook{width:min(720px,94%);margin:0 auto 20px;background:#fff8e8;border:4px solid #d3a33c;border-radius:28px;padding:14px;text-align:center}
+.anchorBook .blankBook{font-size:clamp(100px,15vw,180px);line-height:1}
+.anchorBook .hint{font-size:18px;font-weight:bold;margin-top:4px;color:#6b4a2b}
+@media(max-width:720px){.bookChoices{grid-template-columns:1fr 1fr}.routeBanner .road{display:none}}
+@media(max-width:470px){.bookChoices{grid-template-columns:1fr}.bookChoice{min-height:180px}}
+
+.shapeChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;width:min(900px,100%);margin:auto}
+.shapeBtn{min-height:200px;background:white;border:5px solid #17324d;border-radius:28px;box-shadow:0 9px 0 #17324d;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:18px}
+.shapeBtn.wrong{animation:shake .35s}.shapeBtn.right{animation:pop .5s;background:#e7f7df}
+.swatch{width:120px;height:120px;border:4px solid #17324d}
+.circle{border-radius:50%}.square{border-radius:8px}.rectangle{width:165px;height:105px;border-radius:8px}
+.triangle{width:0;height:0;border-left:65px solid transparent;border-right:65px solid transparent;border-bottom:120px solid currentColor;filter:drop-shadow(0 4px 0 #17324d)}
+.diamond{width:105px;height:105px;transform:rotate(45deg);border:4px solid #17324d}
+.shapeName{font-size:25px;font-weight:bold;margin-top:18px}
+.signFace{display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:clamp(22px,3vw,34px);color:white;text-align:center}
+.signStop{width:135px;height:135px;background:#d32f2f;clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.signWarning{width:120px;height:120px;background:#f4c430;color:#17324d;transform:rotate(45deg);border:4px solid #17324d}.signWarning span{transform:rotate(-45deg)}
+.signGreen{width:180px;height:100px;background:#2e7d32;border:4px solid white;outline:3px solid #17324d;border-radius:7px}
+.signBlue{width:180px;height:100px;background:#1976d2;border:4px solid white;outline:3px solid #17324d;border-radius:7px}
+.signYellow{width:180px;height:100px;background:#f4c430;color:#17324d;border:4px solid #17324d;border-radius:7px}
+.signBio{width:180px;height:100px;background:white;color:#b71c1c;border:7px solid #b71c1c;border-radius:7px}
+@media(max-width:720px){.shapeChoices{grid-template-columns:1fr 1fr}}
+@media(max-width:470px){.shapeChoices{grid-template-columns:1fr}.shapeBtn{min-height:165px}}
+
+.mountainMenu{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:1150px;width:100%;margin:auto;align-items:end}
+.mountainCard{background:white;border:4px solid #17324d;border-radius:24px;box-shadow:0 7px 0 #17324d;padding:14px;min-height:170px;font-weight:bold;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.mountainCard:nth-child(2){margin-bottom:18px}.mountainCard:nth-child(3){margin-bottom:36px}.mountainCard:nth-child(4){margin-bottom:54px}.mountainCard:nth-child(5){margin-bottom:18px}
+.mountainCard .mIcon{font-size:52px}.mountainCard .mStop{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:#6b4a2b;margin:7px 0}.mountainCard .mLabel{font-size:clamp(18px,2vw,27px)}
+.matchModel{width:min(430px,90%);min-height:155px;background:#fff8e8;border:4px solid #d3a33c;border-radius:28px;margin:0 auto 24px;display:flex;justify-content:center;align-items:center;font-size:clamp(75px,11vw,120px);padding:14px}
+.matchChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;width:min(900px,100%);margin:auto}
+.matchBtn{min-height:185px;background:white;border:5px solid #17324d;border-radius:28px;box-shadow:0 9px 0 #17324d;font-size:clamp(65px,9vw,105px);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:16px}
+.matchBtn.wrong{animation:shake .35s}.matchBtn.right{animation:pop .5s;background:#e7f7df}
+.matchTiny{font-size:22px;font-weight:bold;margin-top:8px}
+.bookTile{width:125px;height:155px;border:5px solid #17324d;border-radius:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:55px;box-shadow:8px 0 0 rgba(23,50,77,.25)}
+.bookTile .lines{font-size:14px;font-weight:bold;margin-top:8px;letter-spacing:2px}
+@media(max-width:850px){.mountainMenu{grid-template-columns:1fr 1fr}.mountainCard:nth-child(n){margin-bottom:0}}
+@media(max-width:520px){.mountainMenu,.matchChoices{grid-template-columns:1fr}.matchBtn{min-height:145px}}
+
+.partPromptRow{display:flex;align-items:center;justify-content:center;gap:14px;margin:2px auto 8px}
+.partPromptRow .prompt{margin:0}
+.bookStage{position:relative;width:fit-content;max-width:94vw;margin:0 auto;line-height:0}
+.partsBookImg{display:block;width:auto;max-width:94vw;height:auto;max-height:68vh;object-fit:contain;margin:auto;border-radius:18px}
+.partZone{position:absolute;background:transparent;border:0;cursor:pointer;touch-action:manipulation;border-radius:22px;padding:0}
+.partZone:focus-visible{outline:6px solid #ffca28;outline-offset:2px}
+.partZone.wrong{animation:shake .35s;background:rgba(255,255,255,.10)}
+.partZone.right{animation:pop .5s;outline:7px solid #ffca28;outline-offset:-5px;background:rgba(255,235,59,.12)}
+/* Coordinates are percentages of the exact uncropped approved image. */
+.backZone{left:4.8%;top:10%;width:40.7%;height:83%;z-index:1}
+.frontZone{left:53.8%;top:10%;width:41.6%;height:83%;z-index:1}
+/* Generous motor target around the visible yellow spine; highest z-index prevents cover stealing. */
+.spineZone{left:44.7%;top:10%;width:9.6%;height:84%;z-index:4}
+@media(max-width:650px){
+ .bookStage{width:fit-content;max-width:98vw}
+ .partsBookImg{max-width:98vw;max-height:64vh}
+ .spineZone{left:43.8%;width:11.4%}
+}
+
+/* Detail targets sit above the larger book-part zones. */
+.barcodeZone{left:29.8%;top:72.0%;width:13.8%;height:12.5%;z-index:8}
+.callZone{left:46.0%;top:69.0%;width:6.5%;height:14.5%;z-index:9}
+.detailZone.right{outline-width:6px}
+@media(max-width:650px){
+ .barcodeZone{left:28.8%;width:15.8%;top:70.5%;height:15%}
+ .callZone{left:44.9%;width:8.7%;top:67.5%;height:18%}
+}
+
+.insideStage{position:relative;width:min(1050px,94vw);margin:0 auto;line-height:0}
+.insideBookImg{display:block;width:100%;height:auto;max-height:68vh;object-fit:contain;margin:auto;border-radius:18px}
+.insideZone{position:absolute;background:transparent;border:0;cursor:pointer;touch-action:manipulation;border-radius:22px;padding:0}
+.insideZone:focus-visible{outline:6px solid #ffca28;outline-offset:2px}
+.insideZone.wrong{animation:shake .35s;background:rgba(255,255,255,.10)}
+.insideZone.right{animation:pop .5s;outline:7px solid #ffca28;outline-offset:-5px;background:rgba(255,235,59,.12)}
+.wordsZone{left:7%;top:18%;width:39%;height:59%;z-index:2}
+.pictureZone{left:51%;top:5%;width:44%;height:87%;z-index:1}
+/* Intentionally much larger than the printed 12 for motor accessibility. */
+.pageNumZone,.pageNumZone2{z-index:20}.pageNumZone{left:5.2%;top:80%;width:18%;height:17%}.pageNumZone2{left:82%;top:80%;width:13%;height:17%}
+@media(max-width:650px){
+ .insideStage{width:98vw}
+ .insideBookImg{max-height:64vh}
+ .pageNumZone{left:4.2%;top:77%;width:22%;height:21%}
+ .pageNumZone2{left:78%;top:77%;width:18%;height:21%}
+}
+
+/* Cover Detective */
+.detectiveStage{position:relative;width:min(96vw,calc(66vh * 1.5));aspect-ratio:3/2;margin:0 auto;line-height:0}
+.detectiveBookImg{display:block;width:100%;height:100%;object-fit:fill;margin:0;border-radius:18px}
+.detectiveZone{position:absolute;background:transparent;border:0;cursor:pointer;touch-action:manipulation;border-radius:20px;padding:0}
+.detectiveZone:focus-visible{outline:6px solid #ffca28;outline-offset:2px}
+.detectiveZone.wrong{animation:shake .35s;background:rgba(255,255,255,.10)}
+.detectiveZone.right{animation:pop .5s;outline:7px solid #ffca28;outline-offset:-5px;background:rgba(255,235,59,.14)}
+.detectiveZone[data-zone='barcode'],.detectiveZone[data-zone='callnumber'],.detectiveZone[data-zone='author'],.detectiveZone[data-zone='illustrator'],.detectiveZone[data-zone='photographer']{z-index:12}
+.detectivePair{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:min(1250px,96vw);margin:10px auto 0}
+.detectiveChoice{border:5px solid #123b62;background:#fff;border-radius:24px;padding:10px;cursor:pointer;touch-action:manipulation;box-shadow:0 7px 0 rgba(18,59,98,.16)}
+.detectiveChoice img{display:block;width:100%;height:auto;max-height:58vh;object-fit:contain;border-radius:14px}
+.detectiveChoice.wrong{animation:shake .35s}
+.detectiveChoice.right{animation:pop .5s;border-color:#ffca28;box-shadow:0 0 0 7px rgba(255,202,40,.22)}
+.detectiveTag{font-size:clamp(22px,3vw,34px);font-weight:900;line-height:1.15;padding:8px 4px;color:#123b62;text-align:center}
+@media(max-width:760px){.detectivePair{grid-template-columns:1fr;gap:14px}.detectiveChoice img{max-height:34vh}.detectiveStage{width:min(96vw,calc(58vh * 1.5))}}
+
+/* Library Lane progress — v36 */
+.libraryLane{width:min(980px,96%);margin:8px auto 14px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;font-weight:900;color:#17324d}
+.laneStart,.laneStop{white-space:nowrap;font-size:clamp(14px,2vw,20px)}
+.laneTrack{height:42px;background:#555;border:4px solid #17324d;border-radius:22px;position:relative;overflow:visible;box-shadow:0 4px 0 rgba(23,50,77,.18)}
+.laneTrack:after{content:"";position:absolute;left:4%;right:4%;top:17px;border-top:5px dashed #fff}
+.laneCar{position:absolute;left:0;top:50%;transform:translate(-12%,-53%) scaleX(-1);font-size:34px;line-height:1;z-index:3;transition:left .65s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 2px 1px rgba(0,0,0,.2))}
+.laneCount{grid-column:1/-1;text-align:center;font-size:15px;margin-top:-6px;color:#6b4a2b}
+@media(max-width:600px){.libraryLane{gap:6px}.laneStart,.laneStop{font-size:12px}.laneTrack{height:36px}.laneTrack:after{top:14px}.laneCar{font-size:29px}}
+</style>
+<style>
+/* Story Street / weekday card text sizing */
+#stories .card .label,
+#creepyCarrotsHub .card .label, #creepyUnderwearHub .card .label{
+  font-size:clamp(22px,3vw,34px);
+  line-height:1.08;
+  overflow-wrap:anywhere;
+}
+#stories .card .stop,
+#creepyCarrotsHub .card .stop, #creepyUnderwearHub .card .stop{
+  font-size:clamp(15px,2vw,22px);
+  line-height:1.15;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+#creepyCarrotsHub .card, #creepyUnderwearHub .card{
+  min-width:0;
+  padding-left:8px;
+  padding-right:8px;
+}
+#creepyCarrotsHub .card .label, #creepyUnderwearHub .card .label{
+  font-size:clamp(19px,2.45vw,30px);
+  white-space:nowrap;
+}
+</style>
+
+
+<style>
+.mondayChoices{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:18px;
+  max-width:900px;
+  margin:0 auto;
+}
+.mondayChoice{
+  min-height:170px;
+  border:4px solid #d9e2ec;
+  border-radius:24px;
+  background:white;
+  font:inherit;
+  cursor:pointer;
+  padding:16px;
+  touch-action:manipulation;
+}
+.mondayChoice .choiceIcon{display:block;font-size:clamp(58px,9vw,100px);line-height:1}
+.mondayChoice .choiceText{display:block;font-size:clamp(22px,3vw,34px);font-weight:800;margin-top:10px}
+.mondayChoice.right{outline:8px solid #66c56c}
+.mondayChoice.wrong{animation:shake .25s linear 1;outline:7px solid #ef767a}
+.bigNext{
+  font:inherit;
+  font-size:clamp(26px,4vw,42px);
+  font-weight:900;
+  border:0;
+  border-radius:22px;
+  padding:18px 38px;
+  margin:8px auto 0;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+</style>
+
+<style>
+.storyPicChoices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1050px;margin:0 auto;align-items:stretch}
+.storyPicChoice{min-height:0;border:4px solid #d9e2ec;border-radius:24px;background:white;padding:12px;cursor:pointer;touch-action:manipulation;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.storyPicChoice img{width:100%;height:auto;max-height:285px;object-fit:contain;border-radius:16px;display:block;margin:auto}
+.storyPicChoice .picLabel{display:block;font-size:clamp(19px,2.4vw,28px);font-weight:800;line-height:1.08;margin:10px 4px 2px}
+.storyPicChoice.right{outline:8px solid #66c56c}
+.storyPicChoice.wrong{animation:shake .25s linear 1;outline:7px solid #ef767a}
+</style>
+
+<style>
+.wednesdayWrap{max-width:1120px;margin:auto;padding:8px 16px 30px;text-align:center}
+.wednesdaySlots,.wednesdayChoices{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:12px auto}
+.wednesdaySlot{flex:1 1 170px;max-width:300px;min-height:155px;border:4px dashed #7c95b5;border-radius:20px;background:#f1f6fb;padding:8px;cursor:pointer;touch-action:manipulation}
+.wednesdaySlot strong{display:block;font-size:clamp(19px,2.5vw,27px);margin-bottom:5px}
+.wednesdaySlot img{width:100%;height:120px;object-fit:contain;border-radius:12px}
+.wednesdayTile{width:min(29vw,220px);min-width:145px;border:4px solid #cad6e3;border-radius:20px;background:white;padding:8px;cursor:pointer;touch-action:manipulation}
+.wednesdayTile img{width:100%;height:145px;object-fit:contain;border-radius:12px;display:block}
+.wednesdayTile.selected{outline:6px solid #f5ae43;border-color:#f5ae43}
+.wednesdayTile:disabled{opacity:.38}
+.wednesdayActions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+.wednesdayActions button:disabled{opacity:.4;cursor:default}
+@media(max-width:650px){.wednesdaySlot{min-height:125px;flex-basis:110px}.wednesdaySlot img{height:85px}.wednesdayTile{min-width:100px;width:28vw}.wednesdayTile img{height:95px}}
+</style>
+</head><body>
+<section id='home' class='screen'><div class='header'><div style='font-size:54px'>📚</div><h1>Cougars Library Games</h1><p>Where should we go?</p><div class='routeBanner'><div class='road'></div><span class='signTitle'>Library Learning Road Trip</span><div class='road'></div></div></div><div class='menu'>
+<button class='card destination' onclick='openLibrary()'><span class='icon'>📚</span><span class='label'>Library</span><span class='stop'>Library Lane</span></button>
+<button class='card destination' onclick='openStories()'><span class='icon'>📖</span><span class='label'>Stories</span><span class='stop'>Story Street</span></button>
+<button class='card destination' onclick='openNumbers()'><span class='icon'>🔢</span><span class='label'>Numbers</span><span class='stop'>Number Neighborhood</span></button>
+<button class='card destination' onclick='openLetters()'><span class='icon'>🔤</span><span class='label'>Letters</span><span class='stop'>Letter Lane</span></button>
+<button class='card destination' onclick='openShapes()'><span class='icon'>🎨</span><span class='label'>Shapes &amp; Colors</span><span class='stop'>Color &amp; Shape Park</span></button>
+<button class='card destination' onclick='openMatching()'><span class='icon'>🧩</span><span class='label'>Matching</span><span class='stop'>Matching Mountain</span></button>
+</div><div id='homeMsg' class='footer'>Choose your next stop!</div></section>
+
+<section id='numbersMenu' class='screen'><div class='gameTop'><button class='small' onclick='goHome()'>🏠 Home</button></div><div class='header'><div style='font-size:54px'>🔢</div><h1>Numbers</h1><p>Choose your next stop!</p><div class='shelf'></div></div><div class='menu' style='grid-template-columns:repeat(2,minmax(220px,1fr));max-width:760px'><button class='card' onclick='startFindNumber()'><span class='icon'>🔎</span><span class='label'>Find the Number</span></button><button class='card' onclick='startHowMany()'><span class='icon'>🍎🍎🍎</span><span class='label'>How Many?</span></button></div></section>
+<section id='findNumber' class='screen'><div class='gameTop'><button class='small' onclick='openNumbers()'>⬅ Numbers</button><button class='small' onclick='newNumberRound()'>↻ New Number</button></div><div id='numberPrompt' class='prompt'>Find the number 4</div><button class='speaker' onclick='speakNumberPrompt()'>🔊</button><div id='numberAnswers' class='answers'></div><div id='numberMessage' class='message'></div></section>
+<section id='howMany' class='screen'><div class='gameTop'><button class='small' onclick='openNumbers()'>⬅ Numbers</button><button class='small' onclick='newCountRound()'>↻ New Group</button></div><div id='countPrompt' class='prompt'>How many?</div><button class='speaker' onclick='speakCountPrompt()'>🔊</button><div id='objects' style='display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:20px;min-height:190px;max-width:820px;margin:5px auto 25px;font-size:clamp(58px,8vw,92px)'></div><div id='countAnswers' class='answers'></div><div id='countMessage' class='message'></div></section>
+
+<section id='lettersMenu' class='screen'><div class='gameTop'><button class='small' onclick='goHome()'>🏠 Home</button></div><div class='header'><div style='font-size:54px'>🔤</div><h1>Letters</h1><p>Choose your next stop!</p><div class='shelf'></div></div><div class='menu'><button class='card' onclick="startLetterGame('capital')"><span class='icon'>🔠</span><span class='label'>Find the Capital</span></button><button class='card' onclick="startLetterGame('lowercase')"><span class='icon'>🔡</span><span class='label'>Find the Lowercase</span></button><button class='card' onclick="startLetterGame('match')"><span class='icon'>Aa</span><span class='label'>Match the Letters</span></button></div></section>
+<section id='letters' class='screen'><div class='gameTop'><button class='small' onclick='openLetters()'>⬅ Letters</button><button class='small' onclick='newRound()'>↻ New Letter</button></div><div id='prompt' class='prompt'>Find capital A</div><button class='speaker' onclick='speakPrompt()'>🔊</button><div id='matchDisplay' style='display:none;text-align:center;font-size:clamp(80px,13vw,150px);font-weight:bold;margin:0 auto 18px'></div><div id='answers' class='answers'></div><div id='message' class='message'></div></section>
+
+
+
+<section id='matchingMenu' class='screen'><div class='gameTop'><button class='small' onclick='goHome()'>🏠 Home</button></div><div class='header'><div style='font-size:54px'>🏔️</div><h1>Matching Mountain</h1><p>Climb the mountain!</p><div class='routeBanner'><div class='road'></div><span class='signTitle'>Choose Your Trail</span><div class='road'></div></div></div><div class='mountainMenu'>
+<button class='mountainCard' onclick="startMatchGame('same')"><span class='mIcon'>👯</span><span class='mStop'>Base Camp</span><span class='mLabel'>Find the Same</span></button>
+<button class='mountainCard' onclick="startMatchGame('together')"><span class='mIcon'>🧦</span><span class='mStop'>Trail</span><span class='mLabel'>What Goes Together?</span></button>
+<button class='mountainCard' onclick="startMatchGame('book')"><span class='mIcon'>📚</span><span class='mStop'>Lookout</span><span class='mLabel'>Match the Book</span></button>
+<button class='mountainCard' onclick="startMatchGame('different')"><span class='mIcon'>👀</span><span class='mStop'>Summit</span><span class='mLabel'>Find What's Different</span></button>
+<button class='mountainCard' onclick="startMatchGame('sign')"><span class='mIcon'>🛣️</span><span class='mStop'>Library Trail</span><span class='mLabel'>Match the Library Sign</span></button>
+</div></section>
+<section id='matchingGame' class='screen'><div class='gameTop'><button class='small' onclick='openMatching()'>⬅ Matching Mountain</button><button class='small' onclick='newMatchRound()'>↻ New Round</button></div><div id='matchPrompt' class='prompt'>Find the same picture.</div><button class='speaker' onclick='speakMatchPrompt()'>🔊</button><div id='matchModel' class='matchModel'></div><div id='matchAnswers' class='matchChoices'></div><div id='matchMessage' class='message'></div></section>
+<section id='shapesMenu' class='screen'><div class='gameTop'><button class='small' onclick='goHome()'>🏠 Home</button></div><div class='header'><div style='font-size:54px'>🎨</div><h1>Color &amp; Shape Park</h1><p>Choose your next stop!</p><div class='shelf'></div></div><div class='menu' style='grid-template-columns:repeat(2,minmax(220px,1fr));max-width:850px'><button class='card' onclick="startShapeGame('color')"><span class='icon'>🔴</span><span class='label'>Find the Color</span></button><button class='card' onclick="startShapeGame('shape')"><span class='icon'>🔺</span><span class='label'>Find the Shape</span></button><button class='card' onclick="startShapeGame('match')"><span class='icon'>🟦</span><span class='label'>Match It</span></button><button class='card' onclick="startShapeGame('sign')"><span class='icon'>🚦</span><span class='label'>Street Sign Challenge</span></button></div></section>
+<section id='shapeGame' class='screen'><div class='gameTop'><button class='small' onclick='openShapes()'>⬅ Shapes &amp; Colors</button><button class='small' onclick='newShapeRound()'>↻ New Round</button></div><div id='shapePrompt' class='prompt'>Find red.</div><button class='speaker' onclick='speakShapePrompt()'>🔊</button><div id='shapeModel' style='display:none;text-align:center;margin:0 auto 22px'></div><div id='shapeAnswers' class='shapeChoices'></div><div id='shapeMessage' class='message'></div></section>
+
+
+
+
+
+
+
+<section id='creepyFriday' class='screen'>
+ <div class='gameTop'><button class='small' onclick='openCreepyCarrots()'>⬅ Days</button><div id='creepyFridayCount' class='badge'>1 of 10</div></div>
+ <div class='hero' style='padding-top:4px'><div class='badge'>🥕 FRIDAY — I KNOW THIS BOOK!</div></div>
+ <div style='max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center'>
+  <div id='creepyFridayPrompt' class='prompt' style='font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px'></div>
+  <div id='creepyFridayChoices' class='storyPicChoices'></div>
+  <div id='creepyFridayMessage' class='message' style='min-height:48px;margin-top:14px' aria-live='polite'></div>
+  <button id='creepyFridayBack' class='bigNext' onclick='openCreepyCarrots()' style='display:none'>BACK TO DAYS ➡️</button>
+ </div>
+</section>
+<section id='creepyThursday' class='screen'>
+ <div class='gameTop'><button class='small' onclick='openCreepyCarrots()'>⬅ Days</button><div id='creepyThursdayCount' class='badge'>1 of 10</div></div>
+ <div class='hero' style='padding-top:4px'><div class='badge'>🥕 THURSDAY — UNDERSTAND THE STORY</div></div>
+ <div style='max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center'>
+  <div id='creepyThursdayPrompt' class='prompt' style='font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px'></div>
+  <div id='creepyThursdayChoices' class='storyPicChoices'></div>
+  <div id='creepyThursdayMessage' class='message' style='min-height:48px;margin-top:14px' aria-live='polite'></div>
+  <button id='creepyThursdayNext' class='bigNext' onclick='nextCreepyThursday()' style='display:none'>NEXT ➡️</button>
+ </div>
+</section>
+<section id='creepyWednesday' class='screen'>
+ <div class='gameTop'><button class='small' onclick='openCreepyCarrots()'>⬅ Days</button><div id='creepyWednesdayCount' class='badge'>1 of 10</div></div>
+ <div class='hero' style='padding-top:4px'><div class='badge'>🥕 WEDNESDAY — STORY ORDER</div></div>
+ <div class='wednesdayWrap'>
+  <div id='creepyWednesdayPrompt' class='prompt' style='font-size:clamp(26px,3.5vw,42px);margin:10px 0'></div>
+  <div style='font-size:clamp(17px,2vw,23px);margin-bottom:12px'>Tap a picture, then tap where it goes. Or tap pictures in story order.</div>
+  <div id='creepyWednesdaySlots' class='wednesdaySlots'></div>
+  <div id='creepyWednesdayChoices' class='wednesdayChoices'></div>
+  <div id='creepyWednesdayMessage' class='message' style='min-height:45px;margin-top:12px' aria-live='polite'></div>
+  <div class='wednesdayActions'>
+   <button id='creepyWednesdayReset' class='small' onclick='resetCreepyWednesday()'>↻ Try Again</button>
+   
+   <button id='creepyWednesdayNext' class='bigNext' onclick='nextCreepyWednesday()' style='display:none'>NEXT ➡️</button>
+  </div>
+ </div>
+</section>
+
+<section id='creepyTuesday' class='screen'>
+  <div class='gameTop'>
+    <button class='small' onclick='openCreepyCarrots()'>⬅ Days</button>
+    <div id='creepyTuesdayCount' class='badge'>1 of 10</div>
+  </div>
+  <div class='hero' style='padding-top:4px'>
+    <div class='badge'>🥕 TUESDAY — REMEMBER THE STORY</div>
+  </div>
+  <div style='max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center'>
+    <div id='creepyTuesdayPrompt' class='prompt' style='font-size:clamp(28px,4vw,46px);margin:10px auto 18px'></div>
+    <div id='creepyTuesdayChoices' class='storyPicChoices'></div>
+    <div id='creepyTuesdayMessage' class='message' style='min-height:48px;margin-top:14px'></div>
+    <button id='creepyTuesdayNext' class='bigNext' onclick='nextCreepyTuesday()' style='display:none'>NEXT ➡️</button>
+  </div>
+</section>
+
+<section id='creepyMonday' class='screen'>
+  <div class='gameTop'>
+    <button class='small' onclick='openCreepyCarrots()'>⬅ Days</button>
+    <div id='creepyMondayCount' class='badge'>1 of 10</div>
+  </div>
+  <div class='hero' style='padding-top:4px'>
+    <div class='badge'>🥕 MONDAY — MEET THE BOOK</div>
+  </div>
+  <div id='creepyMondayGame' style='max-width:1050px;margin:0 auto;padding:8px 18px 28px;text-align:center'>
+    <div id='creepyMondayPrompt' class='prompt' style='font-size:clamp(28px,4vw,48px);margin:10px auto 18px'></div>
+    <div id='creepyMondayChoices' class='storyPicChoices'></div>
+    <div id='creepyMondayMessage' class='message' style='min-height:48px;margin-top:14px'></div>
+    <button id='creepyMondayNext' class='bigNext' onclick='nextCreepyMonday()' style='display:none'>NEXT ➡️</button>
+  </div>
+</section>
+
+<section id='creepyCarrotsHub' class='screen active'>
+  <div class='gameTop'>
+    <button class='small' onclick='openStories()'>⬅ Stories</button>
+  </div>
+
+  <div class='hero' style='padding-top:8px'>
+    <div class='badge'>🥕 CREEPY CARROTS!</div>
+    <h2 style='font-size:clamp(34px,6vw,64px);margin:12px 0 6px'>Choose a Day</h2>
+    <p class='sub'>What are we practicing today?</p>
+  </div>
+
+  <div class='menu' style='grid-template-columns:repeat(auto-fit,minmax(190px,1fr));max-width:1100px'>
+    <button class='card' onclick='startCreepyMonday()'>
+      <span class='icon'>1️⃣</span>
+      <span class='label'>Monday</span>
+      <span class='stop'>Meet the Book</span>
+    </button>
+    <button class='card' onclick='startCreepyTuesday()'>
+      <span class='icon'>2️⃣</span>
+      <span class='label'>Tuesday</span>
+      <span class='stop'>Remember the Story</span>
+    </button>
+    <button class='card' onclick='startCreepyWednesday()'>
+      <span class='icon'>3️⃣</span>
+      <span class='label'>Wednesday</span>
+      <span class='stop'>Story Order</span>
+    </button>
+    <button class='card' onclick="startCreepyThursday()">
+      <span class='icon'>4️⃣</span>
+      <span class='label'>Thursday</span>
+      <span class='stop'>Understand the Story</span>
+    </button>
+    <button class='card' onclick='startCreepyFriday()'>
+      <span class='icon'>5️⃣</span>
+      <span class='label'>Friday</span>
+      <span class='stop'>I Know This Book!</span>
+    </button>
+  </div>
+</section>
+
+
+
+
+<section id='underwearTuesday' class='screen'>
+ <div class='gameTop'><button class='small' onclick='openCreepyUnderwear()'>⬅ Days</button><div id='underwearTuesdayCount' class='badge'>1 of 10</div></div>
+ <div class='hero' style='padding-top:4px'><div class='badge'>🩲 TUESDAY — REMEMBER THE STORY</div></div>
+ <div style='max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center'>
+  <div id='underwearTuesdayPrompt' class='prompt' style='font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px'></div>
+  <div id='underwearTuesdayChoices' class='storyPicChoices'></div>
+  <div id='underwearTuesdayMessage' class='message' style='min-height:48px;margin-top:14px' aria-live='polite'></div>
+  <button id='underwearTuesdayBack' class='bigNext' onclick='openCreepyUnderwear()' style='display:none'>BACK TO DAYS ➡️</button>
+ </div>
+</section>
+<section id='underwearMonday' class='screen'>
+ <div class='gameTop'><button class='small' onclick='openCreepyUnderwear()'>⬅ Days</button><div id='underwearMondayCount' class='badge'>1 of 10</div></div>
+ <div class='hero' style='padding-top:4px'><div class='badge'>🩲 MONDAY — MEET THE BOOK</div></div>
+ <div style='max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center'>
+  <div id='underwearMondayPrompt' class='prompt' style='font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px'></div>
+  <div id='underwearMondayChoices' class='storyPicChoices'></div>
+  <div id='underwearMondayMessage' class='message' style='min-height:48px;margin-top:14px' aria-live='polite'></div>
+  <button id='underwearMondayBack' class='bigNext' onclick='openCreepyUnderwear()' style='display:none'>BACK TO DAYS ➡️</button>
+ </div>
+</section>
+
+<!-- CREEPY UNDERWEAR: COMPLETE STORY STREET WEEK -->
+<section id="underwearWednesday" class="screen">
+ <div class="gameTop"><button class="small" onclick="openCreepyUnderwear()">⬅ Days</button><div class="badge" id="underwearWednesdayCount">1 of 10</div></div>
+ <div class="hero" style="padding-top:4px"><div class="badge">🩲 WEDNESDAY — WHAT HAPPENS NEXT?</div></div>
+ <div style="max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center;width:100%">
+  <button class="small" id="underwearWednesdayListen" onclick="speakUnderwearDay('Wednesday')" style="margin-bottom:8px">🔊 Listen to Question</button>
+  <div class="prompt" id="underwearWednesdayPrompt" style="font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px"></div>
+  <div id="underwearWednesdayChoices" class="storyPicChoices"></div>
+  <div id="underwearWednesdayMessage" class="message" aria-live="polite" style="min-height:48px;margin-top:14px"></div>
+  <button class="bigNext" id="underwearWednesdayBack" onclick="openCreepyUnderwear()" style="display:none">⭐ GREAT JOB! BACK TO DAYS ➡️</button>
+ </div>
+</section>
+<section id="underwearThursday" class="screen">
+ <div class="gameTop"><button class="small" onclick="openCreepyUnderwear()">⬅ Days</button><div class="badge" id="underwearThursdayCount">1 of 10</div></div>
+ <div class="hero" style="padding-top:4px"><div class="badge">🩲 THURSDAY — THINK ABOUT THE STORY</div></div>
+ <div style="max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center;width:100%">
+  <button class="small" id="underwearThursdayListen" onclick="speakUnderwearDay('Thursday')" style="margin-bottom:8px">🔊 Listen to Question</button>
+  <div class="prompt" id="underwearThursdayPrompt" style="font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px"></div>
+  <div id="underwearThursdayChoices" class="storyPicChoices"></div>
+  <div id="underwearThursdayMessage" class="message" aria-live="polite" style="min-height:48px;margin-top:14px"></div>
+  <button class="bigNext" id="underwearThursdayBack" onclick="openCreepyUnderwear()" style="display:none">⭐ GREAT JOB! BACK TO DAYS ➡️</button>
+ </div>
+</section>
+<section id="underwearFriday" class="screen">
+ <div class="gameTop"><button class="small" onclick="openCreepyUnderwear()">⬅ Days</button><div class="badge" id="underwearFridayCount">1 of 10</div></div>
+ <div class="hero" style="padding-top:4px"><div class="badge">🩲 FRIDAY — STORY STAR!</div></div>
+ <div style="max-width:1100px;margin:0 auto;padding:8px 18px 28px;text-align:center;width:100%">
+  <button class="small" id="underwearFridayListen" onclick="speakUnderwearDay('Friday')" style="margin-bottom:8px">🔊 Listen to Question</button>
+  <div class="prompt" id="underwearFridayPrompt" style="font-size:clamp(26px,3.6vw,44px);margin:10px auto 18px"></div>
+  <div id="underwearFridayChoices" class="storyPicChoices"></div>
+  <div id="underwearFridayMessage" class="message" aria-live="polite" style="min-height:48px;margin-top:14px"></div>
+  <button class="bigNext" id="underwearFridayBack" onclick="openCreepyUnderwear()" style="display:none">⭐ GREAT JOB! BACK TO DAYS ➡️</button>
+ </div>
+</section>
+<section id='creepyUnderwearHub' class='screen'>
+  <div class='gameTop'><button class='small' onclick='openStories()'>⬅ Stories</button></div>
+  <div class='hero' style='padding-top:8px'>
+    <div class='badge'>🩲 CREEPY UNDERWEAR!</div>
+    <h2 style='font-size:clamp(34px,6vw,64px);margin:12px 0 6px'>Choose a Day</h2>
+    <p class='sub'>Choose a day to play!</p>
+  </div>
+  <div class='menu' style='grid-template-columns:repeat(auto-fit,minmax(190px,1fr));max-width:1100px'>
+    <button class='card' onclick="location.href=&#39;creepy-underwear.html#monday&#39;"><span class='icon'>1️⃣</span><span class='label'>Monday</span><span class='stop'>Meet the Book</span></button>
+    <button class='card' onclick="location.href=&#39;creepy-underwear.html#tuesday&#39;"><span class='icon'>2️⃣</span><span class='label'>Tuesday</span><span class='stop'>Remember the Story</span></button>
+    <button class='card' onclick="location.href=&#39;creepy-underwear.html#wednesday&#39;"><span class='icon'>3️⃣</span><span class='label'>Wednesday</span><span class='stop'>Story Order</span></button>
+    <button class='card' onclick="location.href=&#39;creepy-underwear.html#thursday&#39;"><span class='icon'>4️⃣</span><span class='label'>Thursday</span><span class='stop'>Understand the Story</span></button>
+    <button class='card' onclick="location.href=&#39;creepy-underwear.html#friday&#39;"><span class='icon'>5️⃣</span><span class='label'>Friday</span><span class='stop'>I Know This Book!</span></button>
+  </div>
+</section>
+
+<section id='stories' class='screen'>
+  <div class='gameTop'>
+    <button class='small' onclick="location.href='index.html'">⬅ Home</button>
+  </div>
+  <div class='hero' style='padding-top:8px'>
+    <div class='badge'>📖 STORY STREET</div>
+    <h2 style='font-size:clamp(34px,6vw,64px);margin:12px 0 6px'>Choose a Story</h2>
+    <p class='sub'>Pick the book we are reading this week.</p>
+  </div>
+  <div class='menu' style='grid-template-columns:repeat(auto-fit,minmax(220px,1fr));max-width:980px'>
+    <button class='card' onclick='openCreepyCarrots()'>
+      <span class='icon'>🥕</span>
+      <span class='label'>Creepy Carrots!</span>
+      <span class='stop'>A Jasper Rabbit Story</span>
+    </button>
+    <button class='card' onclick='openCreepyUnderwear()'>
+      <span class='icon'>🩲</span>
+      <span class='label'>Creepy Underwear!</span>
+      <span class='stop'>A Jasper Rabbit Story</span>
+    </button>
+  </div>
+</section>
+
+<section id='libraryMenu' class='screen'><div class='gameTop'><button class='small' onclick='goHome()'>🏠 Home</button></div><div class='header'><div style='font-size:54px'>📚</div><h1>Library</h1><p>Choose your next stop!</p><div class='shelf'></div></div><div class='menu' style='grid-template-columns:repeat(auto-fit,minmax(220px,1fr));max-width:980px'>
+<button class='card' onclick='startBookParts()'><span class='icon'>📕</span><span class='label'>Book Parts</span></button>
+<button class='card' onclick='startInsideBook()'><span class='icon'>📖</span><span class='label'>Inside a Book</span></button>
+<button class='card' onclick='startBookCare()'><span class='icon'>❤️📚</span><span class='label'>Take Care of Books</span></button>
+<button class='card' onclick='startCoverDetective()'><span class='icon'>🔎📚</span><span class='label'>Cover Detective</span></button>
+</div></section>
+<section id='coverDetective' class='screen'>
+<div class='gameTop'><button class='small' onclick='openLibrary()'>⬅ Library</button><button class='small' onclick='newDetectiveRound()'>↻ New Clue</button></div>
+<div class='partPromptRow'><button class='speaker' onclick='speakDetectivePrompt()'>🔊</button><div id='detectivePrompt' class='prompt'>Find the title.</div></div>
+<div id='detectiveSingle' class='detectiveStage' style='display:none'></div>
+<div id='detectivePair' class='detectivePair' style='display:none'></div>
+<div id='detectiveMessage' class='message'></div>
+</section>
+<section id='bookParts' class='screen'>
+<div class='gameTop'>
+  <button class='small' onclick='openLibrary()'>⬅ Library</button>
+  <button class='small' onclick='newBookPartRound()'>↻ New Part</button>
+</div>
+<div class='libraryLane' aria-label='Book Parts progress'><span class='laneStart'>🏁 START</span><div class='laneTrack'><span id='partLaneCar' class='laneCar'>🚗</span></div><span class='laneStop'>🪧 NEXT STOP</span><div id='partLaneCount' class='laneCount'>Library Lane</div></div>
+<div class='partPromptRow'>
+  <button class='speaker' onclick='speakPartPrompt()'>🔊</button>
+  <div id='partPrompt' class='prompt'>Find the front cover.</div>
+</div>
+<div class='bookStage'>
+  <img id='partsBookImage' class='partsBookImg' src='assets/story_eb4679922cfa9736.jpg' alt='Library book showing the back cover, spine, and front cover'>
+  <button class='partZone backZone' aria-label='Back cover' onclick="chooseBookPart(this,'back cover')"></button>
+  <button class='partZone frontZone' aria-label='Front cover' onclick="chooseBookPart(this,'front cover')"></button>
+  <button class='partZone spineZone' aria-label='Spine' onclick="chooseBookPart(this,'spine')"></button>
+  <button class='partZone barcodeZone detailZone' aria-label='Barcode' onclick="chooseBookPart(this,'barcode')"></button>
+  <button class='partZone callZone detailZone' aria-label='Call number' onclick="chooseBookPart(this,'call number')"></button>
+</div>
+<div id='partMessage' class='message'></div>
+</section>
+<section id='insideBook' class='screen'>
+<div class='gameTop'>
+  <button class='small' onclick='openLibrary()'>⬅ Library</button>
+  <button class='small' onclick='newInsideRound()'>↻ New Part</button>
+</div>
+<div class='libraryLane' aria-label='Inside a Book progress'><span class='laneStart'>🏁 START</span><div class='laneTrack'><span id='insideLaneCar' class='laneCar'>🚗</span></div><span class='laneStop'>🪧 NEXT STOP</span><div id='insideLaneCount' class='laneCount'>Library Lane</div></div>
+<div class='partPromptRow'>
+  <button class='speaker' onclick='speakInsidePrompt()'>🔊</button>
+  <div id='insidePrompt' class='prompt'>Find the illustration.</div>
+</div>
+<div class='insideStage'>
+  <img id='insideBookImage' class='insideBookImg' src='assets/story_a1e2d8cf057a9b47.jpg' alt='Open book with story words, an illustration, and a page number'>
+  <button class='insideZone wordsZone' aria-label='Words' onclick="chooseInside(this,'words')"></button>
+  <button class='insideZone pictureZone' aria-label='Illustration' onclick="chooseInside(this,'illustration')"></button>
+  <button class='insideZone pageNumZone' aria-label='Page number' onclick="chooseInside(this,'page number')"></button>
+  <button class='insideZone pageNumZone2' aria-label='Page number' onclick="chooseInside(this,'page number')"></button>
+</div>
+<div id='insideMessage' class='message'></div>
+</section>
+<section id='bookCare' class='screen'><div class='gameTop'><button class='small' onclick='openLibrary()'>⬅ Library</button><button class='small' onclick='newCareRound()'>↻ New Picture</button></div><div id='carePrompt' class='prompt'>Which one takes care of the book?</div><button class='speaker' onclick='speakCarePrompt()'>🔊</button><div id='careScenes' class='scenes'></div><div id='careMessage' class='message'></div></section>
+
+<div id='stars' class='stars'>⭐ ✨ ⭐</div>
+<script>
+let locked=false;
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function say(t){if('speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.rate=.78;u.pitch=1.05;speechSynthesis.speak(u)}}
+function celebrate(){let s=document.getElementById('stars');s.classList.add('show');setTimeout(()=>s.classList.remove('show'),700)}
+function wrong(btn,msgId,text='Try again!'){btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');document.getElementById(msgId).textContent=text;say(text)}
+function goHome(){speechSynthesis?.cancel();show('home')}
+function soon(name){document.getElementById('homeMsg').textContent=name+' games are coming soon!';say(name+' games are coming soon.')}
+
+const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');let target='A',letterMode='capital',matchDirection='toLower';
+function openLetters(){speechSynthesis?.cancel();show('lettersMenu')}
+function startLetterGame(mode){letterMode=mode;show('letters');newRound()}
+function pickDistinct(n,include){let a=[include];while(a.length<n){let x=letters[Math.floor(Math.random()*letters.length)];if(!a.includes(x))a.push(x)}return a.sort(()=>Math.random()-.5)}
+function newRound(){locked=false;target=letters[Math.floor(Math.random()*letters.length)];document.getElementById('message').textContent='';let display=document.getElementById('matchDisplay');display.style.display='none';let answerTarget=target,promptText='',spoken='';if(letterMode==='capital'){promptText='Find capital '+target;spoken=promptText}else if(letterMode==='lowercase'){answerTarget=target.toLowerCase();promptText='Find lowercase '+answerTarget;spoken=promptText}else{matchDirection=Math.random()<.5?'toLower':'toUpper';display.style.display='block';if(matchDirection==='toLower'){display.textContent=target;answerTarget=target.toLowerCase();promptText='Find the lowercase '+answerTarget}else{display.textContent=target.toLowerCase();answerTarget=target;promptText='Find the capital '+target}spoken=promptText}document.getElementById('prompt').textContent=promptText;window.currentLetterSpoken=spoken;window.currentLetterAnswer=answerTarget;let base=pickDistinct(3,target);let opts=base.map(x=>(letterMode==='lowercase'||(letterMode==='match'&&matchDirection==='toLower'))?x.toLowerCase():x);let box=document.getElementById('answers');box.innerHTML='';opts.forEach(l=>{let b=document.createElement('button');b.className='answer';b.textContent=l;b.onclick=()=>chooseLetter(b,l);box.appendChild(b)});setTimeout(speakPrompt,250)}
+function speakPrompt(){say(window.currentLetterSpoken||('Find capital '+target))}
+function chooseLetter(btn,l){if(locked)return;if(l===window.currentLetterAnswer){locked=true;btn.classList.add('right');document.getElementById('message').textContent='You got it!';say('You got it! '+l);celebrate();setTimeout(newRound,1400)}else wrong(btn,'message')}
+
+const numbers=[0,1,2,3,4,5,6,7,8,9,10];let numberTarget=0,countTarget=1;const countIcons=['🍎','⭐','🐶','⚽','📚','🐸'];
+function openNumbers(){speechSynthesis?.cancel();show('numbersMenu')}
+function pickNumbers(n,include){let a=[include];while(a.length<n){let x=numbers[Math.floor(Math.random()*numbers.length)];if(!a.includes(x))a.push(x)}return a.sort(()=>Math.random()-.5)}
+function startFindNumber(){show('findNumber');newNumberRound()}
+function newNumberRound(){locked=false;numberTarget=numbers[Math.floor(Math.random()*numbers.length)];document.getElementById('numberPrompt').textContent='Find the number '+numberTarget;document.getElementById('numberMessage').textContent='';let box=document.getElementById('numberAnswers');box.innerHTML='';pickNumbers(3,numberTarget).forEach(v=>{let b=document.createElement('button');b.className='answer';b.textContent=v;b.onclick=()=>chooseNumber(b,v);box.appendChild(b)});setTimeout(speakNumberPrompt,250)}
+function speakNumberPrompt(){say('Find the number '+numberTarget)}
+function chooseNumber(btn,v){if(locked)return;if(v===numberTarget){locked=true;btn.classList.add('right');document.getElementById('numberMessage').textContent='You got it!';say('You got it! '+numberTarget);celebrate();setTimeout(newNumberRound,1400)}else wrong(btn,'numberMessage')}
+function startHowMany(){show('howMany');newCountRound()}
+function newCountRound(){locked=false;countTarget=1+Math.floor(Math.random()*10);let icon=countIcons[Math.floor(Math.random()*countIcons.length)];document.getElementById('countMessage').textContent='';document.getElementById('objects').textContent=Array(countTarget).fill(icon).join(' ');let box=document.getElementById('countAnswers');box.innerHTML='';pickNumbers(3,countTarget).forEach(v=>{let b=document.createElement('button');b.className='answer';b.textContent=v;b.onclick=()=>chooseCount(b,v);box.appendChild(b)});setTimeout(speakCountPrompt,250)}
+function speakCountPrompt(){say('How many? Count the pictures.')}
+function chooseCount(btn,v){if(locked)return;if(v===countTarget){locked=true;btn.classList.add('right');document.getElementById('countMessage').textContent='You got it!';say('You got it! '+countTarget);celebrate();setTimeout(newCountRound,1400)}else wrong(btn,'countMessage')}
+
+
+
+let matchMode='same',matchAnswer='',matchSpoken='';
+const sameIcons=['🐶','🐱','🐸','🚗','⭐','🍎','⚽','🦋','🐟','🌻'];
+const pairRounds=[
+ ['🧦','👟',['🍎','📚']],['🪥','🦷',['⚽','🐱']],['✏️','📄',['🍕','🚗']],['📕','🔖',['🧦','🍎']],['🍴','🍽️',['📚','⚽']],['🔑','🚪',['🐸','✏️']]
+];
+const librarySigns=[
+ ['Everybody',"<div class='signFace signBlue'>Everybody</div>"],
+ ['Fiction',"<div class='signFace signGreen'>Fiction</div>"],
+ ['Nonfiction',"<div class='signFace signYellow'>Nonfiction</div>"],
+ ['Biography',"<div class='signFace signBio'>Biography</div>"]
+];
+function openMatching(){speechSynthesis?.cancel();show('matchingMenu')}
+function startMatchGame(mode){matchMode=mode;show('matchingGame');newMatchRound()}
+function addMatchBtn(box,html,val){let b=document.createElement('button');b.className='matchBtn';b.innerHTML=html;b.onclick=()=>chooseMatch(b,val);box.appendChild(b)}
+function bookHTML(color,pic,mark){return "<div class='bookTile' style='background:"+color+"'>"+pic+"<div class='lines'>"+mark+"</div></div>"}
+function newMatchRound(){locked=false;let model=document.getElementById('matchModel'),box=document.getElementById('matchAnswers');box.innerHTML='';model.innerHTML='';model.style.display='flex';document.getElementById('matchMessage').textContent='';
+ if(matchMode==='same'){let t=sameIcons[Math.floor(Math.random()*sameIcons.length)];matchAnswer=t;matchSpoken='Find the same picture.';document.getElementById('matchPrompt').textContent='Find the same picture.';model.textContent=t;let choices=[t];while(choices.length<3){let x=sameIcons[Math.floor(Math.random()*sameIcons.length)];if(!choices.includes(x))choices.push(x)}choices.sort(()=>Math.random()-.5).forEach(x=>addMatchBtn(box,x,x))}
+ else if(matchMode==='together'){let r=pairRounds[Math.floor(Math.random()*pairRounds.length)];matchAnswer=r[1];matchSpoken='What goes with this?';document.getElementById('matchPrompt').textContent='What goes together?';model.textContent=r[0];[r[1],...r[2]].sort(()=>Math.random()-.5).forEach(x=>addMatchBtn(box,x,x))}
+ else if(matchMode==='book'){let colors=['#d32f2f','#1976d2','#2e7d32','#7b1fa2'],pics=['🐶','🐱','⭐','🚗','🐸'];let c=colors[Math.floor(Math.random()*colors.length)],p=pics[Math.floor(Math.random()*pics.length)],mark='▰ ▰';matchAnswer=c+p;matchSpoken='Find the matching book.';document.getElementById('matchPrompt').textContent='Match the book.';model.innerHTML=bookHTML(c,p,mark);let choices=[[c,p]];while(choices.length<3){let cc=Math.random()<.55?c:colors[Math.floor(Math.random()*colors.length)],pp=pics[Math.floor(Math.random()*pics.length)];if(!choices.some(x=>x[0]===cc&&x[1]===pp))choices.push([cc,pp])}choices.sort(()=>Math.random()-.5).forEach(x=>addMatchBtn(box,bookHTML(x[0],x[1],mark),x[0]+x[1]))}
+ else if(matchMode==='different'){let common=sameIcons[Math.floor(Math.random()*sameIcons.length)],odd=common;while(odd===common)odd=sameIcons[Math.floor(Math.random()*sameIcons.length)];matchAnswer=odd;matchSpoken='Find the one that is different.';document.getElementById('matchPrompt').textContent="Find what's different.";model.innerHTML="<span style='font-size:32px;font-weight:bold'>Two are the same. One is different.</span>";[common,common,odd].sort(()=>Math.random()-.5).forEach(x=>addMatchBtn(box,x,x))}
+ else {let t=librarySigns[Math.floor(Math.random()*librarySigns.length)];matchAnswer=t[0];matchSpoken='Find the matching '+t[0]+' sign.';document.getElementById('matchPrompt').textContent='Match the library sign.';model.innerHTML=t[1];let choices=[t,...librarySigns.filter(x=>x!==t).sort(()=>Math.random()-.5).slice(0,2)].sort(()=>Math.random()-.5);choices.forEach(x=>addMatchBtn(box,x[1],x[0]))}
+ setTimeout(speakMatchPrompt,250)}
+function speakMatchPrompt(){say(matchSpoken)}
+function chooseMatch(btn,val){if(locked)return;if(val===matchAnswer){locked=true;btn.classList.add('right');document.getElementById('matchMessage').textContent='You got it!';say('You got it!');celebrate();setTimeout(newMatchRound,1600)}else wrong(btn,'matchMessage')}
+const colorSet=[['red','#d32f2f'],['blue','#1976d2'],['yellow','#f4c430'],['green','#2e7d32'],['orange','#ef6c00'],['purple','#7b1fa2']];
+const shapeSet=['circle','square','triangle','rectangle','diamond'];let shapeMode='color',shapeAnswer='',shapeSpoken='';
+function openShapes(){speechSynthesis?.cancel();show('shapesMenu')}
+function startShapeGame(mode){shapeMode=mode;show('shapeGame');newShapeRound()}
+function swatchHTML(shape,color,label=''){let inner='';if(shape==='triangle')inner="<div class='triangle' style='color:"+color+"'></div>";else inner="<div class='swatch "+shape+"' style='background:"+color+"'></div>";return inner+(label?"<div class='shapeName'>"+label+"</div>":"")}
+function randomThree(arr,target){let o=[target];while(o.length<3){let x=arr[Math.floor(Math.random()*arr.length)];if(!o.includes(x))o.push(x)}return o.sort(()=>Math.random()-.5)}
+function newShapeRound(){locked=false;document.getElementById('shapeMessage').textContent='';document.getElementById('shapeModel').style.display='none';let box=document.getElementById('shapeAnswers');box.innerHTML='';
+ if(shapeMode==='color'){let t=colorSet[Math.floor(Math.random()*colorSet.length)];shapeAnswer=t[0];shapeSpoken='Find '+t[0]+'.';document.getElementById('shapePrompt').textContent=shapeSpoken;randomThree(colorSet.map(x=>x[0]),t[0]).forEach(name=>{let c=colorSet.find(x=>x[0]===name)[1];addShapeButton(box,swatchHTML('circle',c,name),name)})}
+ else if(shapeMode==='shape'){let t=shapeSet[Math.floor(Math.random()*shapeSet.length)];shapeAnswer=t;shapeSpoken='Find the '+t+'.';document.getElementById('shapePrompt').textContent=shapeSpoken;randomThree(shapeSet,t).forEach(name=>addShapeButton(box,swatchHTML(name,'#1976d2',name),name))}
+ else if(shapeMode==='match'){let sh=shapeSet[Math.floor(Math.random()*shapeSet.length)],co=colorSet[Math.floor(Math.random()*colorSet.length)];shapeAnswer=co[0]+' '+sh;shapeSpoken='Find the matching '+shapeAnswer+'.';document.getElementById('shapePrompt').textContent='Find the match.';let model=document.getElementById('shapeModel');model.style.display='flex';model.style.justifyContent='center';model.innerHTML=swatchHTML(sh,co[1]);let combos=[shapeAnswer];while(combos.length<3){let ss=shapeSet[Math.floor(Math.random()*shapeSet.length)],cc=colorSet[Math.floor(Math.random()*colorSet.length)],v=cc[0]+' '+ss;if(!combos.includes(v))combos.push(v)}combos.sort(()=>Math.random()-.5).forEach(v=>{let [cn,sn]=v.split(' '),hex=colorSet.find(x=>x[0]===cn)[1];addShapeButton(box,swatchHTML(sn,hex),v)})}
+ else {newSignRound(box)}
+ setTimeout(speakShapePrompt,250)}
+function addShapeButton(box,html,val){let b=document.createElement('button');b.className='shapeBtn';b.innerHTML=html;b.onclick=()=>chooseShape(b,val);box.appendChild(b)}
+function newSignRound(box){let library=Math.random()<.45;if(library){let signs=[['Everybody','blue',"<div class='signFace signBlue'>Everybody</div>"],['Fiction','green',"<div class='signFace signGreen'>Fiction</div>"],['Nonfiction','yellow',"<div class='signFace signYellow'>Nonfiction</div>"],['Biography','white and red',"<div class='signFace signBio'>Biography</div>"]];let t=signs[Math.floor(Math.random()*signs.length)];shapeAnswer=t[0];shapeSpoken='Find the '+t[0]+' sign.';document.getElementById('shapePrompt').textContent='Find the '+t[0]+' sign.';let choices=[t,...signs.filter(x=>x!==t).sort(()=>Math.random()-.5).slice(0,2)].sort(()=>Math.random()-.5);choices.forEach(x=>addShapeButton(box,x[2],x[0]))}else{let signs=[['red sign',"<div class='signFace signStop'>STOP</div>"],['yellow diamond',"<div class='signFace signWarning'><span>!</span></div>"],['green rectangle',"<div class='signFace signGreen'>GO</div>"],['blue rectangle',"<div class='signFace signBlue'>INFO</div>"]];let t=signs[Math.floor(Math.random()*signs.length)];shapeAnswer=t[0];shapeSpoken='Find the '+t[0]+'.';document.getElementById('shapePrompt').textContent=shapeSpoken;let choices=[t,...signs.filter(x=>x!==t).sort(()=>Math.random()-.5).slice(0,2)].sort(()=>Math.random()-.5);choices.forEach(x=>addShapeButton(box,x[1],x[0]))}}
+function speakShapePrompt(){say(shapeSpoken)}
+function chooseShape(btn,val){if(locked)return;if(val===shapeAnswer){locked=true;btn.classList.add('right');document.getElementById('shapeMessage').textContent='You got it!';say('You got it!');celebrate();setTimeout(newShapeRound,1600)}else wrong(btn,'shapeMessage')}
+function openLibrary(){speechSynthesis?.cancel();show('libraryMenu')}
+const bookParts=['front cover','back cover','spine','barcode','call number'];
+const bookPartBooks=[
+  {name:'Cougar Goes to the Library',src:'assets/story_eb4679922cfa9736.jpg',zones:{back:[4.8,10,40.7,83],front:[53.8,10,41.6,83],spine:[44.7,10,9.6,84],barcode:[29.8,72,13.8,12.5],call:[46,69,6.5,14.5]}},
+  {name:'Curious Creatures of the Ocean',src:'assets/story_a7ff4adf5c744ef2.png',zones:{front:[1.3,5,43.6,87],spine:[46.4,5,7.1,87],back:[55.7,5,43.1,87],barcode:[58.0,76,16.5,15],call:[47.0,77,5.8,14]}},
+  {name:'Exploring Space',src:'assets/story_06f6d58840b0c285.png',zones:{back:[1.3,4,43.8,88],spine:[46.5,4,7.1,88],front:[55.8,4,43.0,88],barcode:[23.0,74,20.5,16],call:[47.0,75,5.8,15]}}
+];
+let partBookIndex=0;
+function setZoneRect(selector,r){let e=document.querySelector(selector);e.style.left=r[0]+'%';e.style.top=r[1]+'%';e.style.width=r[2]+'%';e.style.height=r[3]+'%'}
+function showPartBook(i){partBookIndex=i;let b=bookPartBooks[i];let img=document.getElementById('partsBookImage');img.src=b.src;img.alt=b.name+' library book showing covers, spine, barcode, and call number';setZoneRect('.backZone',b.zones.back);setZoneRect('.frontZone',b.zones.front);setZoneRect('.spineZone',b.zones.spine);setZoneRect('.barcodeZone',b.zones.barcode);setZoneRect('.callZone',b.zones.call)}
+
+let partTarget=null;
+let partCourse=[];
+let partCoursePos=0;
+let partCounts={};
+let partCourseComplete=false;
+function partKey(bookIndex,part){return bookIndex+'|'+part}
+function buildPartCourse(){
+  partCourse=[]; partCounts={}; partCoursePos=0;
+  for(let pass=0;pass<2;pass++){
+    let block=[];
+    for(let b=0;b<bookPartBooks.length;b++)for(const part of bookParts)block.push({book:b,part:part});
+    for(let i=block.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[block[i],block[j]]=[block[j],block[i]]}
+    if(partCourse.length && block.length && partCourse[partCourse.length-1].book===block[0].book && partCourse[partCourse.length-1].part===block[0].part){
+      const swap=block.findIndex((x,i)=>i>0 && (x.book!==block[0].book || x.part!==block[0].part));
+      if(swap>0)[block[0],block[swap]]=[block[swap],block[0]];
+    }
+    partCourse.push(...block);
+  }
+}
+function updatePartLane(){
+  const total=bookPartBooks.length*bookParts.length*2;
+  const done=Object.values(partCounts).reduce((sum,n)=>sum+Math.min(2,n),0);
+  const pct=Math.min(100,(done/total)*100);
+  const car=document.getElementById('partLaneCar'); if(car)car.style.left=pct+'%';
+  const count=document.getElementById('partLaneCount');
+  if(count)count.textContent=partCourseComplete?'Book Parts complete! Next stop: Inside a Book!':done+' of '+total+' correct • each part twice on every book';
+}
+function finishBookParts(){
+  partCourseComplete=true; updatePartLane(); locked=true;
+  document.getElementById('partMessage').textContent='🎉 Book Parts complete! Driving to the next stop…';
+  say('Great job! Book Parts complete. Next stop, Inside a Book!'); celebrate();
+  setTimeout(startInsideBook,2400);
+}
+function startBookParts(){
+  show('bookParts');
+  partCourseComplete=false; buildPartCourse(); updatePartLane();
+  newBookPartRound()
+}
+function newBookPartRound(){
+  locked=false;
+  if(partCoursePos>=partCourse.length){finishBookParts();return}
+  const round=partCourse[partCoursePos];
+  partTarget=round.part;
+  showPartBook(round.book);
+  document.getElementById('partPrompt').textContent='Find the '+partTarget+'.';
+  document.getElementById('partMessage').textContent='';
+  document.querySelectorAll('.partZone').forEach(b=>b.classList.remove('right','wrong'));
+  setTimeout(speakPartPrompt,250)
+}
+function speakPartPrompt(){say('Find the '+partTarget)}
+function chooseBookPart(btn,name){
+  if(locked)return;
+  if(name===partTarget){
+    locked=true;
+    btn.classList.add('right');
+    document.getElementById('partMessage').textContent='You got it!';
+    say('Yes! That is the '+name+'.');
+    const key=partKey(partBookIndex,name);
+    partCounts[key]=(partCounts[key]||0)+1;
+    partCoursePos++;
+    updatePartLane();
+    celebrate();
+    if(partCoursePos>=partCourse.length){setTimeout(finishBookParts,850)}else{setTimeout(newBookPartRound,1700)}
+  }else{
+    btn.classList.remove('wrong');
+    void btn.offsetWidth;
+    btn.classList.add('wrong');
+    document.getElementById('partMessage').textContent='Try again.';
+    say('Try again.')
+  }
+}
+const insideParts=['illustration','words','page number'];
+const insideBooks=[
+  {name:'Cougar storybook',src:'assets/story_a1e2d8cf057a9b47.jpg',zones:{words:[7,18,39,59],illustration:[51,5,44,87],pages:[[4.0,80,13,17],[83,80,13,17]]}},
+  {name:'Sea Turtles',src:'assets/story_497528bb812cd82e.png',zones:{words:[4,8,44,78],illustration:[50,4,47,90],pages:[[3.0,84,11,14],[86,84,11,14]]}},
+  {name:'A Cat in the Library',src:'assets/story_44ea005837f96533.png',zones:{illustration:[3.5,4,46.5,90],words:[53,8,43,78],pages:[[3.0,84,11,14],[86,84,11,14]]}}
+];
+let insideBookIndex=0;
+function sizeInsideStage(){
+  const stage=document.querySelector('.insideStage');
+  const img=document.getElementById('insideBookImage');
+  if(!stage||!img||!img.naturalWidth||!img.naturalHeight)return;
+  const ratio=img.naturalWidth/img.naturalHeight;
+  const vhLimit=window.innerWidth<=650?0.64:0.68;
+  const maxByHeight=window.innerHeight*vhLimit*ratio;
+  const maxByViewport=window.innerWidth*(window.innerWidth<=650?0.98:0.94);
+  stage.style.width=Math.min(1050,maxByHeight,maxByViewport)+'px';
+}
+function showInsideBook(i){
+  insideBookIndex=i;
+  let b=insideBooks[i];
+  let img=document.getElementById('insideBookImage');
+  img.onload=sizeInsideStage;
+  img.src=b.src;
+  img.alt=b.name+' open book with words, an illustration, and page numbers';
+  if(img.complete)sizeInsideStage();
+  setZoneRect('.wordsZone',b.zones.words);
+  setZoneRect('.pictureZone',b.zones.illustration);
+  setZoneRect('.pageNumZone',b.zones.pages[0]);
+  setZoneRect('.pageNumZone2',b.zones.pages[1]);
+}
+window.addEventListener('resize',sizeInsideStage);
+
+let insideTarget=null;
+let insideCourse=[];
+let insideCoursePos=0;
+let insideCounts={};
+let insideCourseComplete=false;
+function insideKey(bookIndex,part){return bookIndex+'|'+part}
+function buildInsideCourse(){
+  insideCourse=[]; insideCounts={}; insideCoursePos=0;
+  let remaining=[];
+  // Two required correct identifications for every skill on every spread = 18 rounds.
+  for(let pass=0;pass<2;pass++){
+    for(let b=0;b<insideBooks.length;b++)for(const part of insideParts)remaining.push({book:b,part:part});
+  }
+  // Build the course one round at a time. Never repeat the same skill back-to-back
+  // while another unfinished skill is available; also prefer a different spread.
+  while(remaining.length){
+    const prev=insideCourse.length?insideCourse[insideCourse.length-1]:null;
+    let candidates=remaining.map((x,i)=>({x,i}));
+    if(prev){
+      const differentPart=candidates.filter(c=>c.x.part!==prev.part);
+      if(differentPart.length)candidates=differentPart;
+      const differentBook=candidates.filter(c=>c.x.book!==prev.book);
+      if(differentBook.length)candidates=differentBook;
+    }
+    const pick=candidates[Math.floor(Math.random()*candidates.length)];
+    insideCourse.push(pick.x);
+    remaining.splice(pick.i,1);
+  }
+}
+function updateInsideLane(){
+  const total=insideBooks.length*insideParts.length*2;
+  const done=Object.values(insideCounts).reduce((sum,n)=>sum+Math.min(2,n),0);
+  const pct=Math.min(100,(done/total)*100);
+  const car=document.getElementById('insideLaneCar'); if(car)car.style.left=pct+'%';
+  const count=document.getElementById('insideLaneCount');
+  if(count)count.textContent=insideCourseComplete?'Inside a Book complete! Next stop: Take Care of Books!':done+' of '+total+' correct • each part twice on every book';
+}
+function finishInsideBook(){
+  insideCourseComplete=true; updateInsideLane(); locked=true;
+  document.getElementById('insideMessage').textContent='🎉 Inside a Book complete! Driving to the next stop…';
+  say('Great job! Inside a Book complete. Next stop, Take Care of Books!'); celebrate();
+  setTimeout(startBookCare,2400);
+}
+function startInsideBook(){
+  show('insideBook');
+  insideCourseComplete=false; buildInsideCourse(); updateInsideLane();
+  newInsideRound();
+}
+function newInsideRound(){
+  locked=false;
+  if(insideCoursePos>=insideCourse.length){finishInsideBook();return}
+  const round=insideCourse[insideCoursePos];
+  insideTarget=round.part;
+  showInsideBook(round.book);
+  document.getElementById('insidePrompt').textContent='Find the '+insideTarget+'.';
+  document.getElementById('insideMessage').textContent='';
+  document.querySelectorAll('.insideZone').forEach(b=>b.classList.remove('right','wrong'));
+  setTimeout(speakInsidePrompt,250)
+}
+function speakInsidePrompt(){say('Find the '+insideTarget)}
+function chooseInside(btn,name){
+  if(locked)return;
+  if(name===insideTarget){
+    locked=true;
+    btn.classList.add('right');
+    document.getElementById('insideMessage').textContent='You got it!';
+    say(name==='words'?'Yes! Those are the words.':name==='illustration'?'Yes! That is the illustration.':'Yes! That is the page number.');
+    const key=insideKey(insideBookIndex,insideTarget);
+    insideCounts[key]=Math.min(2,(insideCounts[key]||0)+1);
+    insideCoursePos++;
+    updateInsideLane();
+    celebrate();
+    if(insideCoursePos>=insideCourse.length){setTimeout(finishInsideBook,850)}else{setTimeout(newInsideRound,1700)}
+  }else{
+    btn.classList.remove('wrong');
+    void btn.offsetWidth;
+    btn.classList.add('wrong');
+    document.getElementById('insideMessage').textContent='Try again.';
+    say('Try again.')
+  }
+}
+
+function startBookCare(){show('bookCare');careBag=[];careLastIndex=-1;newCareRound()}
+function newCareRound(){
+  locked=false;
+  if(careBag.length===0)refillCareBag();
+  const idx=careBag.shift();
+  careLastIndex=idx;
+  careRound=careRounds[idx];
+  document.getElementById('careMessage').textContent='';
+  const safeFirst=Math.random()<0.5;
+  const safeChoice={safe:true,pic:careRound.safePic};
+  const unsafeChoice={safe:false,pic:careRound.unsafePic};
+  const choices=safeFirst?[safeChoice,unsafeChoice]:[unsafeChoice,safeChoice];
+  let box=document.getElementById('careScenes');
+  box.innerHTML='';
+  choices.forEach(c=>{
+    let b=document.createElement('button');
+    b.className='scene';
+    b.innerHTML=c.pic;
+    b.onclick=()=>chooseCare(b,c.safe);
+    box.appendChild(b);
+  });
+  setTimeout(speakCarePrompt,250)
+}
+function speakCarePrompt(){say('Which one takes care of the book?')}
+function chooseCare(btn,isSafe){if(locked)return;if(isSafe){locked=true;btn.classList.add('right');document.getElementById('careMessage').textContent='Yes! That takes care of our books!';say('Yes! That takes care of our books!');celebrate();setTimeout(newCareRound,1900)}else{btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');document.getElementById('careMessage').textContent=careRound.teach;say('Oops! '+careRound.teach+' Try again.')}}
+
+// COVER DETECTIVE — v24
+const detectiveBooks={
+  everybody:{name:'Good Night, Little One',kind:'Everybody',img:`assets/story_a5eb1e3f71e30f84.png`,promptCreator:'illustrator',zones:{
+    title:[56,12,37,29], author:[56.5,74.5,18,13], illustrator:[78.5,74.5,18,13], spine:[46.2,8,7.2,84], barcode:[15,74,20,13], callnumber:[44.8,72.0,10.0,19.0]
+  }},
+  nonfiction:{name:'Zebras Are Amazing!',kind:'nonfiction',img:`assets/story_6b6ce1fd8ebbd902.png`,promptCreator:'photographer',zones:{
+    title:[58,12,36,27], author:[79.0,74.5,18,13], photographer:[54.5,74.5,19,13], spine:[46.2,8,7.2,84], barcode:[18,76,18,11], callnumber:[44.5,71.0,10.5,20.0]
+  }}
+};
+const detectiveClueTemplate=[
+ {type:'single',target:'title'},
+ {type:'single',target:'author'},
+ {type:'single',target:'creator'},
+ {type:'single',target:'spine'},
+ {type:'single',target:'barcode'},
+ {type:'single',target:'callnumber'},
+ {type:'classify',target:'everybody'},
+ {type:'classify',target:'nonfiction'}
+];
+let detectiveRound=null,detectiveLocked=false,detectiveBag=[],detectiveAdvanceTimer=null;
+function scheduleDetectiveAdvance(){if(detectiveAdvanceTimer)window.clearTimeout(detectiveAdvanceTimer);detectiveAdvanceTimer=window.setTimeout(function(){detectiveAdvanceTimer=null;newDetectiveRound();},800)}
+function shuffleDetective(items){
+ const a=items.slice();
+ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+ return a;
+}
+function refillDetectiveBag(){detectiveBag=shuffleDetective(detectiveClueTemplate);}
+function startCoverDetective(){show('coverDetective');detectiveBag=[];newDetectiveRound()}
+function speakDetectivePrompt(){const el=document.getElementById('detectivePrompt');say(el?el.textContent:'')}
+function newDetectiveRound(){
+ if(detectiveAdvanceTimer){window.clearTimeout(detectiveAdvanceTimer);detectiveAdvanceTimer=null;}
+ detectiveLocked=false; document.getElementById('detectiveMessage').textContent='';
+ if(!detectiveBag.length)refillDetectiveBag();
+ const clue=detectiveBag.shift();
+ if(clue.type==='classify')renderDetectiveClassify(clue.target); else renderDetectiveSingle(clue.target);
+ setTimeout(speakDetectivePrompt,180);
+}
+function renderDetectiveSingle(requestedTarget){
+ const bookKey=Math.random()<.5?'everybody':'nonfiction', b=detectiveBooks[bookKey];
+ let target=requestedTarget,prompt='';
+ if(target==='creator')target=b.promptCreator;
+ const prompts={title:'Find the title.',author:'Find the author.',illustrator:'Find the illustrator.',photographer:'Find the photographer.',spine:'Find the spine.',barcode:'Find the barcode.',callnumber:'Find the call number.'};
+ prompt=prompts[target];
+ detectiveRound={mode:'single',bookKey,target};
+ document.getElementById('detectivePrompt').textContent=prompt;
+ const single=document.getElementById('detectiveSingle'),pair=document.getElementById('detectivePair'); pair.style.display='none'; single.style.display='block';
+ let html=`<img class="detectiveBookImg" src="${b.img}" alt="${b.name} book cover spread">`;
+ Object.entries(b.zones).forEach(([name,v])=>{html+=`<button class="detectiveZone" aria-label="${name}" data-zone="${name}" onclick="checkDetectiveZone(this,'${name}')" style="left:${v[0]}%;top:${v[1]}%;width:${v[2]}%;height:${v[3]}%"></button>`});
+ single.innerHTML=html;
+}
+function checkDetectiveZone(btn,name){
+ if(detectiveLocked)return;
+ if(name===detectiveRound.target){
+   detectiveLocked=true;
+   btn.classList.add('right');
+   document.getElementById('detectiveMessage').textContent='You got it!';
+   say('You got it!');
+   celebrate();
+   scheduleDetectiveAdvance();
+ }else{
+   btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+   document.getElementById('detectiveMessage').textContent='Try again.';
+   say('Try again.');
+ }
+}
+function renderDetectiveClassify(target){
+ detectiveRound={mode:'classify',target};
+ document.getElementById('detectivePrompt').textContent=target==='everybody'?'Find the Everybody book.':'Find the nonfiction book.';
+ document.getElementById('detectiveSingle').style.display='none'; const pair=document.getElementById('detectivePair'); pair.style.display='grid';
+ let order=Math.random()<.5?['everybody','nonfiction']:['nonfiction','everybody'];
+ pair.innerHTML=order.map(k=>`<button class="detectiveChoice" onclick="checkDetectiveBook(this,'${k}')"><img src="${detectiveBooks[k].img}" alt="${detectiveBooks[k].name}"><div class="detectiveTag">${detectiveBooks[k].name}</div></button>`).join('');
+}
+function checkDetectiveBook(btn,key){
+ if(detectiveLocked)return;
+ if(key===detectiveRound.target){
+   detectiveLocked=true;
+   btn.classList.add('right');
+   document.getElementById('detectiveMessage').textContent='You got it!';
+   say('You got it!');
+   celebrate();
+   scheduleDetectiveAdvance();
+ }else{
+   btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+   document.getElementById('detectiveMessage').textContent='Try again.';
+   say('Try again.');
+ }
+}
+
+
+// STORIES — Phase 2
+function openStories(){show('stories')}
+function openCreepyCarrots(){show('creepyCarrotsHub')}
+function openCreepyUnderwear(){show('creepyUnderwearHub')}
+function underwearDayComing(day){alert(day+' activities are being built next!');}
+
+
+function storyDayComing(day){
+  alert(day + ' is ready for its questions! This day is coming soon.');
+}
+
+
+// CREEPY CARROTS — MONDAY
+// Concrete recognition questions only: title/cover concepts and generic rabbit/carrot visuals.
+// No book-page reproductions are used.
+const creepyMondayQuestions=[
+ {q:'Which story are we reading?',a:[['field','Creepy Carrots!',1],['bathroom','A Bathroom Story',0],['shed','A Shed Story',0]]},
+ {q:'Who is the main character?',a:[['jasper','Jasper Rabbit',1],['parents','His parents',0],['creepy_carrots','The carrots',0]],noLabels:true},
+ {q:'What does Jasper love to eat?',a:[['creepy_carrots','Carrots',1],['field','A whole field',0],['house','A house',0]],noLabels:true},
+ {q:'Where does Jasper find the carrots?',a:[['field','Crackenhopper Field',1],['house','At home',0],['shed','At a shed',0]]},
+ {q:'What does Jasper think is following him?',a:[['carrots_following','Carrots',1],['parents','His parents',0],['jasper_walking','A rabbit',0]],noLabels:true},
+ {q:'How does Jasper feel when he thinks the carrots are following him?',a:[['jasper_scared','Scared',1],['jasper_happy','Happy',0]]},
+ {q:'Which picture shows Jasper looking behind him?',a:[['jasper_looks_back','',1],['jasper_happy','',0],['jasper','',0]],noLabels:true},
+ {q:'Which picture shows the carrots Jasper is afraid of?',a:[['creepy_carrots','',1],['field','',0],['jasper','',0]],noLabels:true},
+ {q:'What is Jasper worried about?',a:[['carrots_following','The carrots are following him',1],['jasper_happy','He lost his lunch',0]]},
+ {q:'What does Jasper build to keep the carrots from following him?',a:[['wall','A wall',1],['house','A house',0],['shed','A shed',0]]}
+];
+let creepyMondayIndex=0,creepyMondayLocked=false;
+
+function startCreepyMonday(){
+  creepyMondayIndex=0;
+  show('creepyMonday');
+  renderCreepyMonday();
+}
+function renderCreepyMonday(){
+ creepyMondayLocked=false;
+ const item=creepyMondayQuestions[creepyMondayIndex];
+ document.getElementById('creepyMondayCount').textContent=(creepyMondayIndex+1)+' of 10';
+ document.getElementById('creepyMondayPrompt').textContent=item.q;
+ document.getElementById('creepyMondayMessage').textContent='';
+ const next=document.getElementById('creepyMondayNext');
+ next.textContent='NEXT ➡️';next.onclick=nextCreepyMonday;next.style.display='none';
+ const choices=item.a.slice().sort(()=>Math.random()-.5);
+ document.getElementById('creepyMondayChoices').innerHTML=choices.map(c=>
+ `<button class="storyPicChoice" onclick="checkCreepyMonday(this,${c[2]})">
+ <img src="${creepyPics[c[0]]}" alt="">
+ ${item.noLabels?'':`<span class="picLabel">${c[1]}</span>`}
+ </button>`).join('');
+}
+function checkCreepyMonday(btn,isRight){
+  if(creepyMondayLocked)return;
+  if(isRight){
+    creepyMondayLocked=true;
+    btn.classList.add('right');
+    document.getElementById('creepyMondayMessage').textContent='You got it! ⭐';
+    try{celebrate()}catch(e){}
+    document.getElementById('creepyMondayNext').style.display='inline-block';
+  }else{
+    btn.classList.remove('wrong'); void btn.offsetWidth; btn.classList.add('wrong');
+    document.getElementById('creepyMondayMessage').textContent='Try again.';
+  }
+}
+function nextCreepyMonday(){
+  if(creepyMondayIndex < creepyMondayQuestions.length-1){
+    creepyMondayIndex++;
+    renderCreepyMonday();
+  }else{
+    document.getElementById('creepyMondayPrompt').textContent='You Did It!';
+    document.getElementById('creepyMondayChoices').innerHTML=`<div style="margin:auto;text-align:center"><img src="${creepyPics.happyCarrots}" alt="Happy carrots without arms" style="max-width:390px;width:85%;border-radius:24px"><div style="font-size:46px">⭐ 🎉 ⭐</div></div>`;
+    document.getElementById('creepyMondayMessage').textContent='Great job meeting Creepy Carrots!';
+    const n=document.getElementById('creepyMondayNext');
+    n.textContent='BACK TO DAYS ➡️';
+    n.onclick=openCreepyCarrots;
+    n.style.display='inline-block';
+  }
+}
+
+const creepyPics={"jasper":"assets/story_a38fd4b4fecbc0ec.jpg","field":"assets/story_4a33e9b17967b7eb.jpg","creepy_carrots":"assets/story_b45e7d0e173c6ff2.jpg","jasper_scared":"assets/story_8fdb0a9204c2e954.jpg","jasper_happy":"assets/story_45409c4f430494c6.jpg","house":"assets/story_f234f81cc6616aa5.jpg","parents":"assets/story_e8f7aba6f09b9752.jpg","jasper_walking":"assets/story_41cb2eccc44d1bca.jpg","jasper_looks_back":"assets/story_33fe746dbe725fa2.jpg","shed":"assets/story_f431d6ba311a3eaf.jpg","bathroom":"assets/story_6d11f56e91ece817.jpg","carrots_fence":"assets/story_761c56a4a31d3579.jpg","jasper_thinks":"assets/story_f5444d9cdf6ffdf4.jpg","carrots_following":"assets/story_2b227eed7c847d03.jpg","wall":"assets/story_770ad50b3d6c31d8.jpg","moat":"assets/story_b5d28646a647d5a3.jpg","carrots_night":"assets/story_f4d8a25896641714.jpg","carrots_win":"assets/story_b2db3eed5ea7e197.jpg"};
+creepyPics.happyCarrots='assets/story_9d3dbef0c1f63c62.jpg';
+
+const creepyTuesdayQuestions=[
+ {q:'Where does Jasper get the carrots?', a:[
+   ['field','Crackenhopper Field',1],['house','At home',0],['shed','At a shed',0]]},
+ {q:'What does Jasper think is following him?', a:[
+   ['carrots_following','The carrots',1],['parents','His parents',0],['jasper_walking','Another rabbit',0]]},
+ {q:'How does Jasper feel when he thinks the carrots are following him?', a:[
+   ['jasper_scared','Scared',1],['jasper_happy','Happy',0]]},
+ {q:'Who does Jasper tell about the creepy carrots?', a:[
+   ['parents','His parents',1],['creepy_carrots','The carrots',0]]},
+ {q:'Which picture shows Jasper checking to see if the carrots are behind him?', a:[
+   ['jasper_looks_back','',1],['jasper_happy','',0],['jasper_walking','',0]], noLabels:true},
+ {q:'Which room does Jasper see creepy carrots in?', a:[
+   ['bathroom','The bathroom',1],['shed','A shed',0],['field','The carrot field',0]]},
+ {q:'What does Jasper build to keep the carrots in?', a:[
+   ['wall','A wall',1],['house','A house',0],['shed','A shed',0]]},
+ {q:'What goes around the wall?', a:[
+   ['moat','A moat',1],['bathroom','A bathroom',0],['field','A carrot field',0]]},
+ {q:'Why does Jasper build the wall and moat?', a:[
+   ['carrots_fence','To keep the carrots from getting out',1],['jasper_happy','To make a fun place to play',0]]},
+ {q:'Who is happy at the end of the story?', a:[
+   ['carrots_win','The carrots',1],['jasper_scared','Jasper',0]]}
+];
+let creepyTuesdayIndex=0,creepyTuesdayLocked=false;
+function startCreepyTuesday(){creepyTuesdayIndex=0;show('creepyTuesday');renderCreepyTuesday();}
+function renderCreepyTuesday(){
+  creepyTuesdayLocked=false;
+  const item=creepyTuesdayQuestions[creepyTuesdayIndex];
+  document.getElementById('creepyTuesdayCount').textContent=(creepyTuesdayIndex+1)+' of 10';
+  document.getElementById('creepyTuesdayPrompt').textContent=item.q;
+  document.getElementById('creepyTuesdayMessage').textContent='';
+  const n=document.getElementById('creepyTuesdayNext'); n.textContent='NEXT ➡️';n.onclick=nextCreepyTuesday;n.style.display='none';
+  const choices=item.a.slice().sort(()=>Math.random()-.5);
+  document.getElementById('creepyTuesdayChoices').innerHTML=choices.map(c=>
+   `<button class="storyPicChoice" onclick="checkCreepyTuesday(this,${c[2]})">
+      <img src="${creepyPics[c[0]]}" alt="">
+      ${item.noLabels||!c[1]?'':`<span class="picLabel">${c[1]}</span>`}
+    </button>`).join('');
+}
+function checkCreepyTuesday(btn,ok){
+ if(creepyTuesdayLocked)return;
+ if(ok){
+   creepyTuesdayLocked=true;btn.classList.add('right');
+   document.getElementById('creepyTuesdayMessage').textContent='You remembered! ⭐';
+   try{celebrate()}catch(e){}
+   document.getElementById('creepyTuesdayNext').style.display='inline-block';
+ } else {
+   btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+   document.getElementById('creepyTuesdayMessage').textContent='Think about the story and try again.';
+ }
+}
+function nextCreepyTuesday(){
+ if(creepyTuesdayIndex<9){creepyTuesdayIndex++;renderCreepyTuesday();}
+ else{
+   document.getElementById('creepyTuesdayPrompt').textContent='You Did It!';
+   document.getElementById('creepyTuesdayChoices').innerHTML=`<div style="margin:auto;text-align:center"><img src="${creepyPics.happyCarrots}" alt="Happy carrots" style="max-width:290px;width:80%;border-radius:24px"><div style="font-size:56px;margin-top:8px">⭐ 🎉 ⭐</div></div>`;
+   document.getElementById('creepyTuesdayMessage').textContent='Great job remembering Creepy Carrots!';
+   const n=document.getElementById('creepyTuesdayNext');n.textContent='BACK TO DAYS ➡️';n.onclick=openCreepyCarrots;n.style.display='inline-block';
+ }
+}
+
+
+// WEDNESDAY — choose pictures in order. No drag required on managed touch panels.
+const creepyWednesdayQuestions=[
+ {q:'Put the beginning of the story in order.',steps:[['field','Jasper visits the field'],['carrots_following','He thinks carrots follow him']]},
+ {q:'What happens first? What happens next?',steps:[['jasper_happy','Jasper enjoys carrots'],['jasper_scared','Jasper gets scared']]},
+ {q:'Put these story events in order.',steps:[['field','Jasper gets carrots'],['jasper_looks_back','Jasper looks behind him'],['jasper_scared','Jasper feels scared']]},
+ {q:'What does Jasper do first, then next?',steps:[['jasper_scared','Jasper feels afraid'],['parents','He talks to his parents']]},
+ {q:'Put Jasper’s plan in order.',steps:[['jasper_thinks','Jasper makes a plan'],['wall','He builds a wall']]},
+ {q:'Which comes first and which comes next?',steps:[['wall','The wall is built'],['moat','A moat surrounds the field']]},
+ {q:'Put the story from beginning to end.',steps:[['field','Carrot field'],['carrots_following','Creepy carrots'],['wall','Jasper builds a wall']]},
+ {q:'What happens before the carrots celebrate?',steps:[['wall','Jasper builds the wall'],['carrots_win','The carrots celebrate']]},
+ {q:'Put these three parts of the story in order.',steps:[['jasper_happy','Jasper likes carrots'],['jasper_scared','Jasper is frightened'],['wall','Jasper builds a wall']]},
+ {q:'Show the beginning, middle, and end.',steps:[['field','The field'],['jasper_looks_back','Jasper looks for carrots'],['carrots_win','The carrots are happy']]}
+];
+let creepyWednesdayIndex=0,creepyWednesdayPlaced=[],creepyWednesdaySelected=null,creepyWednesdayDone=false;
+function startCreepyWednesday(){creepyWednesdayIndex=0;show('creepyWednesday');renderCreepyWednesday();}
+function wednesdayOrder(n){return n===2?['FIRST','NEXT']:['FIRST','NEXT','LAST'];}
+function renderCreepyWednesday(){
+ creepyWednesdayDone=false;creepyWednesdaySelected=null;
+ const q=creepyWednesdayQuestions[creepyWednesdayIndex];
+ creepyWednesdayPlaced=Array(q.steps.length).fill(null);
+ document.getElementById('creepyWednesdayCount').textContent=(creepyWednesdayIndex+1)+' of 10';
+ document.getElementById('creepyWednesdayPrompt').textContent=q.q;
+ document.getElementById('creepyWednesdayMessage').textContent='';
+ document.getElementById('creepyWednesdayNext').style.display='none';
+
+ document.getElementById('creepyWednesdayReset').style.display='';
+ const order=q.steps.map((_,i)=>i);
+ for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+ // Prevent an already-sorted starting lineup from giving away the answer.
+ if(order.every((v,i)=>v===i))order.reverse();
+ window.creepyWednesdayShuffled=order;
+ paintCreepyWednesday();
+}
+function paintCreepyWednesday(){
+ const q=creepyWednesdayQuestions[creepyWednesdayIndex], labels=wednesdayOrder(q.steps.length);
+ document.getElementById('creepyWednesdaySlots').innerHTML=labels.map((label,i)=>{
+  const idx=creepyWednesdayPlaced[i];
+  return `<button class="wednesdaySlot" onclick="placeCreepyWednesday(${i})" ${creepyWednesdayDone?'disabled':''}><strong>${label}</strong>${idx===null?'<span style="font-size:35px">＋</span>':`<img src="${creepyPics[q.steps[idx][0]]}" alt="${q.steps[idx][1]}">`}</button>`;
+ }).join('');
+ document.getElementById('creepyWednesdayChoices').innerHTML=window.creepyWednesdayShuffled.map(idx=>{
+  const used=creepyWednesdayPlaced.includes(idx);
+  return `<button class="wednesdayTile ${creepyWednesdaySelected===idx?'selected':''}" onclick="selectCreepyWednesday(${idx})" ${used||creepyWednesdayDone?'disabled':''}><img src="${creepyPics[q.steps[idx][0]]}" alt="${q.steps[idx][1]}"></button>`;
+ }).join('');
+
+}
+function selectCreepyWednesday(idx){
+ if(creepyWednesdayDone)return;
+ creepyWednesdaySelected=idx;
+ const first=creepyWednesdayPlaced.indexOf(null);
+ if(first>=0){creepyWednesdayPlaced[first]=idx;creepyWednesdaySelected=null;}
+ paintCreepyWednesday();
+ if(creepyWednesdayPlaced.every(x=>x!==null))checkCreepyWednesday();
+}
+function placeCreepyWednesday(slot){
+ if(creepyWednesdayDone)return;
+ if(creepyWednesdaySelected!==null){
+  const old=creepyWednesdayPlaced.indexOf(creepyWednesdaySelected);
+  if(old>=0)creepyWednesdayPlaced[old]=null;
+  creepyWednesdayPlaced[slot]=creepyWednesdaySelected;creepyWednesdaySelected=null;
+ }else if(creepyWednesdayPlaced[slot]!==null){
+  creepyWednesdayPlaced[slot]=null;
+ }
+ paintCreepyWednesday();
+ if(creepyWednesdayPlaced.every(x=>x!==null))checkCreepyWednesday();
+}
+function resetCreepyWednesday(){if(!creepyWednesdayDone){creepyWednesdayPlaced.fill(null);creepyWednesdaySelected=null;document.getElementById('creepyWednesdayMessage').textContent='Try placing the pictures again.';paintCreepyWednesday();}}
+function checkCreepyWednesday(){
+ if(creepyWednesdayPlaced.some(x=>x===null)||creepyWednesdayDone)return;
+ if(creepyWednesdayPlaced.every((x,i)=>x===i)){
+  creepyWednesdayDone=true;
+  document.getElementById('creepyWednesdayMessage').textContent='Great story order! ⭐';
+
+  document.getElementById('creepyWednesdayReset').style.display='none';
+  document.getElementById('creepyWednesdayNext').style.display='inline-block';
+  try{celebrate()}catch(e){}
+  paintCreepyWednesday();
+ }else{
+  document.getElementById('creepyWednesdayMessage').textContent='Not quite. Let’s try the story order again!';
+  creepyWednesdayPlaced.fill(null);creepyWednesdaySelected=null;paintCreepyWednesday();
+ }
+}
+function nextCreepyWednesday(){
+ if(creepyWednesdayIndex<9){creepyWednesdayIndex++;renderCreepyWednesday();}
+ else{
+  document.getElementById('creepyWednesdayPrompt').textContent='You Did It!';
+  document.getElementById('creepyWednesdaySlots').innerHTML='';
+  document.getElementById('creepyWednesdayChoices').innerHTML=`<div style="margin:auto"><img src="${creepyPics.happyCarrots}" alt="Happy carrots" style="max-width:390px;width:85%;border-radius:24px"><div style="font-size:45px">⭐ 🎉 ⭐</div></div>`;
+  document.getElementById('creepyWednesdayMessage').textContent='Great job putting the story in order!';
+
+  document.getElementById('creepyWednesdayReset').style.display='none';
+  const next=document.getElementById('creepyWednesdayNext');
+  next.textContent='BACK TO DAYS ➡️';next.onclick=openCreepyCarrots;
+ }
+}
+
+// THURSDAY: feelings, problem, cause and effect, and the ending twist.
+const creepyThursdayQuestions=[
+ {q:'Why does Jasper look behind him?',a:[['carrots_following','He thinks carrots are following him.',1],['jasper_happy','He wants another snack.',0]]},
+ {q:'How does Jasper feel when he thinks the carrots are following him?',a:[['jasper_scared','Worried and scared',1],['jasper_happy','Happy and relaxed',0]]},
+ {q:'What is Jasper worried about?',a:[['carrots_following','The carrots might follow him.',1],['field','The field might disappear.',0]]},
+ {q:'Why does Jasper talk to his parents?',a:[['jasper_scared','He is frightened by the carrots.',1],['jasper_happy','He wants to tell a funny joke.',0]]},
+ {q:'Why does Jasper want to keep the carrots inside the field?',a:[['carrots_fence','He does not want them to follow him.',1],['jasper_happy','He wants to give them a party.',0]]},
+ {q:'Which picture shows Jasper’s plan to solve his problem?',a:[['wall','A wall to keep the carrots in',1],['house','A new house for Jasper',0]]},
+ {q:'What is the moat supposed to help do?',a:[['moat','Keep the carrots inside the field',1],['bathroom','Help Jasper wash his hands',0]]},
+ {q:'After he builds the wall, how does Jasper think he will feel?',a:[['jasper_happy','Safe',1],['jasper_scared','More frightened',0]]},
+ {q:'At the end, who is pleased that Jasper built the wall?',a:[['happyCarrots','The carrots',1],['jasper_scared','A frightened Jasper',0]]},
+ {q:'Why are the carrots happy at the end?',a:[['happyCarrots','Jasper will stop eating them.',1],['carrots_following','They can follow Jasper everywhere.',0]]}
+];
+let creepyThursdayIndex=0,creepyThursdayLocked=false;
+function startCreepyThursday(){creepyThursdayIndex=0;show('creepyThursday');renderCreepyThursday();}
+function renderCreepyThursday(){
+ creepyThursdayLocked=false;
+ const item=creepyThursdayQuestions[creepyThursdayIndex];
+ document.getElementById('creepyThursdayCount').textContent=(creepyThursdayIndex+1)+' of 10';
+ document.getElementById('creepyThursdayPrompt').textContent=item.q;
+ document.getElementById('creepyThursdayMessage').textContent='';
+ const next=document.getElementById('creepyThursdayNext');
+ next.textContent='NEXT ➡️';next.onclick=nextCreepyThursday;next.style.display='none';
+ const choices=item.a.slice();
+ if(Math.random()<.5)choices.reverse();
+ document.getElementById('creepyThursdayChoices').innerHTML=choices.map(c=>
+ `<button class="storyPicChoice" onclick="checkCreepyThursday(this,${c[2]})"><img src="${creepyPics[c[0]]}" alt=""><span class="picLabel">${c[1]}</span></button>`).join('');
+}
+function checkCreepyThursday(btn,correct){
+ if(creepyThursdayLocked)return;
+ if(correct){
+  creepyThursdayLocked=true;btn.classList.add('right');
+  document.getElementById('creepyThursdayMessage').textContent='Great thinking! ⭐';
+  try{celebrate()}catch(e){}
+  setTimeout(()=>{if(document.getElementById('creepyThursday').classList.contains('active'))nextCreepyThursday();},1400);
+ }else{
+  btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+  document.getElementById('creepyThursdayMessage').textContent='Think about Jasper’s problem and try again.';
+ }
+}
+function nextCreepyThursday(){
+ if(creepyThursdayIndex<9){creepyThursdayIndex++;renderCreepyThursday();return;}
+ document.getElementById('creepyThursdayPrompt').textContent='Thursday is complete!';
+ document.getElementById('creepyThursdayChoices').innerHTML=`<div style="margin:auto;text-align:center"><img src="${creepyPics.happyCarrots}" alt="Happy armless carrots" style="max-width:390px;width:85%;border-radius:24px"><div style="font-size:46px">⭐ 🎉 ⭐</div></div>`;
+ document.getElementById('creepyThursdayMessage').textContent='Great job understanding Creepy Carrots!';
+ const next=document.getElementById('creepyThursdayNext');next.textContent='BACK TO DAYS ➡️';next.onclick=openCreepyCarrots;next.style.display='inline-block';
+}
+
+// FRIDAY: mixed, accessible review of skills already practiced during the week.
+const creepyFridayQuestions=[
+ {q:'Who is our story about?',a:[['jasper','Jasper Rabbit',1],['parents','Jasper’s parents',0]],noLabels:true},
+ {q:'Where does Jasper find his favorite carrots?',a:[['field','Crackenhopper Field',1],['house','His house',0],['shed','A shed',0]]},
+ {q:'What does Jasper think is following him?',a:[['carrots_following','Carrots',1],['parents','His parents',0]],noLabels:true},
+ {q:'How does Jasper feel when he thinks carrots are behind him?',a:[['jasper_scared','Scared',1],['jasper_happy','Happy',0]]},
+ {q:'Which picture shows Jasper looking behind him?',a:[['jasper_looks_back','',1],['jasper','',0]],noLabels:true},
+ {q:'What does Jasper do when he is worried?',a:[['parents','He tells his parents',1],['jasper_happy','He laughs about it',0]]},
+ {q:'What does Jasper build to keep the carrots in?',a:[['wall','A wall',1],['house','A house',0]]},
+ {q:'What is around the wall?',a:[['moat','A moat',1],['bathroom','A bathroom',0]]},
+ {q:'Why does Jasper build a wall?',a:[['wall','To keep the carrots from following him',1],['house','To give the carrots a house',0]]},
+ {q:'Why are the carrots happy at the end?',a:[['happyCarrots','Jasper will stop eating them',1],['jasper_scared','Jasper is scared of the dark',0]]}
+];
+let creepyFridayIndex=0,creepyFridayLocked=false,creepyFridayTimer=null;
+function startCreepyFriday(){
+ if(creepyFridayTimer!==null){clearTimeout(creepyFridayTimer);creepyFridayTimer=null;}
+ creepyFridayIndex=0;show('creepyFriday');renderCreepyFriday();
+}
+function renderCreepyFriday(){
+ creepyFridayLocked=false;
+ const item=creepyFridayQuestions[creepyFridayIndex];
+ document.getElementById('creepyFridayCount').textContent=(creepyFridayIndex+1)+' of 10';
+ document.getElementById('creepyFridayPrompt').textContent=item.q;
+ document.getElementById('creepyFridayMessage').textContent='';
+ document.getElementById('creepyFridayBack').style.display='none';
+ const choices=item.a.slice();
+ if(Math.random()<.5)choices.reverse();
+ document.getElementById('creepyFridayChoices').innerHTML=choices.map(c=>
+ `<button class="storyPicChoice" onclick="checkCreepyFriday(this,${c[2]})">
+ <img src="${creepyPics[c[0]]}" alt="">
+ ${item.noLabels?'':`<span class="picLabel">${c[1]}</span>`}
+ </button>`).join('');
+}
+function checkCreepyFriday(btn,correct){
+ if(creepyFridayLocked)return;
+ if(!correct){
+  btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+  document.getElementById('creepyFridayMessage').textContent='Try again!';
+  return;
+ }
+ creepyFridayLocked=true;btn.classList.add('right');
+ document.getElementById('creepyFridayMessage').textContent='You know this book! ⭐';
+ try{celebrate()}catch(e){}
+ creepyFridayTimer=setTimeout(()=>{
+  creepyFridayTimer=null;
+  if(!document.getElementById('creepyFriday').classList.contains('active'))return;
+  if(creepyFridayIndex<9){creepyFridayIndex++;renderCreepyFriday();}
+  else{finishCreepyFriday();}
+ },1400);
+}
+function finishCreepyFriday(){
+ document.getElementById('creepyFridayCount').textContent='10 of 10';
+ document.getElementById('creepyFridayPrompt').textContent='You Know This Book!';
+ document.getElementById('creepyFridayChoices').innerHTML=`<div style="margin:auto;text-align:center">
+ <img src="${creepyPics.happyCarrots}" alt="Happy carrots without arms" style="max-width:390px;width:85%;border-radius:24px">
+ <div style="font-size:46px">⭐ 🎉 ⭐</div></div>`;
+ document.getElementById('creepyFridayMessage').textContent='Great job with Creepy Carrots this week!';
+ document.getElementById('creepyFridayBack').style.display='inline-block';
+}
+
+const underwearPics={"p1":"assets/story_1a95d45813b329bd.jpg","p2":"assets/story_abad643b018312ca.jpg","p3":"assets/story_147feea587b063a6.jpg","p4":"assets/story_e9772a5e86652d74.jpg","p5":"assets/story_9430b90417ef474c.jpg","p6":"assets/story_9a0d38e6d05e67dd.jpg","p7":"assets/story_32a194516c2065b4.jpg","p8":"assets/story_954d9b5d92adbf54.jpg","p9":"assets/story_fcca9586a8f32a68.jpg","p10":"assets/story_8bb1a00bf6d4af28.jpg","p11":"assets/story_6a750b51f7856977.jpg","p12":"assets/story_0117c125a63670ca.jpg","p13":"assets/story_647fc0cac5a2f64e.jpg","p14":"assets/story_17684bfb26550ae1.jpg","p15":"assets/story_4ff2ae257acc9856.jpg","p16":"assets/story_b2322c0f869b43a1.jpg","p17":"assets/story_fb2a45f2392fe145.jpg","p18":"assets/story_56d93dd2e942802f.jpg","p19":"assets/story_e4fd1c4eab6f56af.jpg","p20":"assets/story_214017f9df515a05.jpg"};
+const underwearMondayQuestions=[{"q":"Why is Jasper so excited at the beginning?","a":[["p2","He loves his new underwear",1],["p5","He is scared of it",0]]},{"q":"What changes when Jasper goes to bed?","a":[["p4","The underwear begins to glow",1],["p3","Everything stays dark and quiet",0]]},{"q":"What is Jasper's problem?","a":[["p5","The glowing underwear frightens him",1],["p2","He cannot find any underwear",0]]},{"q":"What does Jasper try to do about the underwear?","a":[["p8","Throw it away",1],["p2","Show it off proudly",0]]},{"q":"How can you tell Jasper REALLY wants to get rid of it?","a":[["p11","He buries it in a very deep hole",1],["p1","He opens the package",0]]},{"q":"What does Jasper hope will happen when he buries the underwear?","a":[["p11","It will stay far away",1],["p14","It will light his bedroom",0]]},{"q":"Does burying the underwear end Jasper's problem?","a":[["p13","No, he is still worried",1],["p15","Yes, he immediately sleeps peacefully",0]]},{"q":"What does Jasper discover the glow can do?","a":[["p14","Make his room feel less dark",1],["p8","Help him throw things away",0]]},{"q":"How does Jasper feel about the underwear near the end?","a":[["p15","Comfortable and happy",1],["p5","Frightened and hiding",0]]},{"q":"What does Jasper decide to do after he likes the glowing underwear?","a":[["p17","Go back to buy more",1],["p9","Dig another deep hole",0]]}];
+let underwearMondayIndex=0,underwearMondayLocked=false,underwearMondayTimer=null;
+function startUnderwearMonday(){
+ if(underwearMondayTimer!==null){clearTimeout(underwearMondayTimer);underwearMondayTimer=null;}
+ underwearMondayIndex=0;show('underwearMonday');renderUnderwearMonday();
+}
+function renderUnderwearMonday(){
+ underwearMondayLocked=false;
+ const item=underwearMondayQuestions[underwearMondayIndex];
+ document.getElementById('underwearMondayCount').textContent=(underwearMondayIndex+1)+' of '+underwearMondayQuestions.length;
+ document.getElementById('underwearMondayPrompt').textContent=item.q;
+ document.getElementById('underwearMondayMessage').textContent='';
+ document.getElementById('underwearMondayBack').style.display='none';
+ const choices=item.a.slice();
+ if(Math.random()<.5)choices.reverse();
+ document.getElementById('underwearMondayChoices').innerHTML=choices.map(c=>
+ `<button class="storyPicChoice" onclick="checkUnderwearMonday(this,${c[2]})"><img src="${underwearPics[c[0]]}" alt=""><span class="picLabel">${c[1]}</span></button>`).join('');
+}
+function checkUnderwearMonday(btn,correct){
+ if(underwearMondayLocked)return;
+ if(!correct){btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');document.getElementById('underwearMondayMessage').textContent='Try again!';return;}
+ underwearMondayLocked=true;btn.classList.add('right');
+ document.getElementById('underwearMondayMessage').textContent='Great thinking! ⭐';
+ try{celebrate()}catch(e){}
+ underwearMondayTimer=setTimeout(()=>{
+  underwearMondayTimer=null;
+  if(!document.getElementById('underwearMonday').classList.contains('active'))return;
+  if(underwearMondayIndex<underwearMondayQuestions.length-1){underwearMondayIndex++;renderUnderwearMonday();}
+  else{
+   document.getElementById('underwearMondayPrompt').textContent='You Know This Story!';
+   document.getElementById('underwearMondayChoices').innerHTML=`<img src="${underwearPics.p15}" alt="Jasper sleeping peacefully with his glowing nightlight" style="max-width:390px;width:85%;border-radius:24px">`;
+   document.getElementById('underwearMondayMessage').textContent='Great job understanding Creepy Underwear!';
+   document.getElementById('underwearMondayBack').style.display='inline-block';
+  }
+ },1400);
+}
+
+const underwearTuesdayQuestions=[{"q":"What did Jasper bring home?","a":[["p1","Glowing green underwear",1],["p9","A shovel",0]]},{"q":"What did Jasper think about the underwear at first?","a":[["p2","He loved it",1],["p5","He was frightened",0]]},{"q":"Where was Jasper when he noticed the green glow?","a":[["p4","In his bed",1],["p17","At the store",0]]},{"q":"How did Jasper react to the glow?","a":[["p5","He became scared",1],["p2","He proudly smiled",0]]},{"q":"Where did Jasper try to throw the underwear?","a":[["p8","Into the trash",1],["p3","Into his bed",0]]},{"q":"What did Jasper use to make a hole?","a":[["p9","A shovel",1],["p1","A box",0]]},{"q":"How deep did Jasper dig?","a":[["p11","Way down deep",1],["p9","Just a tiny hole",0]]},{"q":"What did Jasper put in the deep hole?","a":[["p10","The green underwear",1],["p1","A blue box",0]]},{"q":"How did Jasper look after digging?","a":[["p12","Worried",1],["p17","Excited to shop",0]]},{"q":"What did Jasper decide he wanted more of?","a":[["p16","Glowing underwear",1],["p9","Shovels",0]]}];
+let underwearTuesdayIndex=0,underwearTuesdayLocked=false,underwearTuesdayTimer=null;
+function startUnderwearTuesday(){
+ if(underwearTuesdayTimer!==null){clearTimeout(underwearTuesdayTimer);underwearTuesdayTimer=null;}
+ underwearTuesdayIndex=0;show('underwearTuesday');renderUnderwearTuesday();
+}
+function renderUnderwearTuesday(){
+ underwearTuesdayLocked=false;
+ const item=underwearTuesdayQuestions[underwearTuesdayIndex];
+ document.getElementById('underwearTuesdayCount').textContent=(underwearTuesdayIndex+1)+' of '+underwearTuesdayQuestions.length;
+ document.getElementById('underwearTuesdayPrompt').textContent=item.q;
+ document.getElementById('underwearTuesdayMessage').textContent='';
+ document.getElementById('underwearTuesdayBack').style.display='none';
+ const choices=item.a.slice();
+ if(Math.random()<.5)choices.reverse();
+ document.getElementById('underwearTuesdayChoices').innerHTML=choices.map(c=>
+ `<button class="storyPicChoice" onclick="checkUnderwearTuesday(this,${c[2]})"><img src="${underwearPics[c[0]]}" alt=""><span class="picLabel">${c[1]}</span></button>`).join('');
+}
+function checkUnderwearTuesday(btn,correct){
+ if(underwearTuesdayLocked)return;
+ if(!correct){btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');document.getElementById('underwearTuesdayMessage').textContent='Try again!';return;}
+ underwearTuesdayLocked=true;btn.classList.add('right');
+ document.getElementById('underwearTuesdayMessage').textContent='You remembered! ⭐';
+ try{celebrate()}catch(e){}
+ underwearTuesdayTimer=setTimeout(()=>{
+  underwearTuesdayTimer=null;
+  if(!document.getElementById('underwearTuesday').classList.contains('active'))return;
+  if(underwearTuesdayIndex<underwearTuesdayQuestions.length-1){underwearTuesdayIndex++;renderUnderwearTuesday();}
+  else{
+   document.getElementById('underwearTuesdayPrompt').textContent='Great Remembering!';
+   document.getElementById('underwearTuesdayChoices').innerHTML=`<img src="${underwearPics.p20}" alt="Jasper sleeping peacefully with his glowing nightlight" style="max-width:390px;width:85%;border-radius:24px">`;
+   document.getElementById('underwearTuesdayMessage').textContent='You remembered Creepy Underwear!';
+   document.getElementById('underwearTuesdayBack').style.display='inline-block';
+  }
+ },1400);
+}
+
+// Creepy Underwear: Wednesday through Friday, 10 questions per day.
+const underwearWeekQuestions={"Wednesday":[["What happened FIRST?",[["p2","Jasper was excited about his underwear",1],["p11","Jasper dug a deep hole",0]]],["What happened AFTER Jasper got his new underwear?",[["p4","It glowed at bedtime",1],["p17","He bought even more pairs",0]]],["What did Jasper do AFTER he saw the glow?",[["p5","He became frightened",1],["p15","He slept happily",0]]],["What did Jasper try BEFORE digging a hole?",[["p8","He tried throwing the underwear away",1],["p17","He bought more pairs",0]]],["What did Jasper get BEFORE he started digging?",[["p9","A shovel",1],["p15","A nightlight",0]]],["What happened AFTER Jasper started digging?",[["p11","He made an enormous hole",1],["p1","He opened the underwear package",0]]],["What did Jasper do with the underwear in the hole?",[["p10","He buried it",1],["p2","He wore it proudly",0]]],["What happened AFTER Jasper buried the underwear?",[["p13","He still noticed the green glow",1],["p1","He opened a new package",0]]],["What did Jasper discover AFTER being so scared?",[["p14","The glow could light his room",1],["p8","The trash was a good hiding spot",0]]],["What happened LAST?",[["p17","Jasper went back for more underwear",1],["p9","Jasper found his shovel",0]]]],"Thursday":[["How did Jasper feel about his new underwear at first?",[["p2","Excited",1],["p5","Scared",0]]],["Why did Jasper get scared at bedtime?",[["p4","His underwear glowed in the dark",1],["p9","He saw a shovel",0]]],["Which picture shows Jasper trying to solve his problem?",[["p8","Throwing the underwear away",1],["p2","Smiling in the new underwear",0]]],["Why did Jasper dig such a deep hole?",[["p11","He wanted the underwear far away",1],["p15","He wanted a comfy bed",0]]],["Which picture shows how hard Jasper worked to bury it?",[["p12","Jasper with his shovel after digging",1],["p1","The underwear at the store",0]]],["Did burying the underwear solve Jasper’s problem?",[["p13","No, he still saw the glow",1],["p15","Yes, he fell asleep happily right away",0]]],["What was GOOD about the green glow?",[["p14","It made his room less dark",1],["p8","It made the trash brighter",0]]],["How did Jasper feel when he realized the glow helped?",[["p15","Safe and happy",1],["p5","Scared and hiding",0]]],["Which picture shows Jasper changing his mind?",[["p15","He liked the glow at bedtime",1],["p8","He wanted to throw it away",0]]],["Why did Jasper go back to the store?",[["p17","He wanted more glowing underwear",1],["p9","He needed another shovel",0]]]],"Friday":[["Who is the main character?",[["p2","Jasper Rabbit",1],["p9","A shovel",0],["p1","A box",0]]],["What made Jasper excited?",[["p2","New underwear",1],["p9","A shovel",0],["p11","A hole",0]]],["When did the underwear start glowing?",[["p4","At bedtime",1],["p17","At the store",0],["p10","While digging",0]]],["How did Jasper feel when he first saw the glow?",[["p5","Afraid",1],["p2","Proud",0],["p15","Sleepy and happy",0]]],["What did Jasper try before he dug?",[["p8","Throwing the underwear away",1],["p17","Buying more underwear",0],["p15","Sleeping peacefully",0]]],["What did Jasper use to dig?",[["p9","A shovel",1],["p1","A package",0],["p3","A blanket",0]]],["How deep was the hole?",[["p11","Very, very deep",1],["p9","Only a little hole",0],["p4","Inside his bed",0]]],["What did Jasper bury?",[["p10","The glowing underwear",1],["p9","The shovel",0],["p1","The underwear box",0]]],["What did Jasper learn about the glow?",[["p14","It helped light the room",1],["p8","It belonged in the trash",0],["p11","It could dig a hole",0]]],["What did Jasper do at the end?",[["p17","He bought more glowing underwear",1],["p5","He hid under the covers",0],["p9","He found a new shovel",0]]]]};
+const underwearWeekState={};
+function startUnderwearWednesday(){startUnderwearWeek('Wednesday')}
+function startUnderwearThursday(){startUnderwearWeek('Thursday')}
+function startUnderwearFriday(){startUnderwearWeek('Friday')}
+function startUnderwearWeek(day){
+ const old=underwearWeekState[day];if(old&&old.timer)clearTimeout(old.timer);
+ underwearWeekState[day]={index:0,locked:false,timer:null};show('underwear'+day);renderUnderwearWeek(day);
+}
+function speakUnderwearDay(day){
+ const state=underwearWeekState[day];if(!state)return;
+ const item=underwearWeekQuestions[day][state.index];
+ if(item)say(item[0]+' '+item[1].map(c=>c[1]).join('. Or '));
+}
+function renderUnderwearWeek(day){
+ const state=underwearWeekState[day];state.locked=false;
+ const item=underwearWeekQuestions[day][state.index];
+ const root='underwear'+day;
+ document.getElementById(root+'Count').textContent=(state.index+1)+' of '+underwearWeekQuestions[day].length;
+ document.getElementById(root+'Prompt').textContent=item[0];
+ document.getElementById(root+'Message').textContent='';
+ document.getElementById(root+'Back').style.display='none';
+ document.getElementById(root+'Listen').style.display='inline-block';
+ const choices=item[1].slice();if(Math.random()<.5)choices.reverse();
+ document.getElementById(root+'Choices').innerHTML=choices.map(c=>
+ `<button class="storyPicChoice" onclick="checkUnderwearWeek('${day}',this,${c[2]})"><img src="${underwearPics[c[0]]}" alt=""><span class="picLabel">${c[1]}</span></button>`).join('');
+}
+function checkUnderwearWeek(day,btn,correct){
+ const state=underwearWeekState[day];if(!state||state.locked)return;
+ const root='underwear'+day;
+ if(!correct){btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+ document.getElementById(root+'Message').textContent='Try again!';say('Try again!');return;}
+ state.locked=true;btn.classList.add('right');
+ document.getElementById(root+'Message').textContent='Great job! ⭐';
+ try{celebrate()}catch(e){}
+ state.timer=setTimeout(()=>{
+ state.timer=null;if(!document.getElementById(root).classList.contains('active'))return;
+ if(state.index<underwearWeekQuestions[day].length-1){state.index++;renderUnderwearWeek(day)}
+ else{
+ document.getElementById(root+'Prompt').textContent='⭐ YOU ARE A STORY STAR! ⭐';
+ document.getElementById(root+'Choices').innerHTML=`<img src="${underwearPics.p15}" alt="Jasper sleeping peacefully" style="max-width:390px;width:85%;border-radius:24px;margin:auto">`;
+ document.getElementById(root+'Message').textContent='You did it! You know Creepy Underwear!';
+ document.getElementById(root+'Listen').style.display='none';
+ document.getElementById(root+'Back').style.display='inline-block';
+ say('You did it! Great job!');
+ }
+ },1450);
+}
+</script></body></html>
