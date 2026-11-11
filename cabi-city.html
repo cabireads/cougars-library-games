@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cabi City • Sketch World V10.1</title><style>*{box-sizing:border-box}body{margin:0;background:#14243b;color:#fff;font:15px system-ui,sans-serif}header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 13px;background:#15283f}button{background:#d9f1ff;border:0;border-radius:9px;padding:9px 13px;font:inherit;cursor:pointer}button.primary{background:#a6e3ad}button:disabled{opacity:.45}header strong{font-size:19px;margin-right:10px}header small{color:#b9d5e5}.version-tag{font-size:12px;font-weight:700;background:#314c67;color:#fff;border-radius:6px;padding:4px 7px;white-space:nowrap}#scene{display:block;width:100%;height:calc(100dvh - 65px);min-height:300px}#scan{display:none;max-width:750px;margin:20px auto;padding:15px}#scan canvas{width:280px;height:280px;background:repeating-conic-gradient(#e4e9ee 0 25%,#fff 0 50%) 50%/24px 24px;object-fit:contain;border-radius:12px}label{display:block;margin:12px 0}input{max-width:100%}#note{font-size:13px;color:#d0e5ef}#status{font-size:13px;color:#b9d5e5}#count{font-weight:700}#scan button{margin-right:8px}body.scan #scan{display:block}body.scan #scene{display:none}body.scan #status{display:none}.photo-label{display:block;width:fit-content;background:#d9f1ff;color:#14243b;padding:13px 18px;border-radius:12px;font-weight:750;cursor:pointer}.photo-label input{display:block;font-size:12px;margin-top:6px}#release{font-size:19px;padding:13px 18px}#scan #redoMarks,#scan #makeCutout{font-size:12px;opacity:.75}#teacherTools{margin:14px 0}@media(max-width:700px){header strong{width:100%}#scene{height:calc(100dvh - 120px)}} </style></head><body><header><strong>🚗 Cabi City</strong><span class="version-tag">TEST V10.1</span><button id="view">🌆 City display</button><button id="scanBtn">📷 Scan a car</button><button id="demo">+ Demo car</button><button id="snapshot">📸 Snapshot</button><button id="record">⏺ Record 15s</button><button id="reset">🧹 Clear saved cars</button><span id="status"><span id="count">0</span> cars • Saved on this iPad • Cars visit every road</span></header><canvas id="scene"></canvas><section id="scan"><h2>📸 Scan My Car!</h2><p>Put your whole coloring page in the picture. Make sure you can see all four black corner squares.</p><details id="teacherTools"><summary>🛠 Teacher backup: choose design / tap corners</summary><label>Vehicle design <select id="vehicleType"><option value="1">Vehicle 01 (page 1)</option><option value="2">Vehicle 02 (page 2)</option><option value="3">Vehicle 03 (page 3)</option><option value="4">Vehicle 04 (page 4)</option><option value="5">Vehicle 05 (page 5)</option><option value="6">Vehicle 06 (page 6)</option><option value="7">Vehicle 07 (page 7)</option><option value="8">Vehicle 08 (page 8)</option></select></label><p>For a tricky photo, tap the four black square centers: top left → top right → bottom right → bottom left.</p></details><label class="photo-label" for="photo">📷 TAKE A PICTURE <input type="file" id="photo" accept="image/*" capture="environment"></label><p id="scanStep">Take a photo of the entire page, including all four black squares.</p><canvas id="photoGuide" width="480" height="320" style="display:block;max-width:100%;height:auto;touch-action:manipulation;border:2px solid #9ab6cb;border-radius:10px"></canvas><p><button id="redoMarks">↩ Manual corners</button><button id="makeCutout" class="primary" disabled>✂️ Retry cutout</button></p><canvas id="preview" width="350" height="350"></canvas><p><button class="primary" id="release" disabled>🚗 SEND TO THE CITY!</button><button id="back">Back to city</button></p><p id="note">Automatic scanning is experimental. If it misses, open Teacher backup and use manual corners.</p></section><script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cabi City • Sketch World V11</title><style>*{box-sizing:border-box}body{margin:0;background:#14243b;color:#fff;font:15px system-ui,sans-serif}header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 13px;background:#15283f}button{background:#d9f1ff;border:0;border-radius:9px;padding:9px 13px;font:inherit;cursor:pointer}button.primary{background:#a6e3ad}button:disabled{opacity:.45}header strong{font-size:19px;margin-right:10px}header small{color:#b9d5e5}.version-tag{font-size:12px;font-weight:700;background:#314c67;color:#fff;border-radius:6px;padding:4px 7px;white-space:nowrap}#scene{display:block;width:100%;height:calc(100dvh - 65px);min-height:300px}#scan{display:none;max-width:750px;margin:20px auto;padding:15px}#scan canvas{width:280px;height:280px;background:repeating-conic-gradient(#e4e9ee 0 25%,#fff 0 50%) 50%/24px 24px;object-fit:contain;border-radius:12px}label{display:block;margin:12px 0}input{max-width:100%}#note{font-size:13px;color:#d0e5ef}#status{font-size:13px;color:#b9d5e5}#count{font-weight:700}#scan button{margin-right:8px}body.scan #scan{display:block}body.scan #scene{display:none}body.scan #status{display:none}.photo-label{display:block;width:fit-content;background:#d9f1ff;color:#14243b;padding:13px 18px;border-radius:12px;font-weight:750;cursor:pointer}.photo-label input{display:block;font-size:12px;margin-top:6px}#release{font-size:19px;padding:13px 18px}#scan #redoMarks,#scan #makeCutout{font-size:12px;opacity:.75}#teacherTools{margin:14px 0}@media(max-width:700px){header strong{width:100%}#scene{height:calc(100dvh - 120px)}} </style></head><body><header><strong>🚗 Cabi City</strong><span class="version-tag">TEST V11</span><button id="view">🌆 City display</button><button id="scanBtn">📷 Scan a car</button><button id="demo">+ Demo car</button><button id="snapshot">📸 Snapshot</button><button id="record">⏺ Record 15s</button><button id="reset">🧹 Clear saved cars</button><span id="status"><span id="count">0</span> cars • Saved on this iPad • 25 featured • 95 citywide</span></header><canvas id="scene"></canvas><section id="scan"><h2>📸 Scan My Car!</h2><p>Put your whole coloring page in the picture. Make sure you can see all four black corner squares.</p><details id="teacherTools"><summary>🛠 Teacher backup: choose design / tap corners</summary><label>Vehicle design <select id="vehicleType"><option value="1">Vehicle 01 (page 1)</option><option value="2">Vehicle 02 (page 2)</option><option value="3">Vehicle 03 (page 3)</option><option value="4">Vehicle 04 (page 4)</option><option value="5">Vehicle 05 (page 5)</option><option value="6">Vehicle 06 (page 6)</option><option value="7">Vehicle 07 (page 7)</option><option value="8">Vehicle 08 (page 8)</option></select></label><p>For a tricky photo, tap the four black square centers: top left → top right → bottom right → bottom left.</p></details><label class="photo-label" for="photo">📷 TAKE A PICTURE <input type="file" id="photo" accept="image/*" capture="environment"></label><p id="scanStep">Take a photo of the entire page, including all four black squares.</p><canvas id="photoGuide" width="480" height="320" style="display:block;max-width:100%;height:auto;touch-action:manipulation;border:2px solid #9ab6cb;border-radius:10px"></canvas><p><button id="redoMarks">↩ Manual corners</button><button id="makeCutout" class="primary" disabled>✂️ Retry cutout</button></p><canvas id="preview" width="350" height="350"></canvas><p><button class="primary" id="release" disabled>🚗 SEND TO THE CITY!</button><button id="back">Back to city</button></p><p id="note">Automatic scanning is experimental. If it misses, open Teacher backup and use manual corners.</p></section><script>
 const scene=document.querySelector('#scene'),ctx=scene.getContext('2d'),preview=document.querySelector('#preview'),pc=preview.getContext('2d');let cars=[],cutout=null,cutoutTemplateId=null,photo=null,last=0,recording=false;const $=s=>document.querySelector(s),rnd=(a,b)=>a+Math.random()*(b-a);function resize(){let r=scene.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);scene.width=Math.max(1,Math.round(r.width*d));scene.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0)}addEventListener('resize',resize);resize();function dims(){let d=Math.min(devicePixelRatio||1,2);return [scene.width/d,scene.height/d]}
 function roadY(layer,x,w,h){if(layer===0)return h*.87+Math.sin(x/w*Math.PI*3.2)*h*.048+Math.sin(x/w*Math.PI*5)*h*.016;if(layer===1)return h*.665+Math.sin(x/w*Math.PI*2.6+1)*h*.025;if(layer===2)return h*.37;if(layer===3)return h*.50;return h*.8}
 function drawRoad(layer,w,h){let elevated=layer>=2,y=roadY(layer,0,w,h),thick=layer===0?62:layer===1?42:28;ctx.save();if(elevated){ctx.fillStyle='#788593';for(let x=55;x<w;x+=180){ctx.fillRect(x,y+thick,13,h*.72-y-thick)}ctx.fillStyle='#667483';ctx.fillRect(0,y+thick-2,w,7)}ctx.beginPath();for(let x=-10;x<=w+10;x+=8){let ry=roadY(layer,x,w,h);if(x===-10)ctx.moveTo(x,ry);else ctx.lineTo(x,ry)}for(let x=w+10;x>=-10;x-=8)ctx.lineTo(x,roadY(layer,x,w,h)+thick);ctx.closePath();ctx.fillStyle=elevated?'#737f8e':layer===0?'#596a7d':'#728396';ctx.fill();ctx.strokeStyle=elevated?'#c6d0d9':'#d7e1e6';ctx.lineWidth=3;ctx.beginPath();for(let x=0;x<=w;x+=8){let yy=roadY(layer,x,w,h)+2;if(x===0)ctx.moveTo(x,yy);else ctx.lineTo(x,yy)}ctx.stroke();if(!elevated){ctx.strokeStyle='#ffe7a3';ctx.lineWidth=2.5;ctx.setLineDash([20,17]);ctx.beginPath();for(let x=0;x<=w;x+=8){let yy=roadY(layer,x,w,h)+thick*.52;if(x===0)ctx.moveTo(x,yy);else ctx.lineTo(x,yy)}ctx.stroke();ctx.setLineDash([])}ctx.restore()}
@@ -7,9 +7,41 @@ function direction(layer){return layer===0||layer===3?-1:1}
 // Template artwork directions, verified against the eight original reference drawings.
 // 1,2,3,4,7,8 face right; 5 and 6 face left.
 const TEMPLATE_FACING={1:1,2:1,3:1,4:1,5:-1,6:-1,7:1,8:1};
-function desiredLayer(age){return 0}
-function updateLayers(){/* Each vehicle completes a road before moving to the next one. */}
-function addCar(img,options={}){let [w,h]=dims(),a=img.width/img.height;cars.push({img,layer:options.layer??0,pendingLayer:null,older:false,x:options.x??(w+110+Math.random()*w*.2),speed:options.speed??rnd(1.35,2.65),phase:rnd(0,6),aspect:a,templateId:options.templateId??null,facing:options.facing??1});if(cars.length>120)cars.splice(0,cars.length-120);updateLayers();$('#count').textContent=cars.length;if(!options.restoring)scheduleSave()}
+// The latest 25 have priority on the two curvy roads. Older cars use the elevated roads,
+// with occasional visits down front. Road changes happen only after a car leaves the screen.
+function isFeatured(car){return cars.indexOf(car)>=Math.max(0,cars.length-25)}
+function nextRoad(car){
+  car.trips=(car.trips||0)+1;
+  if(isFeatured(car))return car.trips%5===0?(car.layer===2?3:2):(car.layer===0?1:0);
+  return car.trips%9===0?(car.trips%2?0:1):(car.layer===2?3:2);
+}
+function updateLayers(){
+  // Do not teleport cars between roads when their featured status changes.
+  // Their next off-screen transition uses the latest ranking.
+  $('#count').textContent=cars.length;
+}
+function carWidth(layer,w){
+  let featuredCount=Math.min(cars.length,25);
+  let frontWidth=featuredCount<=6?Math.min(195,w*.18):featuredCount<=12?Math.min(145,w*.125):Math.min(112,w*.075);
+  return layer<=1?frontWidth:Math.min(83,w*.065);
+}
+function entryX(layer,w,width,extra=0){return direction(layer)>0?-width-extra:w+width+extra}
+function laneGap(layer,w){return carWidth(layer,w)*1.18+12}
+function addCar(img,options={}){
+  let [w,h]=dims(),a=img.width/img.height;
+  let restoring=!!options.restoring;
+  let layer=options.layer??(cars.length%2);
+  let width=carWidth(layer,w);
+  // Stagger arrivals outside the viewport instead of spawning cars bumper-to-bumper.
+  let same=cars.filter(c=>c.layer===layer);
+  let gap=laneGap(layer,w);
+  let x=options.x??entryX(layer,w,width,Math.min(same.length,35)*gap);
+  let car={img,layer,x,speed:options.speed??rnd(.75,1.55),phase:rnd(0,6),aspect:a,
+    templateId:options.templateId??null,facing:options.facing??1,trips:options.trips??0};
+  cars.push(car);
+  if(cars.length>120)cars.splice(0,cars.length-120);
+  updateLayers();if(!restoring)scheduleSave();
+}
 
 // Vehicle images are stored locally in IndexedDB, not on GitHub or another device.
 const DB_NAME='cabi-city-vehicles-v7', DB_STORE='garage';let garageDB=null,saveTimer=null,loadingGarage=true,garageRevision=0;
@@ -18,24 +50,52 @@ function garageGet(db){return new Promise((resolve,reject)=>{let tx=db.transacti
 function garagePut(db,records){return new Promise((resolve,reject)=>{let tx=db.transaction(DB_STORE,'readwrite');tx.objectStore(DB_STORE).put(records,'vehicles');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
 function imageFromUrl(src){return new Promise((resolve,reject)=>{let im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load saved vehicle'));im.src=src})}
 function scheduleSave(){if(loadingGarage)return;garageRevision++;clearTimeout(saveTimer);saveTimer=setTimeout(saveGarage,650)}
-async function saveGarage(){if(!garageDB)return;let revision=garageRevision;try{let records=cars.slice(-120).map(c=>({src:c.img.src,layer:c.layer,speed:c.speed,templateId:c.templateId,facing:c.facing}));await garagePut(garageDB,records);if(revision!==garageRevision)scheduleSave()}catch(e){console.warn('Cabi City save failed',e);$('#status').textContent='⚠️ Cars could not be saved on this device'}}
-async function restoreGarage(){try{garageDB=await openGarage();let records=await garageGet(garageDB);if(garageRevision!==0)return;for(let record of records.slice(-120)){try{let img=await imageFromUrl(record.src);addCar(img,{restoring:true,layer:record.layer,speed:record.speed,templateId:record.templateId??null,facing:record.facing??1})}catch(e){console.warn(e)}}}catch(e){console.warn('Garage unavailable',e);$('#status').textContent='⚠️ This browser cannot save vehicles'}finally{loadingGarage=false}}
+async function saveGarage(){if(!garageDB)return;let revision=garageRevision;try{let records=cars.slice(-120).map(c=>({src:c.img.src,layer:c.layer,speed:c.speed,templateId:c.templateId,facing:c.facing,trips:c.trips}));await garagePut(garageDB,records);if(revision!==garageRevision)scheduleSave()}catch(e){console.warn('Cabi City save failed',e);$('#status').textContent='⚠️ Cars could not be saved on this device'}}
+async function restoreGarage(){try{garageDB=await openGarage();let records=await garageGet(garageDB);if(garageRevision!==0)return;for(let record of records.slice(-120)){try{let img=await imageFromUrl(record.src);addCar(img,{restoring:true,layer:record.layer,speed:record.speed,templateId:record.templateId??null,facing:record.facing??1,trips:record.trips??0})}catch(e){console.warn(e)}}}catch(e){console.warn('Garage unavailable',e);$('#status').textContent='⚠️ This browser cannot save vehicles'}finally{loadingGarage=false}}
 restoreGarage();
 
 function demoCar(){let c=document.createElement('canvas');c.width=210;c.height=100;let p=c.getContext('2d');let colors=['#f1797c','#ffcf59','#77c5e9','#c5a0f4','#85d5a3'];p.fillStyle=colors[cars.length%colors.length];p.strokeStyle='#1f2d42';p.lineWidth=5;p.beginPath();p.moveTo(18,40);p.lineTo(52,40);p.lineTo(77,13);p.lineTo(145,13);p.lineTo(167,40);p.lineTo(191,40);p.quadraticCurveTo(202,40,202,54);p.lineTo(202,73);p.lineTo(8,73);p.lineTo(8,52);p.quadraticCurveTo(8,40,18,40);p.fill();p.stroke();p.fillStyle='#d7f5ff';p.fillRect(80,20,60,19);p.fillStyle='#25344b';for(let x of [51,164]){p.beginPath();p.arc(x,76,16,0,7);p.fill();p.fillStyle='#d4dce8';p.beginPath();p.arc(x,76,7,0,7);p.fill();p.fillStyle='#25344b'}let img=new Image();img.onload=()=>addCar(img);img.src=c.toDataURL()}
-function frame(t){let [w,h]=dims(),dt=Math.min(40,t-last||16)/16;last=t;background(w,h,t);
-for(let layer of [2,3,1,0])for(let car of cars){if(car.layer!==layer)continue;
-let current=car.layer,dir=direction(current),sz=current===0?Math.min(210,w*.19):current===1?Math.min(145,w*.13):Math.min(100,w*.09),cw=sz,ch=sz/car.aspect;
-car.x+=dir*car.speed*dt*(current>=2?.8:1);
-let exited=dir>0?car.x>w+cw:car.x< -cw;
-if(exited){car.layer=car.layer===0?1:car.layer===1?2:car.layer===2?3:0;
-current=car.layer;dir=direction(current);sz=current===0?Math.min(210,w*.19):current===1?Math.min(145,w*.13):Math.min(100,w*.09);cw=sz;ch=sz/car.aspect;car.x=dir>0?-cw:w+cw;}
-let thick=current===0?62:current===1?42:28;
-let surface=roadY(current,car.x,w,h)+(current>=2?4:thick*.52);
-let y=surface-ch*.46;
-let tilt=current<=1?Math.atan2(roadY(current,car.x+5,w,h)-roadY(current,car.x-5,w,h),10):0;
-ctx.save();ctx.translate(car.x,y+Math.sin(t*.003+car.phase)*(current===0?1.1:.3));ctx.rotate(tilt);if(dir!==car.facing)ctx.scale(-1,1);ctx.drawImage(car.img,-cw/2,-ch/2,cw,ch);ctx.restore();}
-requestAnimationFrame(frame)}requestAnimationFrame(frame);
+function frame(t){
+  let [w,h]=dims(),dt=Math.min(40,t-last||16)/16;last=t;background(w,h,t);
+  // Progress vehicles in road order; slow a follower when it approaches another car.
+  // Newer cars stay on the two front roads as much as practical.
+  for(let layer of [2,3,1,0]){
+    let lane=cars.filter(c=>c.layer===layer);
+    let dir=direction(layer);
+    lane.sort((a,b)=>dir>0?b.x-a.x:a.x-b.x);
+    for(let n=0;n<lane.length;n++){
+      let car=lane[n],current=car.layer,sz=carWidth(current,w),cw=sz,ch=sz/car.aspect;
+      let ahead=n?lane[n-1]:null;
+      let clearance=ahead?(ahead.x-car.x)*dir:Infinity;
+      let safeGap=laneGap(current,w);
+      let factor=clearance<safeGap?.05:clearance<safeGap*1.5?.45:1;
+      car.x+=dir*car.speed*dt*(current>=2?.85:1)*factor;
+      let exited=dir>0?car.x>w+cw:car.x< -cw;
+      if(exited){
+        let destination=nextRoad(car),newWidth=carWidth(destination,w);
+        let occupants=cars.filter(c=>c!==car&&c.layer===destination);
+        let entry=entryX(destination,w,newWidth);
+        let entryDir=direction(destination),gap=laneGap(destination,w);
+        // Queue at the entry if another vehicle is still close to it.
+        let farthest=entry;
+        for(let other of occupants){
+          let distance=(other.x-entry)*entryDir;
+          if(distance<gap&&distance>-gap*10)farthest-=entryDir*gap;
+        }
+        car.layer=destination;car.x=farthest;
+        current=destination;dir=entryDir;cw=newWidth;ch=cw/car.aspect;
+      }
+      let thick=current===0?62:current===1?42:28;
+      let surface=roadY(current,car.x,w,h)+(current>=2?4:thick*.52);
+      let y=surface-ch*.46;
+      let tilt=current<=1?Math.atan2(roadY(current,car.x+5,w,h)-roadY(current,car.x-5,w,h),10):0;
+      ctx.save();ctx.translate(car.x,y+Math.sin(t*.003+car.phase)*(current===0?1.1:.3));
+      ctx.rotate(tilt);if(dir!==car.facing)ctx.scale(-1,1);
+      ctx.drawImage(car.img,-cw/2,-ch/2,cw,ch);ctx.restore();
+    }
+  }
+  requestAnimationFrame(frame);
+}requestAnimationFrame(frame);
 const guide=$('#photoGuide'),gc=guide.getContext('2d');let corners=[],templateMasks={},guideRect=null;
 $('#scanBtn').onclick=()=>document.body.classList.add('scan');$('#view').onclick=$('#back').onclick=()=>{document.body.classList.remove('scan');resize()};$('#demo').onclick=demoCar;
 $('#vehicleType').onchange=()=>{cutout=null;cutoutTemplateId=null;$('#release').disabled=true;$('#note').textContent='Teacher override: selected vehicle '+$('#vehicleType').value+'. Tap Retry cutout.';};
