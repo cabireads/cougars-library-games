@@ -1,0 +1,325 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cabi City • Sketch World V12 Wireless</title><style>*{box-sizing:border-box}body{margin:0;background:#14243b;color:#fff;font:15px system-ui,sans-serif}header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 13px;background:#15283f}button{background:#d9f1ff;border:0;border-radius:9px;padding:9px 13px;font:inherit;cursor:pointer}button.primary{background:#a6e3ad}button:disabled{opacity:.45}header strong{font-size:19px;margin-right:10px}header small{color:#b9d5e5}.version-tag{font-size:12px;font-weight:700;background:#314c67;color:#fff;border-radius:6px;padding:4px 7px;white-space:nowrap}#scene{display:block;width:100%;height:calc(100dvh - 65px);min-height:300px}#scan{display:none;max-width:750px;margin:20px auto;padding:15px}#scan canvas{width:280px;height:280px;background:repeating-conic-gradient(#e4e9ee 0 25%,#fff 0 50%) 50%/24px 24px;object-fit:contain;border-radius:12px}label{display:block;margin:12px 0}input{max-width:100%}#note{font-size:13px;color:#d0e5ef}#status{font-size:13px;color:#b9d5e5}#count{font-weight:700}#scan button{margin-right:8px}body.scan #scan{display:block}body.scan #scene{display:none}body.scan #status{display:none}.photo-label{display:block;width:fit-content;background:#d9f1ff;color:#14243b;padding:13px 18px;border-radius:12px;font-weight:750;cursor:pointer}.photo-label input{display:block;font-size:12px;margin-top:6px}#release{font-size:19px;padding:13px 18px}#scan #redoMarks,#scan #makeCutout{font-size:12px;opacity:.75}#teacherTools{margin:14px 0}@media(max-width:700px){header strong{width:100%}#scene{height:calc(100dvh - 120px)}} </style></head><body><header><strong>🚗 Cabi City</strong><span class="version-tag">TEST V12 WIRELESS</span><button id="view">🌆 City display</button><button id="scanBtn">📷 Scan a car</button><button id="demo">+ Demo car</button><button id="snapshot">📸 Snapshot</button><button id="record">⏺ Record 15s</button><button id="reset">🧹 Clear saved cars</button><span id="status"><span id="count">0</span> cars • Local garage • 25 featured • 95 citywide</span><button id="wirelessBtn" title="Connect both devices">📡 Connect wireless</button><span id="syncState" style="font-size:12px;color:#b9d5e5">Local mode</span></header><section id="wirelessPanel" style="display:none;padding:12px 16px;background:#233b54;border-bottom:2px solid #5c90ae"><strong>📡 Cabi City Wireless</strong><p style="margin:7px 0">Sign in with the classroom Firebase account on each device. Use <b>Scanner</b> on the iPad and <b>City display</b> on the ClearTouch.</p><div id="loginArea"><input id="wireEmail" type="email" autocomplete="username" placeholder="Classroom email" style="padding:9px;width:240px"><input id="wirePassword" type="password" autocomplete="current-password" placeholder="Cabi City password" style="padding:9px;width:210px"><button id="wireSignIn">🔐 Sign in</button></div><div id="loggedArea" style="display:none"><span>🟢 Connected to shared city</span> <button id="wireSignOut">Sign out</button></div><p id="wireMessage" style="margin:6px 0;font-size:13px"></p></section><canvas id="scene"></canvas><section id="scan"><h2>📸 Scan My Car!</h2><p>Put your whole coloring page in the picture. Make sure you can see all four black corner squares.</p><details id="teacherTools"><summary>🛠 Teacher backup: choose design / tap corners</summary><label>Vehicle design <select id="vehicleType"><option value="1">Vehicle 01 (page 1)</option><option value="2">Vehicle 02 (page 2)</option><option value="3">Vehicle 03 (page 3)</option><option value="4">Vehicle 04 (page 4)</option><option value="5">Vehicle 05 (page 5)</option><option value="6">Vehicle 06 (page 6)</option><option value="7">Vehicle 07 (page 7)</option><option value="8">Vehicle 08 (page 8)</option></select></label><p>For a tricky photo, tap the four black square centers: top left → top right → bottom right → bottom left.</p></details><label class="photo-label" for="photo">📷 TAKE A PICTURE <input type="file" id="photo" accept="image/*" capture="environment"></label><p id="scanStep">Take a photo of the entire page, including all four black squares.</p><canvas id="photoGuide" width="480" height="320" style="display:block;max-width:100%;height:auto;touch-action:manipulation;border:2px solid #9ab6cb;border-radius:10px"></canvas><p><button id="redoMarks">↩ Manual corners</button><button id="makeCutout" class="primary" disabled>✂️ Retry cutout</button></p><canvas id="preview" width="350" height="350"></canvas><p><button class="primary" id="release" disabled>🚗 SEND TO THE CITY!</button><button id="back">Back to city</button></p><p id="note">Automatic scanning is experimental. If it misses, open Teacher backup and use manual corners.</p></section><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script><script>
+const scene=document.querySelector('#scene'),ctx=scene.getContext('2d'),preview=document.querySelector('#preview'),pc=preview.getContext('2d');let wirelessActive=false,cloudBusy=false,cloudUnsub=null,cloudDocs=new Map(),cloudSeen=new Set(),cloudLoading=false,wireAuth=null,wireStore=null;let cars=[],cutout=null,cutoutTemplateId=null,photo=null,last=0,recording=false;const $=s=>document.querySelector(s),rnd=(a,b)=>a+Math.random()*(b-a);function resize(){let r=scene.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);scene.width=Math.max(1,Math.round(r.width*d));scene.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0)}addEventListener('resize',resize);resize();function dims(){let d=Math.min(devicePixelRatio||1,2);return [scene.width/d,scene.height/d]}
+function roadY(layer,x,w,h){if(layer===0)return h*.87+Math.sin(x/w*Math.PI*3.2)*h*.048+Math.sin(x/w*Math.PI*5)*h*.016;if(layer===1)return h*.665+Math.sin(x/w*Math.PI*2.6+1)*h*.025;if(layer===2)return h*.37;if(layer===3)return h*.50;return h*.8}
+function drawRoad(layer,w,h){let elevated=layer>=2,y=roadY(layer,0,w,h),thick=layer===0?62:layer===1?42:28;ctx.save();if(elevated){ctx.fillStyle='#788593';for(let x=55;x<w;x+=180){ctx.fillRect(x,y+thick,13,h*.72-y-thick)}ctx.fillStyle='#667483';ctx.fillRect(0,y+thick-2,w,7)}ctx.beginPath();for(let x=-10;x<=w+10;x+=8){let ry=roadY(layer,x,w,h);if(x===-10)ctx.moveTo(x,ry);else ctx.lineTo(x,ry)}for(let x=w+10;x>=-10;x-=8)ctx.lineTo(x,roadY(layer,x,w,h)+thick);ctx.closePath();ctx.fillStyle=elevated?'#737f8e':layer===0?'#596a7d':'#728396';ctx.fill();ctx.strokeStyle=elevated?'#c6d0d9':'#d7e1e6';ctx.lineWidth=3;ctx.beginPath();for(let x=0;x<=w;x+=8){let yy=roadY(layer,x,w,h)+2;if(x===0)ctx.moveTo(x,yy);else ctx.lineTo(x,yy)}ctx.stroke();if(!elevated){ctx.strokeStyle='#ffe7a3';ctx.lineWidth=2.5;ctx.setLineDash([20,17]);ctx.beginPath();for(let x=0;x<=w;x+=8){let yy=roadY(layer,x,w,h)+thick*.52;if(x===0)ctx.moveTo(x,yy);else ctx.lineTo(x,yy)}ctx.stroke();ctx.setLineDash([])}ctx.restore()}
+function background(w,h,t){let g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#7cc9f3');g.addColorStop(.7,'#d7eff9');g.addColorStop(1,'#b6d6b3');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.fillStyle='#fff2b0';ctx.beginPath();ctx.arc(w*.83,h*.14,Math.min(w,h)*.065,0,7);ctx.fill();ctx.fillStyle='#ffffffb8';for(let i=0;i<8;i++){let x=((i*167+t*.004)%(w+150))-75,y=h*(.08+(i%3)*.055);for(let j=0;j<3;j++){ctx.beginPath();ctx.ellipse(x+j*18,y-(j%2)*8,24,12,0,0,7);ctx.fill()}}for(let i=0;i<Math.ceil(w/55)+1;i++){let x=i*55,hh=h*(.15+(i*13%9)*.013),top=h*.35-hh;ctx.fillStyle=['#8299b5','#e0aa95','#97b8ac','#b4a6c7'][i%4];ctx.fillRect(x,top,50,hh+h*.24);ctx.fillStyle='#f9e9b3';for(let xx=x+8;xx<x+45;xx+=15)for(let yy=top+12;yy<top+hh-8;yy+=20)ctx.fillRect(xx,yy,7,9)}ctx.fillStyle='#7db58d';ctx.fillRect(0,h*.68,w,h*.32);drawRoad(2,w,h);drawRoad(3,w,h);ctx.fillStyle='#78b786';ctx.beginPath();ctx.moveTo(0,h);for(let x=0;x<=w;x+=10)ctx.lineTo(x,h*.81+Math.sin(x/w*8)*h*.05);ctx.lineTo(w,h);ctx.fill();drawRoad(1,w,h);drawRoad(0,w,h)}
+function direction(layer){return layer===0||layer===3?-1:1}
+// Template artwork directions, verified against the eight original reference drawings.
+// 1,2,3,4,7,8 face right; 5 and 6 face left.
+const TEMPLATE_FACING={1:1,2:1,3:1,4:1,5:-1,6:-1,7:1,8:1};
+// The latest 25 have priority on the two curvy roads. Older cars use the elevated roads,
+// with occasional visits down front. Road changes happen only after a car leaves the screen.
+function isFeatured(car){return cars.indexOf(car)>=Math.max(0,cars.length-25)}
+function nextRoad(car){
+  car.trips=(car.trips||0)+1;
+  if(isFeatured(car))return car.trips%5===0?(car.layer===2?3:2):(car.layer===0?1:0);
+  return car.trips%9===0?(car.trips%2?0:1):(car.layer===2?3:2);
+}
+function updateLayers(){
+  // Do not teleport cars between roads when their featured status changes.
+  // Their next off-screen transition uses the latest ranking.
+  $('#count').textContent=cars.length;
+}
+function carWidth(layer,w){
+  let featuredCount=Math.min(cars.length,25);
+  let frontWidth=featuredCount<=6?Math.min(195,w*.18):featuredCount<=12?Math.min(145,w*.125):Math.min(112,w*.075);
+  return layer<=1?frontWidth:Math.min(83,w*.065);
+}
+function entryX(layer,w,width,extra=0){return direction(layer)>0?-width-extra:w+width+extra}
+function laneGap(layer,w){return carWidth(layer,w)*1.18+12}
+function addCar(img,options={}){
+  let [w,h]=dims(),a=img.width/img.height;
+  let restoring=!!options.restoring;
+  let layer=options.layer??(cars.length%2);
+  let width=carWidth(layer,w);
+  // Stagger arrivals outside the viewport instead of spawning cars bumper-to-bumper.
+  let same=cars.filter(c=>c.layer===layer);
+  let gap=laneGap(layer,w);
+  let x=options.x??entryX(layer,w,width,Math.min(same.length,35)*gap);
+  let car={img,layer,x,speed:options.speed??rnd(.75,1.55),phase:rnd(0,6),aspect:a,
+    templateId:options.templateId??null,facing:options.facing??1,trips:options.trips??0};
+  cars.push(car);
+  if(cars.length>120)cars.splice(0,cars.length-120);
+  updateLayers();if(!restoring)scheduleSave();
+}
+
+// Vehicle images are stored locally in IndexedDB, not on GitHub or another device.
+const DB_NAME='cabi-city-vehicles-v7', DB_STORE='garage';let garageDB=null,saveTimer=null,loadingGarage=true,garageRevision=0;
+function openGarage(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window))return reject(Error('Local storage unavailable'));let req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{let db=req.result;if(!db.objectStoreNames.contains(DB_STORE))db.createObjectStore(DB_STORE)};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+function garageGet(db){return new Promise((resolve,reject)=>{let tx=db.transaction(DB_STORE,'readonly'),r=tx.objectStore(DB_STORE).get('vehicles');r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
+function garagePut(db,records){return new Promise((resolve,reject)=>{let tx=db.transaction(DB_STORE,'readwrite');tx.objectStore(DB_STORE).put(records,'vehicles');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+function imageFromUrl(src){return new Promise((resolve,reject)=>{let im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load saved vehicle'));im.src=src})}
+function scheduleSave(){if(loadingGarage||wirelessActive)return;garageRevision++;clearTimeout(saveTimer);saveTimer=setTimeout(saveGarage,650)}
+async function saveGarage(){if(!garageDB)return;let revision=garageRevision;try{let records=cars.slice(-120).map(c=>({src:c.img.src,layer:c.layer,speed:c.speed,templateId:c.templateId,facing:c.facing,trips:c.trips}));await garagePut(garageDB,records);if(revision!==garageRevision)scheduleSave()}catch(e){console.warn('Cabi City save failed',e);$('#status').textContent='⚠️ Cars could not be saved on this device'}}
+async function restoreGarage(){try{garageDB=await openGarage();let records=await garageGet(garageDB);if(garageRevision!==0)return;for(let record of records.slice(-120)){if(wirelessActive)break;try{let img=await imageFromUrl(record.src);addCar(img,{restoring:true,layer:record.layer,speed:record.speed,templateId:record.templateId??null,facing:record.facing??1,trips:record.trips??0})}catch(e){console.warn(e)}}}catch(e){console.warn('Garage unavailable',e);$('#status').textContent='⚠️ This browser cannot save vehicles'}finally{loadingGarage=false}}
+restoreGarage();
+
+function demoCar(){let c=document.createElement('canvas');c.width=210;c.height=100;let p=c.getContext('2d');let colors=['#f1797c','#ffcf59','#77c5e9','#c5a0f4','#85d5a3'];p.fillStyle=colors[cars.length%colors.length];p.strokeStyle='#1f2d42';p.lineWidth=5;p.beginPath();p.moveTo(18,40);p.lineTo(52,40);p.lineTo(77,13);p.lineTo(145,13);p.lineTo(167,40);p.lineTo(191,40);p.quadraticCurveTo(202,40,202,54);p.lineTo(202,73);p.lineTo(8,73);p.lineTo(8,52);p.quadraticCurveTo(8,40,18,40);p.fill();p.stroke();p.fillStyle='#d7f5ff';p.fillRect(80,20,60,19);p.fillStyle='#25344b';for(let x of [51,164]){p.beginPath();p.arc(x,76,16,0,7);p.fill();p.fillStyle='#d4dce8';p.beginPath();p.arc(x,76,7,0,7);p.fill();p.fillStyle='#25344b'}let img=new Image();img.onload=()=>addCar(img);img.src=c.toDataURL()}
+function frame(t){
+  let [w,h]=dims(),dt=Math.min(40,t-last||16)/16;last=t;background(w,h,t);
+  // Progress vehicles in road order; slow a follower when it approaches another car.
+  // Newer cars stay on the two front roads as much as practical.
+  for(let layer of [2,3,1,0]){
+    let lane=cars.filter(c=>c.layer===layer);
+    let dir=direction(layer);
+    lane.sort((a,b)=>dir>0?b.x-a.x:a.x-b.x);
+    for(let n=0;n<lane.length;n++){
+      let car=lane[n],current=car.layer,sz=carWidth(current,w),cw=sz,ch=sz/car.aspect;
+      let ahead=n?lane[n-1]:null;
+      let clearance=ahead?(ahead.x-car.x)*dir:Infinity;
+      let safeGap=laneGap(current,w);
+      let factor=clearance<safeGap?.05:clearance<safeGap*1.5?.45:1;
+      car.x+=dir*car.speed*dt*(current>=2?.85:1)*factor;
+      let exited=dir>0?car.x>w+cw:car.x< -cw;
+      if(exited){
+        let destination=nextRoad(car),newWidth=carWidth(destination,w);
+        let occupants=cars.filter(c=>c!==car&&c.layer===destination);
+        let entry=entryX(destination,w,newWidth);
+        let entryDir=direction(destination),gap=laneGap(destination,w);
+        // Queue at the entry if another vehicle is still close to it.
+        let farthest=entry;
+        for(let other of occupants){
+          let distance=(other.x-entry)*entryDir;
+          if(distance<gap&&distance>-gap*10)farthest-=entryDir*gap;
+        }
+        car.layer=destination;car.x=farthest;
+        current=destination;dir=entryDir;cw=newWidth;ch=cw/car.aspect;
+      }
+      let thick=current===0?62:current===1?42:28;
+      let surface=roadY(current,car.x,w,h)+(current>=2?4:thick*.52);
+      let y=surface-ch*.46;
+      let tilt=current<=1?Math.atan2(roadY(current,car.x+5,w,h)-roadY(current,car.x-5,w,h),10):0;
+      ctx.save();ctx.translate(car.x,y+Math.sin(t*.003+car.phase)*(current===0?1.1:.3));
+      ctx.rotate(tilt);if(dir!==car.facing)ctx.scale(-1,1);
+      ctx.drawImage(car.img,-cw/2,-ch/2,cw,ch);ctx.restore();
+    }
+  }
+  requestAnimationFrame(frame);
+}requestAnimationFrame(frame);
+const guide=$('#photoGuide'),gc=guide.getContext('2d');let corners=[],templateMasks={},guideRect=null;
+$('#scanBtn').onclick=()=>document.body.classList.add('scan');$('#view').onclick=$('#back').onclick=()=>{document.body.classList.remove('scan');resize()};$('#demo').onclick=demoCar;
+$('#vehicleType').onchange=()=>{cutout=null;cutoutTemplateId=null;$('#release').disabled=true;$('#note').textContent='Teacher override: selected vehicle '+$('#vehicleType').value+'. Tap Retry cutout.';};
+// Detect dark, approximately square corner markers on a downscaled photo.
+function detectMarkers(im){
+ const c=document.createElement('canvas'),scale=Math.min(1,720/Math.max(im.width,im.height));
+ c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));
+ const cc=c.getContext('2d',{willReadFrequently:true});cc.drawImage(im,0,0,c.width,c.height);
+ const w=c.width,h=c.height,p=cc.getImageData(0,0,w,h).data;
+ // Inspect multiple darkness thresholds to handle shadows and exposure.
+ let best=null;
+ for(const threshold of [65,95,125]){
+  const dark=new Uint8Array(w*h),seen=new Uint8Array(w*h);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+   const j=y*w+x,k=j*4;
+   if(p[k]<threshold&&p[k+1]<threshold&&p[k+2]<threshold)dark[j]=1;
+  }
+  const candidates=[],stack=[];
+  for(let y=2;y<h-2;y++)for(let x=2;x<w-2;x++){
+   const seed=y*w+x;if(!dark[seed]||seen[seed])continue;
+   stack.length=0;stack.push(seed);seen[seed]=1;
+   let count=0,minX=x,maxX=x,minY=y,maxY=y,sx=0,sy=0;
+   while(stack.length){let j=stack.pop(),px=j%w,py=(j-px)/w;count++;sx+=px;sy+=py;
+    if(px<minX)minX=px;if(px>maxX)maxX=px;if(py<minY)minY=py;if(py>maxY)maxY=py;
+    for(let n of [j-1,j+1,j-w,j+w]){if(n<0||n>=w*h||seen[n]||!dark[n])continue;
+     let nx=n%w;if(Math.abs(nx-px)>1)continue;seen[n]=1;stack.push(n)}
+   }
+   let bw=maxX-minX+1,bh=maxY-minY+1,area=bw*bh;
+   if(count<10||area<18||area>w*h*.016||bw<3||bh<3)continue;
+   const ratio=bw/bh,fill=count/area;
+   if(ratio<.55||ratio>1.8||fill<.45)continue;
+   const cx=sx/count,cy=sy/count;
+   candidates.push({x:cx/w,y:cy/h,area,fill,score:fill*Math.min(ratio,1/ratio)});
+  }
+  // The four printed squares should form a large quadrilateral, with similar sizes.
+  const zones=[[],[],[],[]];
+  for(const q of candidates){
+   if(q.x<.04||q.x>.96||q.y<.04||q.y>.96)continue;
+   let zone=(q.y>.5?2:0)+(q.x>.5?1:0);zones[zone].push(q);
+  }
+  for(const z of zones)z.sort((a,b)=>b.score*b.area-a.score*a.area);
+  if(zones.some(z=>!z.length))continue;
+  for(const tl of zones[0].slice(0,12))for(const tr of zones[1].slice(0,12))
+  for(const bl of zones[2].slice(0,12))for(const br of zones[3].slice(0,12)){
+   let points=[tl,tr,br,bl],width=((tr.x-tl.x)+(br.x-bl.x))/2,height=((bl.y-tl.y)+(br.y-tr.y))/2;
+   // Page markers must span nearly the entire photographed sheet.
+   // A vehicle's wheels can be dark squares, but cannot be page corners.
+   if(width<.53||height<.53)continue;
+   const leftEdge=Math.min(tl.x,bl.x),rightEdge=Math.max(tr.x,br.x);
+   const topEdge=Math.min(tl.y,tr.y),bottomEdge=Math.max(bl.y,br.y);
+   if(rightEdge-leftEdge<.56||bottomEdge-topEdge<.56)continue;
+   // Reject quadrilaterals whose top and bottom edges are strongly mismatched.
+   if(tr.x<=tl.x||br.x<=bl.x||bl.y<=tl.y||br.y<=tr.y)continue;
+   let a=points.map(q=>q.area),min=Math.min(...a),max=Math.max(...a);
+   if(max/min>4)continue;
+   let top=Math.abs(tl.y-tr.y),bottom=Math.abs(bl.y-br.y),left=Math.abs(tl.x-bl.x),right=Math.abs(tr.x-br.x);
+   let penalty=(top+bottom+left+right)*1.6+Math.abs(width/height-1.35)*.15;
+   // Strongly favor the outermost plausible page-sized rectangle.
+   // This prevents wheels or headlights winning over registration marks.
+   let extent=(rightEdge-leftEdge)*(bottomEdge-topEdge);
+   let score=extent*15+points.reduce((v,q)=>v+q.score,0)*.25+Math.log(1+min)*.08-penalty*2;
+   if(!best||score>best.score)best={score,points:points.map(q=>[q.x,q.y])};
+  }
+ }
+ return best?.points||null;
+}
+// Read five high-contrast squares at fixed page coordinates after corner detection.
+// 4-bit vehicle number (1..8) + parity. Coordinates refer to 792 x 612 print page.
+function identifyVehicle(){
+ // Decode only the interior of each printed code square. Never silently assume car 1.
+ const H=transformForCorners(), W=792, HH=612;
+ const centers=[326,361,396,431,466], yy=72;
+ const small=document.createElement('canvas');small.width=Math.min(photo.naturalWidth,1600);small.height=Math.round(small.width*photo.naturalHeight/photo.naturalWidth);
+ const cc=small.getContext('2d',{willReadFrequently:true});cc.drawImage(photo,0,0,small.width,small.height);
+ const pix=cc.getImageData(0,0,small.width,small.height).data;
+ function sample(x,y){let u=x/W,v=y/HH,d=H[6]*u+H[7]*v+1;
+  let px=Math.round((H[0]*u+H[1]*v+H[2])/d*small.width),py=Math.round((H[3]*u+H[4]*v+H[5])/d*small.height);
+  if(px<0||py<0||px>=small.width||py>=small.height)return null;
+  let j=(py*small.width+px)*4;return (pix[j]+pix[j+1]+pix[j+2])/3;
+ }
+ let values=centers.map(x=>{let v=[];for(let dy=-4;dy<=4;dy+=2)for(let dx=-4;dx<=4;dx+=2){let z=sample(x+dx,yy+dy);if(z!==null)v.push(z)}
+  if(v.length<20)return null;v.sort((a,b)=>a-b);return v[Math.floor(v.length/2)];});
+ const readout=values.map(v=>v===null?'?':Math.round(v)).join(', ');
+ if(values.some(v=>v===null))return {number:null,detail:'Code out of frame ('+readout+')'};
+ // Compare code squares with each other, not against absolute paper-white.
+ // Classroom lighting and warm/pink paper can make white squares read near 150.
+ const sorted=[...values].sort((a,b)=>a-b);
+ const gaps=sorted.slice(1).map((v,i)=>v-sorted[i]);
+ const biggest=Math.max(...gaps),split=gaps.indexOf(biggest);
+ const low=sorted.slice(0,split+1),high=sorted.slice(split+1);
+ const dark=low.reduce((a,b)=>a+b,0)/low.length;
+ const light=high.reduce((a,b)=>a+b,0)/high.length;
+ const threshold=(dark+light)/2;
+ if(biggest<35 || light-dark<45 || low.length===0 || high.length===0)
+  return {number:null,detail:'Insufficient black/white contrast ('+readout+')'};
+ const bits=values.map(v=>v<threshold?1:0);
+ const number=bits.slice(0,4).reduce((a,b)=>a*2+b,0);
+ const parity=bits.slice(0,4).reduce((a,b)=>a+b,0)%2;
+ const code=bits.join('');
+ const detail='Code '+code+' (brightness '+readout+'; adaptive threshold '+Math.round(threshold)+')';
+ if(number<1||number>8||bits[4]!==parity)
+  return {number:null,detail:'Invalid '+detail};
+ return {number,detail};
+}
+
+async function autoScan(){
+ if(!photo)return;
+ $('#scanStep').textContent='Finding page markers…';
+ // Yield to allow iPad to update the progress message.
+ await new Promise(r=>setTimeout(r,25));
+ let found=detectMarkers(photo);
+ if(!found){$('#scanStep').textContent='Could not confidently find the four OUTER page squares. Open Teacher backup and tap them manually.';$('#teacherTools').open=true;return;}
+ corners=found;drawGuide();$('#scanStep').textContent='Found four squares! Reading vehicle code…';
+ await new Promise(r=>setTimeout(r,25));
+ let result=identifyVehicle();
+ if(!result.number){$('#scanStep').textContent='Vehicle NOT recognized: '+result.detail+'. Open Teacher backup to select its number, then tap Retry cutout.';$('#teacherTools').open=true;return;}
+ $('#vehicleType').value=String(result.number);
+ $('#scanStep').textContent='Recognized Vehicle '+String(result.number).padStart(2,'0')+'! Making cutout…';
+ $('#note').textContent='Scanner diagnosis: '+result.detail;
+ await new Promise(r=>setTimeout(r,25));
+ await makeVehicleCutout(true);
+}
+$('#photo').onchange=e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f);photo=new Image();photo.onload=()=>{URL.revokeObjectURL(u);corners=[];cutout=null;$('#release').disabled=true;drawGuide();autoScan()};photo.onerror=()=>$('#scanStep').textContent='Could not open photo';photo.src=u};
+function drawGuide(){gc.clearRect(0,0,480,320);gc.fillStyle='#26394b';gc.fillRect(0,0,480,320);if(!photo)return;let scale=Math.min(480/photo.width,320/photo.height);let w=photo.width*scale,h=photo.height*scale,x=(480-w)/2,y=(320-h)/2;guideRect={x,y,w,h};gc.drawImage(photo,x,y,w,h);gc.lineWidth=2;corners.forEach((p,i)=>{let xx=x+p[0]*w,yy=y+p[1]*h;gc.strokeStyle='#00e3ff';gc.fillStyle='#132b3b';gc.beginPath();gc.arc(xx,yy,10,0,Math.PI*2);gc.fill();gc.stroke();gc.fillStyle='#fff';gc.font='bold 12px system-ui';gc.textAlign='center';gc.fillText(i+1,xx,yy+4)});$('#makeCutout').disabled=corners.length!==4;$('#scanStep').textContent=corners.length<4?['Tap TOP LEFT black square','Tap TOP RIGHT black square','Tap BOTTOM RIGHT black square','Tap BOTTOM LEFT black square'][corners.length]:'All four corners marked. Tap Make cutout.'}
+guide.addEventListener('pointerdown',e=>{if(!photo||corners.length===4)return;const r=guide.getBoundingClientRect(),x=(e.clientX-r.left)*480/r.width,y=(e.clientY-r.top)*320/r.height;const g=guideRect;if(x<g.x||y<g.y||x>g.x+g.w||y>g.y+g.h)return;corners.push([(x-g.x)/g.w,(y-g.y)/g.h]);drawGuide()});
+$('#redoMarks').onclick=()=>{corners=[];cutout=null;$('#release').disabled=true;$('#teacherTools').open=true;drawGuide()};
+// Solve a projective transform from normalized print-page coordinates to the photographed corners.
+function solve8(A,b){for(let i=0;i<8;i++){let k=i;for(let j=i+1;j<8;j++)if(Math.abs(A[j][i])>Math.abs(A[k][i]))k=j;if(Math.abs(A[k][i])<1e-10)throw Error('Corners overlap. Redo the marks.');[A[i],A[k]]=[A[k],A[i]];[b[i],b[k]]=[b[k],b[i]];let v=A[i][i];for(let q=i;q<8;q++)A[i][q]/=v;b[i]/=v;for(let j=0;j<8;j++){if(j===i)continue;let f=A[j][i];for(let q=i;q<8;q++)A[j][q]-=f*A[i][q];b[j]-=f*b[i]}}return b}
+function transformForCorners(){// marker centers are (22,22), (770,22), (770,590), (22,590) on 792x612 page
+const src=[[22/792,22/612],[770/792,22/612],[770/792,590/612],[22/792,590/612]];let A=[],b=[];for(let i=0;i<4;i++){let [u,v]=src[i],[x,y]=corners[i];A.push([u,v,1,0,0,0,-u*x,-v*x]);b.push(x);A.push([0,0,0,u,v,1,-u*y,-v*y]);b.push(y)}return solve8(A,b)}
+function loadMask(i){if(templateMasks[i])return Promise.resolve(templateMasks[i]);return new Promise((resolve,reject)=>{let im=new Image();im.onload=()=>{templateMasks[i]=im;resolve(im)};im.onerror=()=>reject(Error('Missing cabi-assets/vehicle_'+String(i).padStart(2,'0')+'_mask.png on GitHub'));im.src='cabi-assets/vehicle_'+String(i).padStart(2,'0')+'_mask.png'})}
+$('#makeCutout').onclick=()=>makeVehicleCutout(false);
+async function makeVehicleCutout(auto=false){if(!photo||corners.length!==4)return;$('#makeCutout').disabled=true;$('#scanStep').textContent='Aligning page and cutting out vehicle…';try{let i=+$('#vehicleType').value,mask=await loadMask(i),H=transformForCorners();const W=792,HH=612,rect=[39,36,714,540];let original=document.createElement('canvas');original.width=Math.min(photo.naturalWidth,1800);original.height=Math.round(original.width*photo.naturalHeight/photo.naturalWidth);let oc=original.getContext('2d',{willReadFrequently:true});oc.drawImage(photo,0,0,original.width,original.height);let pix=oc.getImageData(0,0,original.width,original.height),a=pix.data;let mc=document.createElement('canvas');mc.width=mask.width;mc.height=mask.height;let mx=mc.getContext('2d',{willReadFrequently:true});mx.drawImage(mask,0,0);let ma=mx.getImageData(0,0,mc.width,mc.height).data;
+// Work in the same source-art coordinate system as the generated silhouette mask.
+let cw=640,ch=Math.round(cw*mask.height/mask.width),output=document.createElement('canvas');output.width=cw;output.height=ch;let out=output.getContext('2d'),data=out.createImageData(cw,ch),dst=data.data;let minX=cw,minY=ch,maxX=-1,maxY=-1;
+for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){let u=(rect[0]+(x+.5)/cw*rect[2])/W,v=(rect[1]+(y+.5)/ch*rect[3])/HH;let den=H[6]*u+H[7]*v+1,fx=(H[0]*u+H[1]*v+H[2])/den*original.width,fy=(H[3]*u+H[4]*v+H[5])/den*original.height,ix=Math.round(fx),iy=Math.round(fy),mi=(Math.min(mc.height-1,Math.floor(y/ch*mc.height))*mc.width+Math.min(mc.width-1,Math.floor(x/cw*mc.width)))*4,di=(y*cw+x)*4;if(ma[mi]<128||ix<0||iy<0||ix>=original.width||iy>=original.height)continue;let si=(iy*original.width+ix)*4;dst[di]=a[si];dst[di+1]=a[si+1];dst[di+2]=a[si+2];dst[di+3]=255;minX=Math.min(x,minX);maxX=Math.max(x,maxX);minY=Math.min(y,minY);maxY=Math.max(y,maxY)}
+if(maxX<minX)throw Error('Mask is empty. Try another template.');out.putImageData(data,0,0);let pad=4;cutout=document.createElement('canvas');cutout.width=maxX-minX+1+pad*2;cutout.height=maxY-minY+1+pad*2;cutout.getContext('2d').drawImage(output,minX,minY,maxX-minX+1,maxY-minY+1,pad,pad,maxX-minX+1,maxY-minY+1);pc.clearRect(0,0,350,350);let sc=Math.min(340/cutout.width,340/cutout.height);pc.drawImage(cutout,(350-cutout.width*sc)/2,(350-cutout.height*sc)/2,cutout.width*sc,cutout.height*sc);cutoutTemplateId=i;$('#release').disabled=false;$('#scanStep').textContent='Cutout ready — Vehicle '+String(i).padStart(2,'0')+'. Check the shape before releasing.';if(!auto)$('#note').textContent='Teacher mode: manually selected Vehicle '+String(i).padStart(2,'0')+'.';}catch(e){$('#scanStep').textContent='Scan failed: '+e.message;$('#note').textContent='Confirm that the asset files are in cabi-assets on GitHub.'}finally{$('#makeCutout').disabled=false}}
+$('#release').onclick=()=>{if(!cutout)return;let img=new Image();img.onload=()=>{addCar(img,{templateId:cutoutTemplateId,facing:TEMPLATE_FACING[cutoutTemplateId]??1});document.body.classList.remove('scan');resize()};img.src=cutout.toDataURL('image/png')};
+$('#snapshot').onclick=()=>{let a=document.createElement('a');a.download='cabi-city.png';a.href=scene.toDataURL('image/png');a.click()};$('#reset').onclick=()=>{if(wirelessActive){clearCloudGarage();return;}if(confirm('Permanently remove ALL saved cars from this iPad? This cannot be undone.')){garageRevision++;clearTimeout(saveTimer);cars=[];loadingGarage=false;$('#count').textContent=0;if(garageDB)garagePut(garageDB,[]).catch(e=>console.warn(e))}};$('#record').onclick=()=>{if(recording)return;if(!scene.captureStream||!window.MediaRecorder){alert('Recording is unavailable in this browser. Try Chrome on your Mac.');return}let mime=['video/webm;codecs=vp9','video/webm','video/mp4'].find(m=>MediaRecorder.isTypeSupported(m));if(!mime){alert('Recording format not supported');return}let rec=new MediaRecorder(scene.captureStream(24),{mimeType:mime}),chunks=[];rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);rec.onstop=()=>{let u=URL.createObjectURL(new Blob(chunks,{type:mime})),a=document.createElement('a');a.href=u;a.download='cabi-city.'+(mime.includes('mp4')?'mp4':'webm');a.click();setTimeout(()=>URL.revokeObjectURL(u),10000);recording=false;$('#record').textContent='⏺ Record 15s'};recording=true;$('#record').textContent='Recording…';rec.start();setTimeout(()=>rec.state==='recording'&&rec.stop(),15000)};
+
+// V12: Firestore shared city. V11's IndexedDB garage is not overwritten by cloud mode.
+const FIREBASE_CONFIG={apiKey:'AIzaSyBaG2kydOaAM8iUdvrUXLfvRC6Tcr5YoaA',authDomain:'cabi-city.firebaseapp.com',projectId:'cabi-city',storageBucket:'cabi-city.firebasestorage.app',messagingSenderId:'167314279745',appId:'1:167314279745:web:cceacfb91acebc9c03e5c0'};
+const AUTHORIZED_UID='rlT625mDHvZZkiQhN4TR1MpyvsZ2';
+const CLOUD_COLLECTION='vehicles';
+const syncState=$('#syncState'),wireMessage=$('#wireMessage');
+function wireNote(message){wireMessage.textContent=message}
+function syncLabel(message){syncState.textContent=message}
+$('#wirelessBtn').onclick=()=>{let panel=$('#wirelessPanel');panel.style.display=panel.style.display==='none'?'block':'none';resize()};
+try{
+ if(typeof firebase==='undefined')throw Error('Firebase libraries could not load. Check the internet connection.');
+ firebase.initializeApp(FIREBASE_CONFIG);wireAuth=firebase.auth();wireStore=firebase.firestore();
+ wireAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(e=>wireNote('This browser may not remember sign-in: '+e.message));
+ wireAuth.onAuthStateChanged(async user=>{
+  if(cloudUnsub){cloudUnsub();cloudUnsub=null}
+  if(user && user.uid===AUTHORIZED_UID){
+   wirelessActive=true;cloudDocs.clear();cloudSeen.clear();cars=[];updateLayers();
+   $('#loginArea').style.display='none';$('#loggedArea').style.display='block';
+   syncLabel('🟢 Wireless city');wireNote('Connected. Both devices share the same vehicles.');
+   $('#status').innerHTML='<span id="count">0</span> cars • Shared Firebase garage • 25 featured • 95 citywide';
+   // Individual vehicle documents avoid Firestore's 1 MiB document limit.
+   cloudUnsub=wireStore.collection(CLOUD_COLLECTION).orderBy('createdAt','asc').limitToLast(120).onSnapshot(snapshot=>{
+    const present=new Set(snapshot.docs.map(d=>d.id));
+    for(const car of [...cars])if(car.cloudId && !present.has(car.cloudId))cars.splice(cars.indexOf(car),1);
+    for(const doc of snapshot.docs){
+     if(cloudSeen.has(doc.id))continue;
+     cloudSeen.add(doc.id);
+     const v=doc.data();if(typeof v.src!=='string'||!v.src.startsWith('data:image/')||v.src.length>950000)continue;
+     imageFromUrl(v.src).then(img=>{
+      if(!wirelessActive||!cloudSeen.has(doc.id))return;
+      if(cars.some(c=>c.cloudId===doc.id))return;
+      addCar(img,{restoring:true,fromCloud:true,cloudId:doc.id,layer:Number.isInteger(v.layer)?v.layer:cars.length%2,templateId:v.templateId??null,facing:v.facing??1,speed:v.speed??1,trips:0});
+      updateLayers();
+     }).catch(e=>console.warn('Cloud image failed',e));
+    }
+    for(const id of [...cloudSeen])if(!present.has(id))cloudSeen.delete(id);
+    updateLayers();syncLabel('🟢 Wireless • '+snapshot.size+' cars');
+   },e=>{wireNote('⚠️ Sync error: '+e.message);syncLabel('⚠️ Wireless error')});
+  }else{
+   wirelessActive=false;cloudSeen.clear();cloudDocs.clear();
+   $('#loginArea').style.display='block';$('#loggedArea').style.display='none';
+   syncLabel(user?'⚠️ Wrong classroom account':'Local mode');$('#status').innerHTML='<span id="count">0</span> cars • Local garage • 25 featured • 95 citywide';
+   if(user && user.uid!==AUTHORIZED_UID)wireNote('This account is not the authorized Cabi City classroom account. Sign out and use the classroom login.');
+   else wireNote('Sign in once per device to connect the iPad and ClearTouch.');
+   cars=[];updateLayers();
+   // Restore V11 local garage if wireless is signed out.
+   if(garageDB){garageGet(garageDB).then(async records=>{if(wirelessActive)return;for(const record of records.slice(-120)){try{const img=await imageFromUrl(record.src);if(wirelessActive)return;addCar(img,{restoring:true,layer:record.layer,speed:record.speed,templateId:record.templateId,facing:record.facing,trips:record.trips})}catch(e){console.warn(e)}}}).catch(console.warn)}
+  }
+ });
+}catch(e){wireNote('Firebase unavailable: '+e.message);syncLabel('Local mode')}
+$('#wireSignIn').onclick=async()=>{
+ if(!wireAuth){wireNote('Firebase is not available on this device.');return}
+ const email=$('#wireEmail').value.trim(),password=$('#wirePassword').value;
+ if(!email||!password){wireNote('Enter the classroom email and Cabi City password.');return}
+ $('#wireSignIn').disabled=true;wireNote('Signing in…');
+ try{await wireAuth.signInWithEmailAndPassword(email,password);$('#wirePassword').value=''}
+ catch(e){wireNote('Sign-in failed: '+e.message)}finally{$('#wireSignIn').disabled=false}
+};
+$('#wireSignOut').onclick=()=>wireAuth?.signOut();
+async function uploadCloudCar(car){
+ if(!wirelessActive||!wireStore)return;
+ try{
+  // Keep transparency; a scanned car is already a cropped PNG, never the full-page photo.
+  let src=car.img.src;
+  if(!src.startsWith('data:image/'))throw Error('Vehicle is not a local cutout');
+  if(src.length>900000){
+   let c=document.createElement('canvas'),scale=Math.min(1,540/Math.max(car.img.width,car.img.height));
+   c.width=Math.max(1,Math.round(car.img.width*scale));c.height=Math.max(1,Math.round(car.img.height*scale));
+   c.getContext('2d').drawImage(car.img,0,0,c.width,c.height);src=c.toDataURL('image/png');
+  }
+  if(src.length>900000)throw Error('Vehicle image too large to sync; try a closer photo.');
+  const ref=wireStore.collection(CLOUD_COLLECTION).doc();car.cloudId=ref.id;cloudSeen.add(ref.id);
+  await ref.set({src,templateId:car.templateId??null,facing:car.facing??1,layer:car.layer,speed:car.speed,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  // Retain at most 120 shared vehicles; older ones are removed from the shared city.
+  const old=await wireStore.collection(CLOUD_COLLECTION).orderBy('createdAt','asc').get();
+  if(old.size>120){let batch=wireStore.batch();old.docs.slice(0,old.size-120).forEach(d=>batch.delete(d.ref));await batch.commit()}
+ }catch(e){wireNote('⚠️ Vehicle could not sync: '+e.message);syncLabel('⚠️ Sync issue');console.warn(e)}
+}
+async function clearCloudGarage(){
+ if(!wirelessActive||!wireStore)return;
+ if(!confirm('Remove ALL cars from the SHARED city on both the iPad and ClearTouch? Your original V11 local garage is not affected.'))return;
+ try{const snap=await wireStore.collection(CLOUD_COLLECTION).get();for(let i=0;i<snap.docs.length;i+=400){const batch=wireStore.batch();snap.docs.slice(i,i+400).forEach(d=>batch.delete(d.ref));await batch.commit()}wireNote('Shared city cleared.')}catch(e){wireNote('Could not clear shared city: '+e.message)}
+}
+// Direct links: ?mode=scan for iPad, ?mode=city for ClearTouch.
+const mode=new URLSearchParams(location.search).get('mode');
+if(mode==='scan')document.body.classList.add('scan');
+if(mode==='city')document.body.classList.remove('scan');
+</script></body></html>
