@@ -34,8 +34,8 @@
 @media(max-width:760px){.town-viewport{overflow-x:auto}.town{width:900px}.town-site .site-name{font-size:12px}.town-hint{font-size:11px}}
 
 /* Illustrated world upgrade: keep gameplay and stored progress unchanged */
-.town{background:#9fe3ad url('assets/dreamland-map.webp') center center / 100% 100% no-repeat;min-width:1000px;min-height:617px;aspect-ratio:1648/928;}
-.monster .town{background:#25213c url('assets/coastal-ocean-map.webp') center center / 100% 100% no-repeat}
+.town{background:#9fe3ad url('cougar-arcade/dreamland-map.webp') center center / 100% 100% no-repeat;min-width:1000px;min-height:617px;aspect-ratio:1648/928;}
+.monster .town{background:#25213c url('cougar-arcade/coastal-ocean-map.webp') center center / 100% 100% no-repeat}
 .town:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#0d062b20,transparent 25%,transparent 72%,#1a0e2866);pointer-events:none}
 .town-path{opacity:0;}
 .town-heading{top:2%;left:50%;transform:translateX(-50%);z-index:5;white-space:nowrap;background:linear-gradient(#fff9e8,#ffd5f0);border:4px solid #fff;box-shadow:0 6px 0 #74346e,0 10px 24px #261d5577;border-radius:22px;padding:8px 25px;color:#9b328b;font-size:clamp(23px,3vw,40px);text-shadow:0 2px #fff}
@@ -59,7 +59,7 @@
 .dream .unified-town .town-heading{top:0.5%;font-size:clamp(12px,1.5vw,19px)}
 
 /* Monster Mayhem round one: full-map monster world and destruction */
-.monster .town.unified-town{background:#171629 url('assets/coastal-ocean-map.webp') center / 100% 100% no-repeat}
+.monster .town.unified-town{background:#171629 url('cougar-arcade/coastal-ocean-map.webp') center / 100% 100% no-repeat}
 .monster .town-heading{z-index:9;color:#c9ff78}
 .monster .town-site .building-art{filter:brightness(.75) saturate(.8) hue-rotate(150deg) drop-shadow(0 6px 7px #000b)}
 .monster .town-site .site-name{background:#21192fe8;color:#c6ff8c;border:2px solid #8bc9ff}
@@ -81,7 +81,7 @@
 @keyframes mayhemBeam{0%{opacity:0;transform:rotate(var(--beam-angle)) scaleX(0)}20%{opacity:1}70%{opacity:1;transform:rotate(var(--beam-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--beam-angle)) scaleX(1)}}
 
 /* MONSTER MAYHEM ROUND TWO — original industrial/monster architecture, independent map */
-.monster .town.unified-town{background-image:url('assets/coastal-ocean-map.webp')!important;background-size:100% 100%!important}
+.monster .town.unified-town{background-image:url('cougar-arcade/coastal-ocean-map.webp')!important;background-size:100% 100%!important}
 .monster .unified-town .town-heading{top:1%;font-size:clamp(14px,2.2vw,25px);background:#131024d9;border:2px solid #53d9ff;color:#d5ff9b;border-radius:18px;padding:5px 20px;z-index:6}
 .monster .unified-town .town-site{width:20%;height:27%;filter:drop-shadow(0 7px 5px #060314aa)}
 .monster .unified-town .town-site .building-art{height:83%;width:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 0 5px #05a8ff44)}
@@ -139,7 +139,7 @@
 
 /* Rainbow Dreamland Listen & Spell arcade cabinet */
 .dream .spell-game-shell .panel{background:#fff5ff;border:3px solid #efb5e9;box-shadow:0 12px 30px #6c33732b}
-.dream .spell-stage{background:linear-gradient(#fff9f5db,#f8e4f5ed),url('assets/spell-arcade-garden.png') center / cover no-repeat;border:6px solid #d854c5;box-shadow:inset 0 0 0 4px #ffcf59,inset 0 0 0 8px #ffffff9c,0 12px 0 #9a379b,0 20px 26px #6e32605c;border-radius:32px;padding:22px 18px 29px}
+.dream .spell-stage{background:linear-gradient(#fff9f5db,#f8e4f5ed),url('cougar-arcade/spell-arcade-garden.png') center / cover no-repeat;border:6px solid #d854c5;box-shadow:inset 0 0 0 4px #ffcf59,inset 0 0 0 8px #ffffff9c,0 12px 0 #9a379b,0 20px 26px #6e32605c;border-radius:32px;padding:22px 18px 29px}
 .dream .spell-stage:before{background:none}
 .dream .spell-hero-copy strong{font-weight:1000;text-transform:uppercase;letter-spacing:.035em;color:#7d278f;text-shadow:0 2px #fff,0 4px #f2a9e5}
 .dream .spell-stage .spell-progress{background:#fff5fcf2;border:2px solid #edb7e4;border-radius:18px;padding:8px 12px;display:inline-block}
@@ -150,7 +150,7 @@
 
 
 /* Monster Mayhem: Atomic Word Lab — visual skin only; existing spelling logic preserved */
-.monster .spell-stage{background:linear-gradient(180deg,#071a30c9,#0b2441db),url('assets/atomic-word-lab.png') center / cover no-repeat;border:6px solid #d99d29;box-shadow:inset 0 0 0 3px #75d7ff,inset 0 0 0 8px #0b304b,0 10px 0 #102d46,0 20px 30px #05132288;border-radius:28px;padding:24px 22px 32px;min-height:530px}
+.monster .spell-stage{background:linear-gradient(180deg,#071a30c9,#0b2441db),url('cougar-arcade/atomic-word-lab.png') center / cover no-repeat;border:6px solid #d99d29;box-shadow:inset 0 0 0 3px #75d7ff,inset 0 0 0 8px #0b304b,0 10px 0 #102d46,0 20px 30px #05132288;border-radius:28px;padding:24px 22px 32px;min-height:530px}
 .monster .spell-stage:before{background:none}
 .monster .spell-hero{max-width:680px;background:#061a30db;border:2px solid #47bce9;border-radius:18px;padding:8px 18px;box-shadow:0 0 18px #0bd1ff44}
 .monster .spell-hero-copy strong{font-weight:1000;text-transform:uppercase;letter-spacing:.065em;color:#ffce58;text-shadow:0 2px 0 #653b13,0 0 14px #ffbc4055;font-size:clamp(20px,3vw,30px)}
@@ -173,7 +173,7 @@
 /* Rainbow Dreamland Balloon Pop — carnival booth, retaining smooth working balloons */
 .dream .balloon-game-shell{max-width:1030px}
 .dream .balloon-game-shell>.panel{background:linear-gradient(180deg,#fff2ff,#f2e9ff);border:2px solid #e5b9f5}
-.dream .balloon-game-shell .balloon-stage{width:100%;max-width:940px;min-height:510px;padding:clamp(145px,21vw,205px) 9% 35px;margin:14px auto 18px;border:0;border-radius:22px;background:#46166f url('assets/rainbow-balloon-deluxe.png') center center/100% 100% no-repeat;box-shadow:0 12px 28px #60347b55}
+.dream .balloon-game-shell .balloon-stage{width:100%;max-width:940px;min-height:510px;padding:clamp(145px,21vw,205px) 9% 35px;margin:14px auto 18px;border:0;border-radius:22px;background:#46166f url('cougar-arcade/rainbow-balloon-deluxe.png') center center/100% 100% no-repeat;box-shadow:0 12px 28px #60347b55}
 .dream .balloon-game-shell .balloon-stage:before{display:none}
 .dream .balloon-game-shell .balloon-stage-title{color:#fff9df;text-shadow:0 3px 4px #230943,0 0 14px #d55bf5;font-size:clamp(18px,2.4vw,26px);margin:-8px 0 14px}
 .dream .balloon-game-shell .balloon-fleet{gap:clamp(8px,1.5vw,19px);padding:0 0 20px;align-items:center}
@@ -185,7 +185,7 @@
 /* Monster Mayhem Balloon Pop — industrial testing bay; keep existing smooth balloons and behavior */
 .monster .balloon-game-shell{max-width:1030px}
 .monster .balloon-game-shell>.panel{background:linear-gradient(180deg,#13243c,#071526);border:2px solid #3a91b9;color:#f2f9ff}
-.monster .balloon-game-shell .balloon-stage{width:100%;max-width:940px;min-height:510px;padding:clamp(145px,21vw,205px) 9% 35px;margin:14px auto 18px;border:0;border-radius:22px;background:#091e39 url('assets/monster-balloon-facility.png') center center/100% 100% no-repeat;box-shadow:0 12px 28px #0009}
+.monster .balloon-game-shell .balloon-stage{width:100%;max-width:940px;min-height:510px;padding:clamp(145px,21vw,205px) 9% 35px;margin:14px auto 18px;border:0;border-radius:22px;background:#091e39 url('cougar-arcade/monster-balloon-facility.png') center center/100% 100% no-repeat;box-shadow:0 12px 28px #0009}
 .monster .balloon-game-shell .balloon-stage:before{display:none}
 .monster .balloon-game-shell .balloon-stage-title{color:#eafaff;text-shadow:0 3px 5px #061428,0 0 14px #00aaff;font-size:clamp(18px,2.4vw,26px);margin:-8px 0 14px}
 .monster .balloon-game-shell .balloon-fleet{gap:clamp(8px,1.5vw,19px);padding:0 0 20px;align-items:center}
@@ -199,8 +199,8 @@
 .treasure-game-shell{max-width:1080px}
 .treasure-game-shell>.panel{padding:20px 14px 24px}
 .treasure-stage{width:100%;max-width:980px;min-height:490px;margin:14px auto 20px;padding:clamp(115px,16vw,160px) 9% 35px;border-radius:22px;background-position:center;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 12px 30px #16102d55;position:relative;overflow:hidden}
-.dream .treasure-stage{background-color:#4c1472;background-image:url('assets/rainbow-treasure-hall.jpg')}
-.monster .treasure-stage{background-color:#091c38;background-image:url('assets/monster-treasure-vault.jpg')}
+.dream .treasure-stage{background-color:#4c1472;background-image:url('cougar-arcade/rainbow-treasure-hall.jpg')}
+.monster .treasure-stage{background-color:#091c38;background-image:url('cougar-arcade/monster-treasure-vault.jpg')}
 .treasure-stage .treasure-play{position:relative;z-index:1;max-width:690px;margin:auto;padding:17px 14px 21px;border-radius:20px;backdrop-filter:blur(3px)}
 .dream .treasure-stage .treasure-play{background:#3b0c63cf;border:2px solid #f3bf62;color:#fff5da}
 .monster .treasure-stage .treasure-play{background:#071a34db;border:2px solid #4bc8f1;color:#e6f7ff}
@@ -287,7 +287,7 @@
 @media(max-width:600px){.hidden-hunt .gem-ground{height:470px}.hidden-hunt .hunt-spot{width:19%;height:90px}.hidden-hunt .hunt-object{font-size:43px}.hidden-hunt .hunt-search{font-size:9px}}
 
 /* Illustrated interactive search scenes */
-.hidden-hunt .forest-scene{background:#4b995d url('assets/enchanted-hunt-forest.png') center center/100% 100% no-repeat!important}
+.hidden-hunt .forest-scene{background:#4b995d url('cougar-arcade/enchanted-hunt-forest.png') center center/100% 100% no-repeat!important}
 .hidden-hunt .forest-scene .hunt-landmarks{display:none}
 .hidden-hunt .forest-scene .hunt-cover{opacity:0!important;pointer-events:none}
 .hidden-hunt .forest-scene .hunt-spot{width:clamp(65px,15%,155px);height:clamp(65px,22%,145px);border-radius:50%;background:transparent;outline:none}
@@ -300,7 +300,7 @@
 @media(max-width:650px){.hidden-hunt .gem-ground{min-height:310px}.hidden-hunt .forest-scene .hunt-spot{width:17%;height:22%}}
 
 /* Kaiju's illustrated search scene: hit targets align with objects in the artwork. */
-.hidden-hunt .ruins-scene{background:#101b35 url('assets/kaiju-hunt-ruins.png') center center/100% 100% no-repeat!important}
+.hidden-hunt .ruins-scene{background:#101b35 url('cougar-arcade/kaiju-hunt-ruins.png') center center/100% 100% no-repeat!important}
 .hidden-hunt .ruins-scene .hunt-landmarks{display:none}
 .hidden-hunt .ruins-scene .hunt-cover{opacity:0!important;pointer-events:none}
 .hidden-hunt .ruins-scene .hunt-spot{width:clamp(65px,15%,155px);height:clamp(65px,22%,145px);border-radius:50%;background:transparent;outline:none}
@@ -337,7 +337,7 @@
 .dream .district-controls{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px;background:#fbe8fc;color:#703970}
 .district-controls button{border:2px solid #b978c8;border-radius:18px;padding:10px 18px;background:white;color:#703970;font-weight:900}
 .dream .district-controls button[aria-current="page"]{background:#a43fa2;color:white}
-.dream .town.garden-town{background-image:url('assets/garden-district.webp');min-height:560px;aspect-ratio:1648/928}
+.dream .town.garden-town{background-image:url('cougar-arcade/garden-district.webp');min-height:560px;aspect-ratio:1648/928}
 .dream .garden-town .town-site{width:19%;height:33%;filter:drop-shadow(0 6px 5px #40254466)}
 .dream .garden-town .town-site .building-art{height:84%;width:100%;object-fit:contain}
 .dream .garden-town .town-site .site-name{font-size:13px;max-width:140%;white-space:nowrap;padding:4px 8px;margin-top:-7px}
@@ -347,7 +347,7 @@
 
 /* Unified single-screen Rainbow Dreamland: eleven destinations, no district navigation. */
 .dream .town-viewport{width:100%;overflow:visible}
-.dream .town.unified-town{width:100%;min-width:0!important;min-height:0!important;aspect-ratio:1672/941;background-image:url('assets/eleven-plots.webp');background-size:100% 100%;overflow:hidden;border-radius:0 0 18px 18px}
+.dream .town.unified-town{width:100%;min-width:0!important;min-height:0!important;aspect-ratio:1672/941;background-image:url('cougar-arcade/eleven-plots.webp');background-size:100% 100%;overflow:hidden;border-radius:0 0 18px 18px}
 .dream .unified-town .town-site{width:17%;height:23%;min-width:0;filter:drop-shadow(0 3px 2px #2b194a88);z-index:4}
 .dream .unified-town .town-site .building-art{height:81%;width:100%;object-fit:contain;object-position:center bottom}
 .dream .unified-town .town-site .site-name{font-size:clamp(8px,1.05vw,13px);line-height:1.02;white-space:normal;max-width:100%;padding:3px 5px;margin-top:-4px;border-width:2px;border-radius:12px}
@@ -359,7 +359,7 @@
 @media(max-width:760px){.dream .town.unified-town{width:100%!important;min-width:0!important}.dream .unified-town .town-site .site-name{font-size:8px;padding:2px 2px}.dream .unified-town .town-heading{font-size:13px}}
 
 /* ROUND THREE: COASTAL CITY — original skyscrapers, eleven islands, ocean */
-.monster .town.unified-town{background-image:url('assets/coastal-ocean-map.webp')!important;background-color:#073f67!important}
+.monster .town.unified-town{background-image:url('cougar-arcade/coastal-ocean-map.webp')!important;background-color:#073f67!important}
 .monster .unified-town .town-site{height:27%;}
 .monster .unified-town .town-site .building-art{height:90%;filter:drop-shadow(0 9px 5px #001b39aa)}
 .monster .unified-town .town-site .site-name{background:#061b3cf0;border-color:#75e6ff;color:white;z-index:6}
@@ -372,7 +372,7 @@
 
 /* ROUND FOUR: illustrated interactive coastal monster city. The image is the map,
    while transparent destinations provide live click targets and destruction effects. */
-.monster .town.unified-town{background:#07365d url('assets/coastal-illustrated-city.webp') center / 100% 100% no-repeat!important}
+.monster .town.unified-town{background:#07365d url('cougar-arcade/coastal-illustrated-city.webp') center / 100% 100% no-repeat!important}
 .monster .unified-town .town-site{width:20%!important;height:24%!important;filter:none!important;border:0!important;background:transparent!important;z-index:4}
 .monster .unified-town .town-site .building-art,.monster .unified-town .town-site .site-name{display:none!important}
 .monster .unified-town .town-site:hover{outline:2px solid #83f7ff;border-radius:18px;background:#4eeaff16!important}
@@ -445,7 +445,7 @@
 @media(max-width:600px){.spell-stage{padding:14px 10px 19px}.spell-mascot{width:86px;height:86px}.spell-hero{gap:8px}.spell-stage .tiles{gap:6px}.spell-stage .tile{min-width:43px}}
 </style>
 <style>
-.monster .town.unified-town{background:#07365d url('assets/new-empty-coast.png') center/100% 100% no-repeat!important}
+.monster .town.unified-town{background:#07365d url('cougar-arcade/new-empty-coast.png') center/100% 100% no-repeat!important}
 .monster .town.unified-town .town-site{width:21.5%!important;height:25%!important;transform:none!important;overflow:visible!important}
 .monster .town.unified-town .town-site .building-art{display:block!important;width:100%!important;height:82%!important;object-fit:contain!important;filter:drop-shadow(0 6px 5px #00152599)!important;opacity:1!important;clip-path:none!important}
 .monster .town.unified-town .town-site .site-name{display:block!important;position:absolute!important;top:76%!important;bottom:auto!important;left:3%!important;right:3%!important;font-size:clamp(9px,1.2vw,16px)!important;white-space:nowrap!important;z-index:15!important}
@@ -469,18 +469,18 @@
 <style id="mayhem-demolition-rebuild-2026">
 /* All changes are scoped to Monster Mayhem; keep the approved building placement. */
 .monster .town.unified-town .town-site.crumbling .building-art,.monster .town.unified-town .town-site.mayhem-shattering .building-art{animation:none!important;opacity:0!important}
-.monster .town.unified-town .town-site.destroyed .demolition-debris{inset:60% 7% 9%!important;clip-path:polygon(0 88%,7% 60%,17% 72%,26% 39%,38% 64%,49% 24%,61% 65%,72% 37%,84% 70%,94% 49%,100% 90%,100% 100%,0 100%)!important;background:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-spell.png') center 64%/cover!important;opacity:.8;filter:grayscale(.4) brightness(.65) drop-shadow(0 4px 3px #001)!important}
-.monster .town.unified-town .town-site.destroyed[data-place="spell"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-spell.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="balloon"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-balloon.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="treasure"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-treasure.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="claw"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-claw.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="monster"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-monster.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="race"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-race.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="scramble"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-scramble.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="adventure"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-adventure.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="shop"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-shop.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="closet"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-closet.png')!important}
-.monster .town.unified-town .town-site.destroyed[data-place="stats"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('assets/new-stats.png')!important}
+.monster .town.unified-town .town-site.destroyed .demolition-debris{inset:60% 7% 9%!important;clip-path:polygon(0 88%,7% 60%,17% 72%,26% 39%,38% 64%,49% 24%,61% 65%,72% 37%,84% 70%,94% 49%,100% 90%,100% 100%,0 100%)!important;background:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-spell.png') center 64%/cover!important;opacity:.8;filter:grayscale(.4) brightness(.65) drop-shadow(0 4px 3px #001)!important}
+.monster .town.unified-town .town-site.destroyed[data-place="spell"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-spell.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="balloon"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-balloon.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="treasure"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-treasure.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="claw"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-claw.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="monster"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-monster.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="race"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-race.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="scramble"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-scramble.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="adventure"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-adventure.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="shop"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-shop.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="closet"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-closet.png')!important}
+.monster .town.unified-town .town-site.destroyed[data-place="stats"] .demolition-debris{background-image:linear-gradient(165deg,#627c8e99,#142e43bb),url('cougar-arcade/new-stats.png')!important}
 .monster .town.unified-town .town-site .mayhem-shard{position:absolute;z-index:12;pointer-events:none;background-repeat:no-repeat;animation:mayhemShardFall 1.65s cubic-bezier(.19,.7,.4,1) both;filter:drop-shadow(0 3px 2px #000a)}
 @keyframes mayhemShardFall{0%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}32%{opacity:1;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1)}100%{opacity:0;transform:translate(calc(var(--dx)*1.5),75px) rotate(var(--rot)) scale(.55)}}
 .monster .town.unified-town .town-site .mayhem-dust{position:absolute;inset:30% -20% 2%;z-index:13;pointer-events:none;background:radial-gradient(ellipse at 40% 85%,#c1d5df9e,transparent 65%),radial-gradient(ellipse at 65% 90%,#53677fbb,transparent 65%);animation:mayhemDust 2.1s ease-out both}
@@ -510,7 +510,7 @@
 
 /* Shared theme-park entrance: both worlds remain a single tap away. */
 .park-home{width:100%;min-height:100dvh;display:grid;place-items:center;background:#101a38;padding:clamp(6px,1.4vw,20px)}
-.park-stage{position:relative;width:min(100%,calc(96dvh * 1670 / 941));aspect-ratio:1672/941;background:#132044 url('assets/theme-park-entrance.png') center / 100% 100% no-repeat;border-radius:clamp(9px,1.4vw,22px);overflow:hidden;box-shadow:0 15px 55px #0008}
+.park-stage{position:relative;width:min(100%,calc(96dvh * 1670 / 941));aspect-ratio:1672/941;background:#132044 url('cougar-arcade/theme-park-entrance.png') center / 100% 100% no-repeat;border-radius:clamp(9px,1.4vw,22px);overflow:hidden;box-shadow:0 15px 55px #0008}
 .park-gate{position:absolute;z-index:2;top:24%;height:63%;width:38%;border:0;background:transparent;border-radius:22%;cursor:pointer;transition:background .2s,box-shadow .2s,transform .2s}
 .park-gate.girl-gate{left:0}.park-gate.boy-gate{right:0}
 .park-gate:hover{background:transparent;box-shadow:none;outline:none;filter:brightness(1.08)}.park-gate:focus-visible{outline:3px solid #ffe57c;outline-offset:-5px;box-shadow:none}
@@ -627,8 +627,8 @@
 .illustrated-feed .feed-prompt{padding:8px 6px;background:#fff0ff;color:#57306b;font-size:clamp(12px,1.7vw,17px)}
 .illustrated-feed.kaiju-feed .feed-prompt{background:#1b3046;color:#e2f7ff}
 .illustrated-feed .feed-art{position:relative;aspect-ratio:16/8.2;background-size:cover;background-position:center;overflow:hidden}
-.illustrated-feed .kitty-candy-art{background-image:url('assets/kitty-feed-candy.png')}
-.illustrated-feed .gold-dragon-art{background-image:url('assets/kaiju-feed-golden-dragon.png')}
+.illustrated-feed .kitty-candy-art{background-image:url('cougar-arcade/kitty-feed-candy.png')}
+.illustrated-feed .gold-dragon-art{background-image:url('cougar-arcade/kaiju-feed-golden-dragon.png')}
 .illustrated-feed .feed-target{position:absolute;left:46%;top:39%;width:9%;height:17%;pointer-events:none}
 .illustrated-feed .kitty-candy-art .feed-target{left:40%;top:39%;width:20%;height:28%}
 .illustrated-feed .feed-spark{position:absolute;left:50%;top:47%;font-size:65px;opacity:0;transform:translate(-50%,-50%) scale(.2);pointer-events:none}
@@ -652,8 +652,8 @@ main.game.monster-game-shell{max-width:1320px!important;width:min(98%,1320px)!im
 main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:clamp(8px,1.6vw,22px)!important}
 .monster-game-shell .feed-stage.illustrated-feed{width:100%;max-width:1180px;margin:10px auto;border:0;border-radius:18px;background:#1a2543;overflow:hidden;box-shadow:0 12px 30px #0005}
 .monster-game-shell .feed-stage.kaiju-feed{background:#15233d}
-.monster-game-shell .feed-world{position:relative;aspect-ratio:16/9;min-height:350px;overflow:hidden;background-color:#1d2647;background-image:url('assets/kitty-feed-candy.png');background-position:center;background-repeat:no-repeat;background-size:cover}
-.monster-game-shell .kaiju-feed .feed-world{background-image:url('assets/kaiju-feed-golden-dragon-clean.png');background-size:cover}
+.monster-game-shell .feed-world{position:relative;aspect-ratio:16/9;min-height:350px;overflow:hidden;background-color:#1d2647;background-image:url('cougar-arcade/kitty-feed-candy.png');background-position:center;background-repeat:no-repeat;background-size:cover}
+.monster-game-shell .kaiju-feed .feed-world{background-image:url('cougar-arcade/kaiju-feed-golden-dragon-clean.png');background-size:cover}
 .monster-game-shell .feed-world:after{content:'';position:absolute;inset:65% 0 0;background:linear-gradient(transparent,#1a1039cc);pointer-events:none}
 .monster-game-shell .kaiju-feed .feed-world:after{background:linear-gradient(transparent,#071423e8)}
 .monster-game-shell .feed-topline{position:absolute;top:12px;left:12px;right:12px;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px;pointer-events:none}
@@ -690,7 +690,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .raceway{width:100%;max-width:1140px;margin:12px auto;border:7px solid #ffb5e9;border-radius:22px;overflow:hidden;background:#562b87;box-shadow:0 10px 0 #763c91,0 18px 30px #28183d55}
 .raceway-banner{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 18px;background:linear-gradient(110deg,#ff9ddc,#a784ff,#78dfff);color:#3b225c;font-size:clamp(17px,2.5vw,28px);font-weight:1000}
 .raceway-banner button{border:3px solid white;background:#fff8bd;border-radius:24px;padding:8px 13px;font-weight:900;color:#43265d;cursor:pointer}
-.raceway-scene{position:relative;aspect-ratio:16/9;min-height:340px;background:url('assets/kitty-rainbow-raceway.png') center/cover no-repeat;overflow:hidden}
+.raceway-scene{position:relative;aspect-ratio:16/9;min-height:340px;background:url('cougar-arcade/kitty-rainbow-raceway.png') center/cover no-repeat;overflow:hidden}
 .raceway-scene:after{content:'';position:absolute;inset:50% 0 0;background:linear-gradient(transparent,#28105090);pointer-events:none}
 .race-progress{position:absolute;z-index:2;top:12px;left:3%;right:3%;height:20px;background:#fff9;border:3px solid white;border-radius:18px;overflow:hidden;box-shadow:0 2px 7px #0007}
 .race-progress-fill{height:100%;width:var(--race-progress);background:linear-gradient(90deg,#ff80c4,#ffe474,#69e6ff);transition:width .8s ease}
@@ -728,8 +728,8 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 </style><style>
 /* Real illustrated head-to-head race */
 .race-driver,.race-rival{position:absolute!important;z-index:5!important;width:clamp(70px,20%,240px)!important;height:auto!important;aspect-ratio:1.85!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;pointer-events:none;filter:drop-shadow(0 7px 5px #25144788);will-change:left,top,transform;animation:none!important}
-.race-driver{background-image:url('assets/kitty-racer.png')!important}
-.race-rival{background-image:url('assets/bunny-racer.png')!important}
+.race-driver{background-image:url('cougar-arcade/kitty-racer.png')!important}
+.race-rival{background-image:url('cougar-arcade/bunny-racer.png')!important}
 .race-driver>*,.race-rival>*{display:none!important}
 .race-cars .car-roof{display:none!important}
 .race-cars .race-car{min-height:78px;border-radius:18px!important}
@@ -738,7 +738,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .race-win{z-index:8!important}
 </style><style>
 /* Real overhead oval race: preserve the natural aspect of the new illustration. */
-.raceway-scene{background-image:url('assets/kitty-rainbow-oval-track.png')!important;background-size:100% 100%!important;aspect-ratio:16/9!important;min-height:0!important;overflow:hidden}
+.raceway-scene{background-image:url('cougar-arcade/kitty-rainbow-oval-track.png')!important;background-size:100% 100%!important;aspect-ratio:16/9!important;min-height:0!important;overflow:hidden}
 .raceway-scene:after{display:none!important}
 .raceway-scene .race-driver,.raceway-scene .race-rival{width:clamp(62px,12%,135px)!important;aspect-ratio:1.85!important;z-index:5!important;transition:none!important}
 .raceway-scene .race-rival{z-index:4!important}
@@ -759,9 +759,9 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .raceway.kaiju-oval{border-color:#5ce4ff;background:#101f36;box-shadow:0 10px 0 #102d4c,0 18px 30px #06122288}
 .kaiju-oval .raceway-banner{background:linear-gradient(110deg,#10243c,#22547d,#0c2849);color:#b8f3ff}
 .kaiju-oval .raceway-banner button{background:#ffe19b;color:#10243c}
-.kaiju-oval .raceway-scene{background-image:url('assets/kaiju-metal-oval-track.png')!important;background-size:100% 100%!important}
-.kaiju-oval .race-driver{background-image:url('assets/blue-kaiju-racer.png')!important}
-.kaiju-oval .race-rival{background-image:url('assets/metal-kaiju-racer.png')!important}
+.kaiju-oval .raceway-scene{background-image:url('cougar-arcade/kaiju-metal-oval-track.png')!important;background-size:100% 100%!important}
+.kaiju-oval .race-driver{background-image:url('cougar-arcade/blue-kaiju-racer.png')!important}
+.kaiju-oval .race-rival{background-image:url('cougar-arcade/metal-kaiju-racer.png')!important}
 .kaiju-oval .race-progress-fill{background:linear-gradient(90deg,#0c9fcf,#5de8ff,#c5f8ff)}
 .kaiju-oval .race-race-status,.kaiju-oval .race-progress-label{background:#07192dd9;color:#c7f5ff}
 .kaiju-oval .oval-answers{background:#152e4a}
@@ -778,8 +778,8 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .scramble-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:11px 17px;background:linear-gradient(105deg,#8137b4,#e05cb8);font-size:clamp(18px,2.6vw,30px);font-weight:1000}
 .lab .scramble-title{background:linear-gradient(105deg,#102e50,#126a95)}
 .scramble-title button,.scramble-tools button{border:3px solid white;border-radius:22px;background:#fff5b4;color:#382252;font-weight:900;padding:9px 15px;cursor:pointer}
-.scramble-scene{position:relative;min-height:clamp(420px,54vw,650px);background:url('assets/kitty-potion-shop.png') center center/cover no-repeat;isolation:isolate}
-.lab .scramble-scene{background-image:url('assets/kaiju-robot-lab.png')}
+.scramble-scene{position:relative;min-height:clamp(420px,54vw,650px);background:url('cougar-arcade/kitty-potion-shop.png') center center/cover no-repeat;isolation:isolate}
+.lab .scramble-scene{background-image:url('cougar-arcade/kaiju-robot-lab.png')}
 .scramble-scene:before{content:'';position:absolute;inset:0;background:linear-gradient(#1c0d35b5,#1b104b33 40%,#170c35ad);z-index:-1}
 .lab .scramble-scene:before{background:linear-gradient(#05172fc7,#07182e44 40%,#05172edc)}
 .scramble-preview{position:absolute;top:9%;left:10%;right:10%;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4;transition:opacity .35s,transform .35s}
@@ -909,7 +909,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .cougar-school{background:#e7f1e7;color:#173d36;min-height:100vh}
 .cougar-school .top{background:linear-gradient(100deg,#153e37,#20598b)!important;border-bottom:5px solid #c7a260}
 .cougar-school .top .logo{color:#fff9df!important;font-size:clamp(20px,2.2vw,32px)}
-.cougar-school .town.unified-town{background-image:linear-gradient(0deg,#09291b83,#0c352833),url('assets/cougar-forest-entrance.png')!important;background-size:100% 100%!important;background-position:center!important;border:8px solid #7d613b;box-shadow:0 8px 0 #294c32}
+.cougar-school .town.unified-town{background-image:linear-gradient(0deg,#09291b83,#0c352833),url('cougar-arcade/cougar-forest-entrance.png')!important;background-size:100% 100%!important;background-position:center!important;border:8px solid #7d613b;box-shadow:0 8px 0 #294c32}
 .cougar-school .town-heading{background:linear-gradient(90deg,#164b3d,#1b5e83)!important;color:#fff8d7!important;border:3px solid #d2b577!important;border-radius:16px}
 .cougar-school .town-site .site-name{background:#153d36e8!important;color:#fff9e3!important;border:2px solid #d6bb76!important}
 .cougar-school .town-avatar{width:clamp(65px,11vw,145px)!important;height:clamp(65px,11vw,145px)!important;z-index:12}
@@ -919,13 +919,13 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .cougar-school .prize-item{border-color:#a8c6a2!important;background:linear-gradient(#fffdf3,#e9f4e5)!important}
 .cougar-school .scramble-stage{border-color:#b8d795!important;background:#173e33!important}
 .cougar-school .scramble-title{background:linear-gradient(105deg,#164c40,#246c8b)!important}
-.cougar-school .scramble-scene{background-image:url('assets/cougar-forest-entrance.png')!important}
+.cougar-school .scramble-scene{background-image:url('cougar-arcade/cougar-forest-entrance.png')!important}
 .cougar-school .scramble-workspace{background:#133c32eb!important}
 .cougar-school .scramble-letter{background:radial-gradient(circle at 30% 25%,#fff,#c2eac4 35%,#459e83 78%)!important;box-shadow:0 4px 12px #174f46aa!important;color:#174735!important}
 .cougar-school .raceway{border-color:#64aa89!important}
 .cougar-school .panel,.cougar-school .card{border-color:#c6d9bc}
 </style><style id="cougar-nine-buildings">
-.cougar-school .town.unified-town{background-image:url('assets/cougar-nine-plot-forest.jpg')!important;background-size:100% 100%!important;background-position:center!important;aspect-ratio:1.6!important;height:auto!important;min-height:0!important}
+.cougar-school .town.unified-town{background-image:url('cougar-arcade/cougar-nine-plot-forest.jpg')!important;background-size:100% 100%!important;background-position:center!important;aspect-ratio:1.6!important;height:auto!important;min-height:0!important}
 .cougar-school .town-site{width:21%;height:23%;z-index:5;justify-content:flex-end;overflow:visible}
 .cougar-school .town-site .building-art{width:100%;height:81%;object-fit:contain;filter:drop-shadow(0 5px 5px #1b3d2b99);transition:transform .18s ease}
 .cougar-school .town-site:hover .building-art,.cougar-school .town-site:focus-visible .building-art{transform:scale(1.08)}
@@ -943,7 +943,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 /* Simple Cougar Forest feeding game; other arcade worlds are unchanged. */
 .monster-game-shell .cougar-feed{border:7px solid #477b4b;box-shadow:0 8px 0 #315c35,0 15px 25px #0003;background:#b4e2a5}
 .monster-game-shell .cougar-feed .feed-world{background:radial-gradient(ellipse at 50% 85%,#a4d96e 0%,#4c9a65 55%,#1d6052 100%);min-height:380px;aspect-ratio:16/9}
-.monster-game-shell .cougar-feed .feed-world:before{content:"";position:absolute;inset:0;background:url('assets/cougar-nine-plot-forest.jpg') center/cover;opacity:.48}
+.monster-game-shell .cougar-feed .feed-world:before{content:"";position:absolute;inset:0;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover;opacity:.48}
 .monster-game-shell .cougar-feed .feed-world:after{background:linear-gradient(transparent 48%,#153b29aa 100%)}
 .monster-game-shell .cougar-feeding-friend{position:absolute;left:50%;top:17%;width:clamp(125px,29%,280px);height:57%;transform:translateX(-50%);z-index:2;display:flex;justify-content:center;align-items:center}
 .monster-game-shell .cougar-feeding-friend img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 7px 8px #143f2688);animation:cougar-bob 2.6s ease-in-out infinite}
@@ -961,7 +961,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .forest-grabber-head{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;background:#20553f;color:#fff5d4;padding:12px;font-size:clamp(15px,2vw,22px)}
 .forest-grabber-head button{border:2px solid #f3df9b;background:#fff8d9;color:#244c36;border-radius:14px;padding:10px 15px;font-weight:800;cursor:pointer}
 .forest-grabber-field{height:clamp(320px,49vw,500px);position:relative;overflow:hidden;background:linear-gradient(#92d4f0 0%,#b7e8e0 38%,#8bd26d 39%,#46984c 100%);isolation:isolate}
-.forest-grabber-field:before{content:"";position:absolute;inset:0;background:url('assets/cougar-nine-plot-forest.jpg') center center/cover;opacity:.77;z-index:-2}
+.forest-grabber-field:before{content:"";position:absolute;inset:0;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center center/cover;opacity:.77;z-index:-2}
 .forest-grabber-field:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#3b873a66);pointer-events:none;z-index:-1}
 .forest-grabber-clearing{position:absolute;left:9%;top:21%;width:82%;height:72%;border-radius:50%;background:#9ac66c55;box-shadow:0 0 35px 20px #d6eb9a30}
 .forest-word{position:absolute;transform:translate(-50%,-50%);min-width:clamp(90px,15vw,145px);min-height:70px;border-radius:20px;border:3px solid #fce49d;background:linear-gradient(#fff7cf,#e9c876);box-shadow:0 6px 0 #7a6136,0 9px 13px #163d2a77;color:#224630;display:flex;align-items:center;justify-content:center;gap:7px;flex-direction:column;cursor:pointer;z-index:3;transition:opacity .3s,transform .25s}
@@ -986,7 +986,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .scramble-stage.cougar-scramble{background:#234f3d;border-color:#8cc66e;box-shadow:0 9px #346e46,0 18px 25px #153b2b44;color:#fff9dc}
 .cougar-scramble .scramble-title{background:linear-gradient(100deg,#27583b,#438858);color:#fff7d1}
 .cougar-scramble .scramble-scene{position:relative;min-height:340px;background:linear-gradient(#bde6a2,#81b967);isolation:isolate}
-.cougar-scramble .scramble-scene:before{content:"";position:absolute;inset:0;background:url('assets/cougar-nine-plot-forest.jpg') center/cover;opacity:.28;z-index:-1}
+.cougar-scramble .scramble-scene:before{content:"";position:absolute;inset:0;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover;opacity:.28;z-index:-1}
 .cougar-scramble .scramble-workspace{position:relative;z-index:2;padding:20px 14px 26px;background:#225b40e8;border:3px solid #e6d89b;border-radius:22px;margin:18px auto;width:min(92%,760px)}
 .cougar-scramble .scramble-instruction{font-size:clamp(18px,2.3vw,26px);font-weight:900;color:#fff8d4;text-shadow:none}
 .cougar-scramble .scramble-built{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin:15px auto}
@@ -1005,10 +1005,10 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .raceway:not(.kaiju-oval) .raceway-banner{background:linear-gradient(100deg,#24583f,#499b60)!important;color:#fff5cf!important}
 .raceway:not(.kaiju-oval) .raceway-banner button{background:#fff3c5!important;color:#24533a!important}
 .raceway:not(.kaiju-oval) .raceway-scene{background:radial-gradient(ellipse at center,#b3d78d 0%,#8bc16c 47%,#417e4e 75%,#27543c 100%)!important;isolation:isolate}
-.raceway:not(.kaiju-oval) .raceway-scene:before{content:"";position:absolute;inset:0;background:url('assets/cougar-nine-plot-forest.jpg') center/cover;opacity:.35;pointer-events:none;z-index:0}
+.raceway:not(.kaiju-oval) .raceway-scene:before{content:"";position:absolute;inset:0;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover;opacity:.35;pointer-events:none;z-index:0}
 .raceway:not(.kaiju-oval) .raceway-scene:after{content:"";position:absolute;left:7%;top:18%;width:86%;height:72%;border-radius:50%;background:radial-gradient(ellipse at center,#8fc56e 0%,#8fc56e 52%,#f5f1ce 53%,#f5f1ce 57%,#626c62 58%,#626c62 72%,#f5f1ce 73%,#f5f1ce 76%,transparent 77%);box-shadow:0 0 0 3px #d9dfb5aa;pointer-events:none;z-index:1}
-.raceway:not(.kaiju-oval) .race-driver{background-image:url('assets/cougar-storybook.png')!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;width:clamp(56px,9%,105px)!important;height:clamp(65px,17%,125px)!important;z-index:7!important}
-.raceway:not(.kaiju-oval) .race-rival{background-image:url('assets/bunny-racer.png')!important;z-index:7!important}
+.raceway:not(.kaiju-oval) .race-driver{background-image:url('cougar-arcade/cougar-storybook.png')!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;width:clamp(56px,9%,105px)!important;height:clamp(65px,17%,125px)!important;z-index:7!important}
+.raceway:not(.kaiju-oval) .race-rival{background-image:url('cougar-arcade/bunny-racer.png')!important;z-index:7!important}
 .raceway:not(.kaiju-oval) .race-progress,.raceway:not(.kaiju-oval) .race-progress-label,.raceway:not(.kaiju-oval) .race-race-status{z-index:9!important}
 .raceway:not(.kaiju-oval) .race-progress-fill{background:linear-gradient(90deg,#7fbd4d,#d7eb78,#f9d978)!important}
 .raceway:not(.kaiju-oval) .race-car{background:linear-gradient(#fff5d5,#e5ca88)!important;border:3px solid #a78142!important;color:#234b34!important}
@@ -1017,11 +1017,11 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 </style><style>/* Repair forest oval and racers */
 .raceway:not(.kaiju-oval){border:5px solid #659953!important;background:#28533d!important;max-width:1050px!important;margin:5px auto!important}
 .raceway:not(.kaiju-oval) .raceway-banner{background:#285b40!important;color:#fff9d8!important;padding:6px 12px!important;font-size:clamp(15px,2vw,23px)!important}
-.raceway:not(.kaiju-oval) .raceway-scene{aspect-ratio:1000/562!important;min-height:0!important;background:url('assets/cougar-nine-plot-forest.jpg') center/cover!important;isolation:isolate}
-.raceway:not(.kaiju-oval) .raceway-scene:before{content:""!important;display:block!important;position:absolute!important;inset:0!important;background:url('assets/cougar-oval-track.svg') center/100% 100% no-repeat!important;opacity:1!important;z-index:1!important;pointer-events:none!important}
+.raceway:not(.kaiju-oval) .raceway-scene{aspect-ratio:1000/562!important;min-height:0!important;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover!important;isolation:isolate}
+.raceway:not(.kaiju-oval) .raceway-scene:before{content:""!important;display:block!important;position:absolute!important;inset:0!important;background:url('cougar-arcade/cougar-oval-track.svg') center/100% 100% no-repeat!important;opacity:1!important;z-index:1!important;pointer-events:none!important}
 .raceway:not(.kaiju-oval) .raceway-scene:after{display:none!important}
-.raceway:not(.kaiju-oval) .race-driver{background:url('assets/cougar-racer.png') center/contain no-repeat!important;width:clamp(65px,12%,125px)!important;height:auto!important;aspect-ratio:1.6!important;z-index:6!important}
-.raceway:not(.kaiju-oval) .race-rival{background:url('assets/bunny-racer.png') center/contain no-repeat!important;width:clamp(65px,12%,125px)!important;height:auto!important;aspect-ratio:1.6!important;z-index:5!important}
+.raceway:not(.kaiju-oval) .race-driver{background:url('cougar-arcade/cougar-racer.png') center/contain no-repeat!important;width:clamp(65px,12%,125px)!important;height:auto!important;aspect-ratio:1.6!important;z-index:6!important}
+.raceway:not(.kaiju-oval) .race-rival{background:url('cougar-arcade/bunny-racer.png') center/contain no-repeat!important;width:clamp(65px,12%,125px)!important;height:auto!important;aspect-ratio:1.6!important;z-index:5!important}
 .raceway:not(.kaiju-oval) .race-progress,.raceway:not(.kaiju-oval) .race-progress-label,.raceway:not(.kaiju-oval) .race-race-status{z-index:9!important}
 .raceway:not(.kaiju-oval) .oval-answers{padding:7px!important;gap:7px!important;background:#a6d38d!important}
 .raceway:not(.kaiju-oval) .oval-answers .race-car{min-height:56px!important;padding:5px!important;background:#fff6d6!important;border:2px solid #b99862!important;box-shadow:0 3px #8b6b39!important}
@@ -1037,7 +1037,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 @media(max-width:600px){.raceway .race-start-button{font-size:19px;padding:12px 18px}.raceway .race-ready-note{font-size:13px}}
 </style><style>
 /* Cougar Forest Balloon Pop: slow, friendly, no countdown. */
-.balloon-game-shell .cougar-balloon-forest{background:linear-gradient(#c5f0ff66,#a2df9d77),url('assets/cougar-nine-plot-forest.jpg') center/cover no-repeat!important;border:5px solid #83b76a!important;min-height:340px!important;box-shadow:0 8px 0 #4a7b47,0 14px 20px #163b2b55!important}
+.balloon-game-shell .cougar-balloon-forest{background:linear-gradient(#c5f0ff66,#a2df9d77),url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover no-repeat!important;border:5px solid #83b76a!important;min-height:340px!important;box-shadow:0 8px 0 #4a7b47,0 14px 20px #163b2b55!important}
 .balloon-game-shell .cougar-balloon-forest:before{display:none!important}
 .balloon-game-shell .cougar-balloon-forest .balloon-stage-title{display:inline-block;background:#214f3de8;border:2px solid #e3d69a;border-radius:16px;padding:10px 18px;color:#fff9d9!important;font-size:clamp(17px,2.5vw,26px);text-shadow:0 2px #16462f}
 .balloon-game-shell .cougar-balloon-forest .balloon-fleet{align-items:center;min-height:250px;gap:clamp(8px,1.5vw,24px)}
@@ -1075,7 +1075,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .flower-hunt-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 15px;background:#24553c;color:#fff6d5;font-size:clamp(16px,2.3vw,25px)}
 .flower-hunt-header button{background:#fff5d2;border:2px solid #d2b66d;color:#29563d;border-radius:14px;font-weight:900;padding:9px 13px;cursor:pointer}
 .flower-hunt-field{position:relative;height:clamp(410px,53vw,550px);background:radial-gradient(ellipse at 50% 65%,#c1e58c,#78b86d 60%,#3d8055);isolation:isolate}
-.flower-hunt-field:before{content:"";position:absolute;inset:0;background:url('assets/cougar-nine-plot-forest.jpg') center/cover;opacity:.42;z-index:-1}
+.flower-hunt-field:before{content:"";position:absolute;inset:0;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover;opacity:.42;z-index:-1}
 .flower-hunt-guide{position:absolute;left:50%;top:5%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:10px;background:#fff7dbea;border:2px solid #c9ad6d;border-radius:20px;padding:4px 12px;color:#245038;font-size:clamp(14px,2vw,21px);font-weight:900;z-index:2;width:max-content;max-width:92%}
 .flower-hunt-guide img{width:55px;height:65px;object-fit:contain}
 .flower-hiding-place{position:absolute;transform:translate(-50%,-50%);width:clamp(100px,19%,170px);height:clamp(90px,20%,140px);border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
@@ -1095,7 +1095,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .woodland-hunt-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 15px;color:#fff8dc;background:#22543b;font-size:clamp(15px,2.2vw,23px)}
 .woodland-hunt-bar button{border:2px solid #d8c37e;background:#fff5d6;color:#2b5537;border-radius:12px;font-weight:900;padding:8px 13px;cursor:pointer}
 .woodland-search-scene{height:clamp(430px,53vw,570px);position:relative;isolation:isolate;background:linear-gradient(#80b5ae,#c4e6ac 50%,#69a46a);overflow:hidden}
-.woodland-search-scene:before{content:'';position:absolute;inset:0;z-index:-1;background:url('assets/cougar-nine-plot-forest.jpg') center/cover no-repeat;opacity:.98}
+.woodland-search-scene:before{content:'';position:absolute;inset:0;z-index:-1;background:url('cougar-arcade/cougar-nine-plot-forest.jpg') center/cover no-repeat;opacity:.98}
 .woodland-search-scene:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#ffffff18 0%,transparent 40%,#183f2520 100%);pointer-events:none}
 .woodland-search-prompt{position:absolute;z-index:3;top:3%;left:50%;transform:translateX(-50%);width:max-content;max-width:94%;text-align:center;padding:8px 16px;border-radius:20px;background:#fff9dcee;color:#245438;font-weight:900;font-size:clamp(13px,1.7vw,19px);box-shadow:0 2px 8px #25452355}
 .woodland-search-spot{position:absolute;z-index:2;transform:translate(-50%,-50%);width:clamp(58px,9%,96px);height:clamp(62px,10vw,96px);background:none;border:0;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;padding:0}
@@ -1113,7 +1113,7 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 @media(prefers-reduced-motion:reduce){.woodland-search-cover{transition:none}.woodland-search-spot.woodland-incorrect,.woodland-search-spot.woodland-hint *{animation:none}}
 </style><style>
 /* Natural hidden-object hunt: original illustrated landscape, no icons or plots. */
-.natural-hunt .natural-search-scene{height:auto!important;aspect-ratio:1536/1024;background:#6dba69 url('assets/enchanted-hunt-forest.png') center center/100% 100% no-repeat!important;overflow:hidden}
+.natural-hunt .natural-search-scene{height:auto!important;aspect-ratio:1536/1024;background:#6dba69 url('cougar-arcade/enchanted-hunt-forest.png') center center/100% 100% no-repeat!important;overflow:hidden}
 .natural-hunt .natural-search-scene::before,.natural-hunt .natural-search-scene::after{display:none!important}
 .natural-hunt .natural-search-spot{width:clamp(46px,9%,100px)!important;height:clamp(46px,10%,100px)!important;background:transparent!important;border:0!important;border-radius:50%;z-index:4}
 .natural-hunt .natural-search-spot .natural-spot-ring{position:absolute;inset:0;border-radius:50%;border:3px solid transparent;background:transparent;transition:border-color .15s,background .15s,box-shadow .15s}
@@ -1126,7 +1126,25 @@ main.game.monster-game-shell>.panel{width:100%;max-width:none!important;padding:
 .natural-hunt .woodland-search-feedback{pointer-events:none}
 .natural-hunt .natural-search-spot.woodland-hint .natural-spot-ring{border-color:#ffec65;box-shadow:0 0 0 5px #ffea5599,0 0 26px #ffed62;background:#ffef7333;animation:woodlandPulse .65s 2}
 @media(max-width:600px){.natural-hunt .natural-search-scene{height:auto!important;aspect-ratio:3/4;background-size:cover!important}.natural-hunt .natural-search-spot{width:64px!important;height:64px!important}.natural-hunt .natural-search-spot .woodland-search-reveal{font-size:19px;min-width:70px;min-height:65px;padding:5px}.natural-hunt .treasure-gem{font-size:23px}}
-</style><style>.cougar-school .town-site.coming-soon-site{opacity:.65;filter:saturate(.6);cursor:not-allowed!important}.cougar-school .town-site.coming-soon-site .site-name{background:#fff4d4!important;color:#645b50!important;font-size:clamp(10px,1.2vw,15px)!important}.cougar-school .town-site.coming-soon-site:disabled{pointer-events:none}</style></head><body><div id="app" class="app dream"><div class="wrap"><div class="panel center"><h1>🎮 Word Arcade</h1><p>Preparing your worlds…</p><p id="errorHelp">If this stays here, please send me a screenshot.</p></div></div></div><script>
+</style><style>.cougar-school .town-site.coming-soon-site{opacity:.65;filter:saturate(.6);cursor:not-allowed!important}.cougar-school .town-site.coming-soon-site .site-name{background:#fff4d4!important;color:#645b50!important;font-size:clamp(10px,1.2vw,15px)!important}.cougar-school .town-site.coming-soon-site:disabled{pointer-events:none}</style><style>
+/* Kindergarten Cougar Listen & Spell: clear, large tap targets, no keyboard. */
+.spell-stage{max-width:850px;margin:0 auto;padding:clamp(12px,2vw,22px);background:linear-gradient(160deg,#eaf8d7,#fff8de);border:5px solid #609a62;border-radius:24px;box-shadow:0 7px 0 #356943}
+.spell-stage .spell-hero{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:0 0 12px}
+.spell-stage .spell-mascot{width:clamp(92px,16vw,145px);height:clamp(92px,16vw,145px);object-fit:contain}
+.spell-stage .spell-hero-copy strong{font-size:clamp(23px,3.4vw,35px);color:#20553b}
+.spell-stage .spell-hero-copy span{font-size:clamp(15px,2.2vw,21px)}
+.spell-stage .spell-hear{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:62px;padding:12px 24px;font-size:clamp(18px,2.7vw,26px);font-weight:1000;border-radius:18px;background:#ffdd78;border:3px solid #bd8b2b;color:#254b38;box-shadow:0 5px 0 #ac7923;cursor:pointer;touch-action:manipulation}
+.spell-stage .spell-hear svg{width:29px;height:29px}
+.spell-stage .spell-progress{font-size:clamp(15px,2.3vw,22px);font-weight:900;color:#326045;margin-bottom:9px}
+.spell-stage .spell-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0}
+.spell-stage .spell-slot{display:grid;place-items:center;min-width:clamp(40px,8vw,65px);height:clamp(51px,9vw,76px);border:3px solid #59936a;border-bottom:6px solid #326d4b;border-radius:12px;background:#fffefa;font-size:clamp(27px,4vw,40px);font-weight:1000;color:#214c37}
+.spell-stage .tiles{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:12px auto}
+.spell-stage .tile{min-width:clamp(56px,10vw,78px);height:clamp(60px,11vw,83px);border:3px solid #a56f2b;border-radius:16px;background:linear-gradient(#ffe9a6,#e8b55b);font-size:clamp(29px,4vw,42px);font-weight:1000;color:#3b422d;box-shadow:0 5px 0 #a56f2b;cursor:pointer;touch-action:manipulation}
+.spell-stage .tile:disabled{opacity:.28;box-shadow:none}
+.spell-stage .spell-tools{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:15px}
+.spell-stage .spell-tool{min-height:49px;padding:9px 19px;font-size:clamp(15px,2vw,19px);font-weight:900;border-radius:13px;touch-action:manipulation}
+@media(max-width:600px){.spell-stage .spell-hero{gap:8px}.spell-stage .spell-mascot{width:82px;height:82px}.spell-stage .tiles{gap:8px}}
+</style></head><body><div id="app" class="app dream"><div class="wrap"><div class="panel center"><h1>🎮 Word Arcade</h1><p>Preparing your worlds…</p><p id="errorHelp">If this stays here, please send me a screenshot.</p></div></div></div><script>
 window.addEventListener('error',function(e){var a=document.getElementById('app');if(a)a.innerHTML='<main class="wrap"><div class="panel"><h1>⚠️ Word Arcade had an error</h1><p>'+String(e.message).replace(/[<>&]/g,'')+'</p><p>Send me a screenshot of this message.</p></div></main>';});
 'use strict';
 // Transcribed from the two uploaded word lists. IMSE entries are Spell & Read words only.
@@ -1188,16 +1206,16 @@ function renderTown(){
  let p=profile(who);
  if(who==='girl'){
   let creature='cougar-storybook.png';
-  return `<main class="town-viewport"><section class="town unified-town ${decorating?'decorating':''}" id="town" onclick="if(!decorating)walkTo(event)"><div class="town-heading">🐾 Cougar’s Enchanted Forest</div>${unifiedPlaces.map(([id,name,img,x,y])=>`<button class="town-site ${id==='shop'||id==='stats'?'coming-soon-site':''}" style="left:${x}%;top:${y}%" onclick="visit(event,'${id}')" aria-label="${id==='shop'||id==='stats'?name+' coming soon':'Go to '+name}" ${id==='shop'||id==='stats'?'disabled':''}><img class="building-art" src="assets/${img}" alt=""><span class="site-name">${id==='shop'||id==='stats'?name+' · Coming Soon':name}</span></button>`).join('')}${decorMarkup()}<div class="town-avatar" id="townAvatar" style="left:${explorerPos[0]}%;top:${explorerPos[1]}%">${outfitMarkup(closetState(p).closetWorn,'back')}<img src="assets/${creature}" alt="Camp Taylor cougar">${outfitMarkup(closetState(p).closetWorn,'front')}</div><div class="town-hint">🐾 Tap a building to visit</div>${decorTools()}</section></main>`;
+  return `<main class="town-viewport"><section class="town unified-town ${decorating?'decorating':''}" id="town" onclick="if(!decorating)walkTo(event)"><div class="town-heading">🐾 Cougar’s Enchanted Forest</div>${unifiedPlaces.map(([id,name,img,x,y])=>`<button class="town-site ${id==='shop'||id==='stats'?'coming-soon-site':''}" style="left:${x}%;top:${y}%" onclick="visit(event,'${id}')" aria-label="${id==='shop'||id==='stats'?name+' coming soon':'Go to '+name}" ${id==='shop'||id==='stats'?'disabled':''}><img class="building-art" src="cougar-arcade/${img}" alt=""><span class="site-name">${id==='shop'||id==='stats'?name+' · Coming Soon':name}</span></button>`).join('')}${decorMarkup()}<div class="town-avatar" id="townAvatar" style="left:${explorerPos[0]}%;top:${explorerPos[1]}%">${outfitMarkup(closetState(p).closetWorn,'back')}<img src="cougar-arcade/${creature}" alt="Camp Taylor cougar">${outfitMarkup(closetState(p).closetWorn,'front')}</div><div class="town-hint">🐾 Tap a building to visit</div>${decorTools()}</section></main>`;
  }
  let creature='blue-kaiju.png';
  const coastalSites=unifiedPlaces.map(([id,name],i)=>{
    const row=Math.floor(i/4),col=i%4;
    const xs=row===2?[14,39,64]:[5,29,53,78];
    const y=[9,35,61][row];
-   return `<button class="town-site ${mayhemRuins===id?'destroyed':''}" data-place="${id}" style="left:${xs[col]}%;top:${y}%" onclick="visit(event,'${id}')" aria-label="Visit ${name} and destroy its building"><img class="building-art" src="assets/new-${id}.png" alt=""><span class="site-name">${name}</span><span class="demolition-debris" aria-hidden="true"></span></button>`;
+   return `<button class="town-site ${mayhemRuins===id?'destroyed':''}" data-place="${id}" style="left:${xs[col]}%;top:${y}%" onclick="visit(event,'${id}')" aria-label="Visit ${name} and destroy its building"><img class="building-art" src="cougar-arcade/new-${id}.png" alt=""><span class="site-name">${name}</span><span class="demolition-debris" aria-hidden="true"></span></button>`;
  }).join('');
- return `<main class="town-viewport"><section class="town unified-town ${decorating?'decorating':''}" id="town" onclick="if(!decorating)walkTo(event)"><div class="town-heading">🌊 MONSTER MAYHEM</div>${coastalSites}${decorMarkup()}<div class="town-avatar" id="townAvatar" style="left:${explorerPos[0]}%;top:${explorerPos[1]}%;--kaiju-x:${explorerPos[0]}%;--kaiju-y:${explorerPos[1]}%">${outfitMarkup(closetState(p).closetWorn,'back')}<img src="assets/${creature}" alt="Your swimming kaiju">${outfitMarkup(closetState(p).closetWorn,'front')}</div>${decorTools()}</section></main>`;
+ return `<main class="town-viewport"><section class="town unified-town ${decorating?'decorating':''}" id="town" onclick="if(!decorating)walkTo(event)"><div class="town-heading">🌊 MONSTER MAYHEM</div>${coastalSites}${decorMarkup()}<div class="town-avatar" id="townAvatar" style="left:${explorerPos[0]}%;top:${explorerPos[1]}%;--kaiju-x:${explorerPos[0]}%;--kaiju-y:${explorerPos[1]}%">${outfitMarkup(closetState(p).closetWorn,'back')}<img src="cougar-arcade/${creature}" alt="Your swimming kaiju">${outfitMarkup(closetState(p).closetWorn,'front')}</div>${decorTools()}</section></main>`;
 }
 
 
@@ -1326,16 +1344,16 @@ if(game==='balloon'){
 }else{pool.sort(()=>Math.random()-.5);choice=[q,...pool.slice(0,game==='treasure'&&who!=='girl'?7:3)].sort(()=>Math.random()-.5)}drawGame();if(game==='scramble')beginScramblePreview();if(game!=='scramble')setTimeout(()=>{if(view==='game'&&!locked)speak(q)},350)}
 function speakerGraphic(){return `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h6l8-7v22l-8-7H5z"/><path d="M23 11q6 5 0 10M26 7q10 9 0 18"/></svg>`}
 function drawSpellArcade(){
- const p=profile(who),isGirl=who==='girl',mascot=isGirl?'assets/rainbow-kitten.png':'assets/blue-kaiju.png';
- const headline=isGirl?'The Spell Studio':'Atomic Word Lab';
- const intro=isGirl?'Help your kitten build each word!':'Charge your kaiju by building each word!';
- const stageHead=`<div class="spell-hero"><img class="spell-mascot" src="${mascot}" alt="${isGirl?'Illustrated kitten':'Illustrated kaiju'}"><div class="spell-hero-copy"><strong>${headline}</strong><span>${intro}</span></div></div>`;
- const hear=`<button class="spell-hear" onclick="speak(q)">${speakerGraphic()}<span>Hear my word</span></button>`;
+ const p=profile(who),isGirl=who==='girl',mascot=isGirl?'cougar-arcade/cougar-storybook.png':'cougar-arcade/blue-kaiju.png';
+ const headline=isGirl?'Cougar’s Word Workshop':'Atomic Word Lab';
+ const intro=isGirl?'Listen to the word. Tap the letters to spell it!':'Charge your kaiju by building each word!';
+ const stageHead=`<div class="spell-hero"><img class="spell-mascot" src="${mascot}" alt="${isGirl?'Friendly storybook cougar':'Illustrated kaiju'}"><div class="spell-hero-copy"><strong>${headline}</strong><span>${intro}</span></div></div>`;
+ const hear=`<button class="spell-hear" onclick="speak(q)">${speakerGraphic()}<span>🔊 HEAR AGAIN</span></button>`;
  if(spellingMode()==='tiles'){
   let letters=window.currentLetters;
   if(!letters){letters=wellMixedLetters(q);window.currentLetters=letters}
   const slots=[...q].map((_,i)=>`<span class="spell-slot ${i<tileText.length?'filled':''}">${i<tileText.length?esc(tileText[i]===' '?'·':tileText[i]):''}</span>`).join('');
-  return `<section class="spell-stage">${stageHead}<div class="spell-progress">Letter Builder · Tap the letters in order${who==='boy'&&buildingLevel(game)>0?' · <button class="spell-tool" onclick="setEasyMode(false)">Try keyboard challenge</button>':''}</div><div>${hear}</div><div class="spell-slots" aria-label="Your spelling so far">${slots}</div><div class="spell-letter-tray"><div class="spell-tray-label">Tap the letters in order</div><div class="tiles">${letters.map((t,i)=>`<button class="tile" ${tileUsed.includes(i)?'disabled':''} onclick="tapTile(${i})">${esc(t.c===' '?'␣':t.c)}</button>`).join('')}</div></div><div class="spell-tools"><button class="spell-tool" onclick="undoTile()">Undo letter</button><button class="spell-tool" onclick="if(!tileRetryPending){tileText='';tileUsed=[];drawGame()}">Start over</button></div></section>`
+  return `<section class="spell-stage">${stageHead}<div class="spell-progress">🐾 Tap the letters to build the word!${who==='boy'&&buildingLevel(game)>0?' · <button class="spell-tool" onclick="setEasyMode(false)">Try keyboard challenge</button>':''}</div><div>${hear}</div><div class="spell-slots" aria-label="Your spelling so far">${slots}</div><div class="spell-letter-tray"><div class="spell-tray-label">Choose your letters</div><div class="tiles">${letters.map((t,i)=>`<button class="tile" ${tileUsed.includes(i)?'disabled':''} onclick="tapTile(${i})">${esc(t.c===' '?'␣':t.c)}</button>`).join('')}</div></div><div class="spell-tools"><button class="spell-tool" onclick="undoTile()">↩ Undo</button><button class="spell-tool" onclick="if(!tileRetryPending){tileText='';tileUsed=[];drawGame()}">🔄 Start Over</button></div></section>`
  }
  return `<section class="spell-stage">${stageHead}<div class="spell-progress">Rebuilt Lab · Keyboard challenge, with letter clues!</div><div>${hear}</div><p>Look at the letters below, then find them on your keyboard.</p><div id="guided-bank" class="guided-bank" aria-label="Letters you can use">${letterBank().map(t=>`<span class="guide-letter">${esc(t.c===' '?'␣':t.c)}</span>`).join('')}</div><input id="answer" class="answer" aria-label="Spell the word using the keyboard" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" oninput="guidedInput()" onkeydown="if(event.key==='Enter')checkTyped()" placeholder="Type your word"><div class="spell-tools spell-submit"><button class="btn primary" onclick="checkTyped()">Check spelling</button><button class="spell-tool" onclick="setEasyMode(true)">Use letter tiles instead</button></div></section>`
 }
@@ -1349,7 +1367,7 @@ function drawForestWordGrabber(){
  <div class="forest-grabber-field" id="forest-grabber-field">
  <div class="forest-grabber-clearing"></div>
  ${wordsNow.map((w,i)=>`<button class="forest-word" style="left:${spots[i][0]}%;top:${spots[i][1]}%" onclick="collectForestWord(this,'${encodeURIComponent(w)}')"><span>🍃</span><b>${esc(w)}</b></button>`).join('')}
- <img class="forest-running-cougar" id="forest-running-cougar" src="assets/cougar-storybook.png" alt="Cougar running through the clearing">
+ <img class="forest-running-cougar" id="forest-running-cougar" src="cougar-arcade/cougar-storybook.png" alt="Cougar running through the clearing">
  <div class="forest-grabber-bubble" id="forest-grabber-bubble" aria-live="polite">Let's find it!</div>
  </div>
  <p class="forest-grabber-instructions">Tap the word you hear. Watch Cougar run to collect it!</p>
@@ -1425,7 +1443,7 @@ function drawFeedMonster(){
  return `<section class="feed-stage cougar-feed" id="feed-stage">
  <div class="feed-world">
   <div class="feed-topline"><button class="feed-hear" onclick="speak(q)">🔊 Hear the word</button><span class="feed-direction">Find the word. Feed the cougar!</span></div>
-  <div class="cougar-feeding-friend" aria-label="Friendly storybook cougar waiting for a snack"><img src="assets/cougar-storybook.png" alt="Friendly cougar"></div>
+  <div class="cougar-feeding-friend" aria-label="Friendly storybook cougar waiting for a snack"><img src="cougar-arcade/cougar-storybook.png" alt="Friendly cougar"></div>
   <div class="feed-mouth-zone" id="feed-mouth"></div>
   <span class="feed-impact" id="feed-impact">😋</span>
   <div class="feed-launchpad">${choice.map((w,i)=>`<button class="feed-token" onclick="feedWord(this,'${encodeURIComponent(w)}')"><span class="food-icon">${picks[i]}</span><span class="food-word">${esc(w)}</span></button>`).join('')}</div>
@@ -1605,7 +1623,7 @@ function drawNewScramble(){
  return `<section class="scramble-stage cougar-scramble">
   <div class="scramble-title"><span>🌿 COUGAR'S LETTER SCRAMBLE</span><button onclick="speak(q)">🔊 Hear Again</button></div>
   <div class="scramble-scene">
-   <div class="cougar-scramble-mascot"><img src="assets/cougar-storybook.png" alt="Friendly storybook cougar"></div>
+   <div class="cougar-scramble-mascot"><img src="cougar-arcade/cougar-storybook.png" alt="Friendly storybook cougar"></div>
    <div class="scramble-workspace">
     <p class="scramble-instruction">🐾 Tap the letters to spell the word you hear!</p>
     <div class="scramble-built">${[...q].map((_,i)=>`<span class="scramble-slot">${esc(tileText[i]||'')}</span>`).join('')}</div>
@@ -1746,7 +1764,7 @@ function trophyRoom(){
  <div class="trophy-summary"><span>🏆 ${earned} / ${trophyList.length} trophies</span><span>⭐ ${st.correct} correct answers</span><span>🎟️ ${st.earned.toLocaleString()} tickets earned</span><span>🎮 ${p.rounds||0} rounds</span></div>
  <div class="trophy-grid">${trophyList.map(t=>{
   const done=!!p.achievements[t[0]],progress=trophyProgress(p,t),reward=trophyRewards[t[0]];
-  return `<article class="trophy-case ${done?'':'locked'}"><img src="assets/trophy-${t[5]}.png" alt="${esc(t[1])} trophy"><h3>${done?'🏆 ':'🔒 '}${esc(t[1])}</h3><p>${esc(t[2])}</p>
+  return `<article class="trophy-case ${done?'':'locked'}"><img src="cougar-arcade/trophy-${t[5]}.png" alt="${esc(t[1])} trophy"><h3>${done?'🏆 ':'🔒 '}${esc(t[1])}</h3><p>${esc(t[2])}</p>
   ${done?'<span class="trophy-earned">✓ EARNED!</span>':`<div class="trophy-progress"><span style="width:${Math.min(100,progress/t[3]*100)}%"></span></div><span class="trophy-locked">${Math.min(progress,t[3])} / ${t[3]}</span>`}
   ${reward?`<p class="trophy-reward">${done?'🎁 Exclusive decoration unlocked! Check your stored items.':'🎁 Unlocks an exclusive world decoration!'}</p>`:''}</article>`;
  }).join('')}</div>
@@ -1834,7 +1852,7 @@ document.addEventListener('pointerup',closetFitUp);
 document.addEventListener('pointercancel',closetFitUp);
 
 function outfitMarkup(worn,layer='front'){
- return ['hat','face','special'].filter(slot=>layer==='front').map(slot=>worn[slot]?`<img class="wear ${slot}" style="${closetFitStyle(worn[slot],slot)}" onpointerdown="closetFitDown(event,'${esc(worn[slot])}','${slot}')" draggable="false" src="assets/closet-${esc(worn[slot])}.png" alt="">`:'').join('')
+ return ['hat','face','special'].filter(slot=>layer==='front').map(slot=>worn[slot]?`<img class="wear ${slot}" style="${closetFitStyle(worn[slot],slot)}" onpointerdown="closetFitDown(event,'${esc(worn[slot])}','${slot}')" draggable="false" src="cougar-arcade/closet-${esc(worn[slot])}.png" alt="">`:'').join('')
 }
 function closet(){
  const p=closetState(profile(who));view='closet';
@@ -1842,9 +1860,9 @@ function closet(){
  const items=closetCatalog[who].filter(x=>x[3]===closetTab),selected=items.find(x=>x[0]===closetPreview[closetTab]);
  const base=who==='girl'?'rainbow-kitten.png':'blue-kaiju.png';
  app.innerHTML=renderHeader()+`<main class="closet-wrap"><section class="closet-banner"><h1>${who==='girl'?'✨ Cougar Costume Closet (Coming Later)':'⚡ Kaiju’s Monster Gear Garage'}</h1><p>Try anything on for free! Buy each accessory once, then wear it forever.</p><strong>🎟️ ${p.tickets.toLocaleString()} tickets</strong></section>
- <div class="closet-layout"><section class="closet-mirror"><h2>${who==='girl'?'🪞 The Enchanted Mirror':'🔧 Gear Fitting Station'}</h2><div class="closet-character">${outfitMarkup(closetPreview,'back')}<img class="base" src="assets/${base}" alt="Your character">${outfitMarkup(closetPreview,'front')}</div><div class="closet-fit-tools"><span>✋ Drag accessories on Cougar or Kaiju to position them</span><button onclick="closetFitScale(.85)" ${!closetPreview[closetTab]?'disabled':''}>− Smaller</button><button onclick="closetFitScale(1.15)" ${!closetPreview[closetTab]?'disabled':''}>+ Bigger</button><button onclick="closetFitRotate()" ${!closetPreview[closetTab]?'disabled':''}>↻ Turn</button><button onclick="closetFitReset()" ${!closetPreview[closetTab]?'disabled':''}>Reset fit</button></div><div class="closet-preview-note">${selected?'Trying on: '+esc(selected[1]):'Your original character, dressed your way!'}</div></section>
+ <div class="closet-layout"><section class="closet-mirror"><h2>${who==='girl'?'🪞 The Enchanted Mirror':'🔧 Gear Fitting Station'}</h2><div class="closet-character">${outfitMarkup(closetPreview,'back')}<img class="base" src="cougar-arcade/${base}" alt="Your character">${outfitMarkup(closetPreview,'front')}</div><div class="closet-fit-tools"><span>✋ Drag accessories on Cougar or Kaiju to position them</span><button onclick="closetFitScale(.85)" ${!closetPreview[closetTab]?'disabled':''}>− Smaller</button><button onclick="closetFitScale(1.15)" ${!closetPreview[closetTab]?'disabled':''}>+ Bigger</button><button onclick="closetFitRotate()" ${!closetPreview[closetTab]?'disabled':''}>↻ Turn</button><button onclick="closetFitReset()" ${!closetPreview[closetTab]?'disabled':''}>Reset fit</button></div><div class="closet-preview-note">${selected?'Trying on: '+esc(selected[1]):'Your original character, dressed your way!'}</div></section>
  <section class="closet-wardrobe"><div class="closet-tabs">${[['hat','👑 Hats'],['face','🕶️ Glasses & Masks'],['special','✨ Extras']].map(([slot,label])=>`<button class="${closetTab===slot?'active':''}" onclick="closetSwitchTab('${slot}')">${label}</button>`).join('')}</div>
- <div class="closet-products"><button class="closet-product ${!closetPreview[closetTab]?'active':''}" onclick="closetTry(null)"><div style="height:104px;display:grid;place-items:center;font-size:45px">✕</div><b>Nothing</b><small>Free</small></button>${items.map(([id,name,price])=>`<button class="closet-product ${closetPreview[closetTab]===id?'active':''}" onclick="closetTry('${id}')"><img src="assets/closet-${id}.png" alt=""><b>${esc(name)}</b><small>${p.closetOwned.includes(id)?'✓ OWNED':'🎟️ '+price.toLocaleString()}</small></button>`).join('')}</div>
+ <div class="closet-products"><button class="closet-product ${!closetPreview[closetTab]?'active':''}" onclick="closetTry(null)"><div style="height:104px;display:grid;place-items:center;font-size:45px">✕</div><b>Nothing</b><small>Free</small></button>${items.map(([id,name,price])=>`<button class="closet-product ${closetPreview[closetTab]===id?'active':''}" onclick="closetTry('${id}')"><img src="cougar-arcade/closet-${id}.png" alt=""><b>${esc(name)}</b><small>${p.closetOwned.includes(id)?'✓ OWNED':'🎟️ '+price.toLocaleString()}</small></button>`).join('')}</div>
  <div class="closet-actions"><button onclick="closetApply()">✓ Wear Owned Items</button>${selected&&!p.closetOwned.includes(selected[0])?`<button ${p.tickets<selected[2]?'disabled':''} onclick="closetBuy('${selected[0]}')">🎟️ Buy for ${selected[2].toLocaleString()}</button>`:''}<button onclick="closetClearSlot()">Remove This Item</button><button onclick="closetLeave()">← Back to World</button></div>
  <p class="closet-message">${selected&&!p.closetOwned.includes(selected[0])?'Preview only — purchase this item to wear it in your world.': 'Owned accessories stay yours forever. You can change outfits whenever you like.'}</p></section></div></main>`;
 }
@@ -1859,9 +1877,9 @@ const prizeCatalog={girl:[['flowers','Jeweled Flower Patch',175],['mushrooms','G
 function decorInventory(p){if(!Array.isArray(p.decorItems))p.decorItems=[];return p.decorItems}
 function catalogItem(id){if(id.startsWith('award-'))return [id,'Exclusive Champion Statue',0];return (prizeCatalog[who]||[]).find(a=>a[0]===id)}
 function buyPrize(id){const item=catalogItem(id);if(!item)return;const p=profile(who);decorInventory(p);if(p.tickets<item[2]){alert('Keep practicing! You need '+(item[2]-p.tickets)+' more tickets.');return}p.tickets-=item[2];p.decorItems.push({uid:'d'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),id,x:45,y:80,rotation:0,scale:1,stored:true});save();shop()}
-function shop(){const p=profile(who);decorInventory(p);view='shop';const items=prizeCatalog[who];app.innerHTML=renderHeader()+`<main class="prize-shop"><div class="prize-hero"><h1>${who==='girl'?'🌲 Cougar Forest Trading Post':'⚡ Kaiju’s Monster Supply Depot'}</h1><p class="prize-wallet">🎟️ ${p.tickets.toLocaleString()} tickets</p><p>Every decoration costs tickets. Want three trees? Buy three trees!</p><p>Purchased items are yours forever. Store, move, and place them again for free. Earn exclusive decorations in your Trophy Room!</p></div><div class="prize-grid">${items.map(([id,name,price])=>{const owned=p.decorItems.filter(x=>x.id===id).length;return `<article class="prize-item"><img src="assets/prize-${id}.png" alt="${esc(name)}"><h3>${esc(name)}</h3><p class="prize-price">🎟️ ${price.toLocaleString()}</p><p>Owned: <b>${owned}</b></p><button onclick="buyPrize('${id}')" ${p.tickets<price?'disabled':''}>${p.tickets>=price?'Buy one':'Need '+(price-p.tickets)+' more'}</button></article>`}).join('')}</div><div class="prize-shop-actions"><button class="btn primary" onclick="openDecorating()">🏡 Decorate My World</button><button class="btn" onclick="home()">← Back to World</button></div><p>Tickets and decorations save in this browser. Use Parent → Back up progress to save a copy.</p></main>`}
+function shop(){const p=profile(who);decorInventory(p);view='shop';const items=prizeCatalog[who];app.innerHTML=renderHeader()+`<main class="prize-shop"><div class="prize-hero"><h1>${who==='girl'?'🌲 Cougar Forest Trading Post':'⚡ Kaiju’s Monster Supply Depot'}</h1><p class="prize-wallet">🎟️ ${p.tickets.toLocaleString()} tickets</p><p>Every decoration costs tickets. Want three trees? Buy three trees!</p><p>Purchased items are yours forever. Store, move, and place them again for free. Earn exclusive decorations in your Trophy Room!</p></div><div class="prize-grid">${items.map(([id,name,price])=>{const owned=p.decorItems.filter(x=>x.id===id).length;return `<article class="prize-item"><img src="cougar-arcade/prize-${id}.png" alt="${esc(name)}"><h3>${esc(name)}</h3><p class="prize-price">🎟️ ${price.toLocaleString()}</p><p>Owned: <b>${owned}</b></p><button onclick="buyPrize('${id}')" ${p.tickets<price?'disabled':''}>${p.tickets>=price?'Buy one':'Need '+(price-p.tickets)+' more'}</button></article>`}).join('')}</div><div class="prize-shop-actions"><button class="btn primary" onclick="openDecorating()">🏡 Decorate My World</button><button class="btn" onclick="home()">← Back to World</button></div><p>Tickets and decorations save in this browser. Use Parent → Back up progress to save a copy.</p></main>`}
 let decorating=false,selectedDecor=null,decorDrag=null;
-function decorMarkup(){const p=profile(who);decorInventory(p);return p.decorItems.filter(o=>!o.stored).map(o=>`<span class="town-decor-piece ${selectedDecor===o.uid?'selected':''}" data-decor="${esc(o.uid)}" style="left:${o.x}%;top:${o.y}%;--rotation:${o.rotation||0}deg;--scale:${o.scale||1}" onpointerdown="decorPointerDown(event,'${esc(o.uid)}')" onclick="decorSelect(event,'${esc(o.uid)}')"><img draggable="false" src="assets/${o.id.startsWith('award-')?'prize-'+o.id:'prize-'+o.id}.png" alt="${esc((catalogItem(o.id)||[])[1]||'Decoration')}"></span>`).join('')+(p.decor||[]).map((e,i)=>`<span class="town-decor" style="left:${12+(i%7)*11}%;top:${91-Math.floor(i/7)*8}%">${esc(e)}</span>`).join('')}
+function decorMarkup(){const p=profile(who);decorInventory(p);return p.decorItems.filter(o=>!o.stored).map(o=>`<span class="town-decor-piece ${selectedDecor===o.uid?'selected':''}" data-decor="${esc(o.uid)}" style="left:${o.x}%;top:${o.y}%;--rotation:${o.rotation||0}deg;--scale:${o.scale||1}" onpointerdown="decorPointerDown(event,'${esc(o.uid)}')" onclick="decorSelect(event,'${esc(o.uid)}')"><img draggable="false" src="cougar-arcade/${o.id.startsWith('award-')?'prize-'+o.id:'prize-'+o.id}.png" alt="${esc((catalogItem(o.id)||[])[1]||'Decoration')}"></span>`).join('')+(p.decor||[]).map((e,i)=>`<span class="town-decor" style="left:${12+(i%7)*11}%;top:${91-Math.floor(i/7)*8}%">${esc(e)}</span>`).join('')}
 function decorTools(){const p=profile(who);decorInventory(p);if(!decorating)return `<button class="decor-edit-toggle" onclick="openDecorating()">🎨 Decorate</button>`;const stored=p.decorItems.filter(o=>o.stored);return `<div class="decor-edit-panel"><b>🎨 DECORATE YOUR WORLD</b><div>Drag decorations to move them. Tap one to rotate or store it.</div><div class="decor-controls">${stored.length?`<button onclick="placeNextDecor()">📦 Place stored item (${stored.length})</button>`:''}${selectedDecor?`<button onclick="rotateSelectedDecor()">↻ Rotate</button><button onclick="resizeSelectedDecor()">↔ Resize</button><button onclick="storeSelectedDecor()">📦 Store</button>`:''}<button onclick="finishDecorating()">✓ Done</button><button onclick="shop()">🛍️ Shop</button></div></div>`}
 function openDecorating(){decorating=true;selectedDecor=null;view='map';render()}
 function finishDecorating(){decorating=false;selectedDecor=null;save();render()}
